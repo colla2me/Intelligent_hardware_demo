@@ -1,0 +1,28 @@
+PODS:
+  - IGListKit (3.4.0):
+    - IGListKit/Default (= 3.4.0)
+  - IGListKit/Default (3.4.0):
+    - IGListKit/Diffing
+  - IGListKit/Diffing (3.4.0)
+  - ObjectiveSugar (1.1.0)
+  - PromisesObjC (1.2.3)
+
+DEPENDENCIES:
+  - IGListKit (~> 3.0)
+  - ObjectiveSugar
+  - PromisesObjC
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - IGListKit
+    - ObjectiveSugar
+    - PromisesObjC
+
+SPEC CHECKSUMS:
+  IGListKit: 7a5d788e9fb746bcd402baa8e8b24bc3bd2a5a07
+  ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
+  PromisesObjC: a3a4263d8a9260214267e0b3788d0f83466ad449
+
+PODFILE CHECKSUM: 9fecc3e6e8bee73acd89db84f884f7619897fe86
+
+COCOAPODS: 1.5.3

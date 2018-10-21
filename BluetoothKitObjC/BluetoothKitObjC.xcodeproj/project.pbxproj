@@ -1,0 +1,416 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		17CEAE718752DEF2AFA3E036 /* libPods-BluetoothKitObjC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCFEFA83DA3B316A1D714D7 /* libPods-BluetoothKitObjC.a */; };
+		7E26A1C321777C5100B181D1 /* BKBluetoothAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1C221777C5100B181D1 /* BKBluetoothAdapter.m */; };
+		7E26A1C621778A4500B181D1 /* BKCBCentralManagerProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1C521778A4500B181D1 /* BKCBCentralManagerProxy.m */; };
+		7E26A1C921778A6C00B181D1 /* BKCBPeripheralManagerProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1C821778A6C00B181D1 /* BKCBPeripheralManagerProxy.m */; };
+		7E26A1CC2177962800B181D1 /* BKConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1CB2177962800B181D1 /* BKConfiguration.m */; };
+		7E26A1CF2178E9F500B181D1 /* BKCBPeripheralProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1CE2178E9F500B181D1 /* BKCBPeripheralProxy.m */; };
+		7E371D6E2174F43900ECC2C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D6D2174F43900ECC2C6 /* AppDelegate.m */; };
+		7E371D712174F43900ECC2C6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D702174F43900ECC2C6 /* ViewController.m */; };
+		7E371D742174F43900ECC2C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D722174F43900ECC2C6 /* Main.storyboard */; };
+		7E371D762174F43B00ECC2C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D752174F43B00ECC2C6 /* Assets.xcassets */; };
+		7E371D792174F43B00ECC2C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D772174F43B00ECC2C6 /* LaunchScreen.storyboard */; };
+		7E371D7C2174F43B00ECC2C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D7B2174F43B00ECC2C6 /* main.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		09CA040F6599DF3469093500 /* Pods-BluetoothKitObjC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothKitObjC.release.xcconfig"; path = "Pods/Target Support Files/Pods-BluetoothKitObjC/Pods-BluetoothKitObjC.release.xcconfig"; sourceTree = "<group>"; };
+		4BCFEFA83DA3B316A1D714D7 /* libPods-BluetoothKitObjC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BluetoothKitObjC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E26A1C121777C5100B181D1 /* BKBluetoothAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKBluetoothAdapter.h; sourceTree = "<group>"; };
+		7E26A1C221777C5100B181D1 /* BKBluetoothAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKBluetoothAdapter.m; sourceTree = "<group>"; };
+		7E26A1C421778A4500B181D1 /* BKCBCentralManagerProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCBCentralManagerProxy.h; sourceTree = "<group>"; };
+		7E26A1C521778A4500B181D1 /* BKCBCentralManagerProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCBCentralManagerProxy.m; sourceTree = "<group>"; };
+		7E26A1C721778A6C00B181D1 /* BKCBPeripheralManagerProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCBPeripheralManagerProxy.h; sourceTree = "<group>"; };
+		7E26A1C821778A6C00B181D1 /* BKCBPeripheralManagerProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCBPeripheralManagerProxy.m; sourceTree = "<group>"; };
+		7E26A1CA2177962800B181D1 /* BKConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKConfiguration.h; sourceTree = "<group>"; };
+		7E26A1CB2177962800B181D1 /* BKConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKConfiguration.m; sourceTree = "<group>"; };
+		7E26A1CD2178E9F500B181D1 /* BKCBPeripheralProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCBPeripheralProxy.h; sourceTree = "<group>"; };
+		7E26A1CE2178E9F500B181D1 /* BKCBPeripheralProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCBPeripheralProxy.m; sourceTree = "<group>"; };
+		7E371D692174F43900ECC2C6 /* BluetoothKitObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothKitObjC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E371D6C2174F43900ECC2C6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		7E371D6D2174F43900ECC2C6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7E371D6F2174F43900ECC2C6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		7E371D702174F43900ECC2C6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		7E371D732174F43900ECC2C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7E371D752174F43B00ECC2C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7E371D782174F43B00ECC2C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7E371D7A2174F43B00ECC2C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E371D7B2174F43B00ECC2C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7EAD003435C6A68FDA4E07FD /* Pods-BluetoothKitObjC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothKitObjC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BluetoothKitObjC/Pods-BluetoothKitObjC.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7E371D662174F43900ECC2C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17CEAE718752DEF2AFA3E036 /* libPods-BluetoothKitObjC.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		605B4E26345E75F5925FEA94 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7EAD003435C6A68FDA4E07FD /* Pods-BluetoothKitObjC.debug.xcconfig */,
+				09CA040F6599DF3469093500 /* Pods-BluetoothKitObjC.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		667C13FB679E1E025A050943 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4BCFEFA83DA3B316A1D714D7 /* libPods-BluetoothKitObjC.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7E371D602174F43900ECC2C6 = {
+			isa = PBXGroup;
+			children = (
+				7E371D6B2174F43900ECC2C6 /* BluetoothKitObjC */,
+				7E371D6A2174F43900ECC2C6 /* Products */,
+				605B4E26345E75F5925FEA94 /* Pods */,
+				667C13FB679E1E025A050943 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7E371D6A2174F43900ECC2C6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E371D692174F43900ECC2C6 /* BluetoothKitObjC.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E371D6B2174F43900ECC2C6 /* BluetoothKitObjC */ = {
+			isa = PBXGroup;
+			children = (
+				7E371D6C2174F43900ECC2C6 /* AppDelegate.h */,
+				7E371D6D2174F43900ECC2C6 /* AppDelegate.m */,
+				7E371D6F2174F43900ECC2C6 /* ViewController.h */,
+				7E371D702174F43900ECC2C6 /* ViewController.m */,
+				7E371D722174F43900ECC2C6 /* Main.storyboard */,
+				7E371D752174F43B00ECC2C6 /* Assets.xcassets */,
+				7E371D772174F43B00ECC2C6 /* LaunchScreen.storyboard */,
+				7E371D7A2174F43B00ECC2C6 /* Info.plist */,
+				7E371D7B2174F43B00ECC2C6 /* main.m */,
+				7E26A1C121777C5100B181D1 /* BKBluetoothAdapter.h */,
+				7E26A1C221777C5100B181D1 /* BKBluetoothAdapter.m */,
+				7E26A1CA2177962800B181D1 /* BKConfiguration.h */,
+				7E26A1CB2177962800B181D1 /* BKConfiguration.m */,
+				7E26A1CD2178E9F500B181D1 /* BKCBPeripheralProxy.h */,
+				7E26A1CE2178E9F500B181D1 /* BKCBPeripheralProxy.m */,
+				7E26A1C421778A4500B181D1 /* BKCBCentralManagerProxy.h */,
+				7E26A1C521778A4500B181D1 /* BKCBCentralManagerProxy.m */,
+				7E26A1C721778A6C00B181D1 /* BKCBPeripheralManagerProxy.h */,
+				7E26A1C821778A6C00B181D1 /* BKCBPeripheralManagerProxy.m */,
+			);
+			path = BluetoothKitObjC;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7E371D682174F43900ECC2C6 /* BluetoothKitObjC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E371D7F2174F43B00ECC2C6 /* Build configuration list for PBXNativeTarget "BluetoothKitObjC" */;
+			buildPhases = (
+				524CA98F3BB841C7974DA74B /* [CP] Check Pods Manifest.lock */,
+				7E371D652174F43900ECC2C6 /* Sources */,
+				7E371D662174F43900ECC2C6 /* Frameworks */,
+				7E371D672174F43900ECC2C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BluetoothKitObjC;
+			productName = BluetoothKitObjC;
+			productReference = 7E371D692174F43900ECC2C6 /* BluetoothKitObjC.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7E371D612174F43900ECC2C6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = samuel;
+				TargetAttributes = {
+					7E371D682174F43900ECC2C6 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 7E371D642174F43900ECC2C6 /* Build configuration list for PBXProject "BluetoothKitObjC" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7E371D602174F43900ECC2C6;
+			productRefGroup = 7E371D6A2174F43900ECC2C6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7E371D682174F43900ECC2C6 /* BluetoothKitObjC */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7E371D672174F43900ECC2C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E371D792174F43B00ECC2C6 /* LaunchScreen.storyboard in Resources */,
+				7E371D762174F43B00ECC2C6 /* Assets.xcassets in Resources */,
+				7E371D742174F43900ECC2C6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		524CA98F3BB841C7974DA74B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BluetoothKitObjC-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7E371D652174F43900ECC2C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E26A1CF2178E9F500B181D1 /* BKCBPeripheralProxy.m in Sources */,
+				7E26A1C921778A6C00B181D1 /* BKCBPeripheralManagerProxy.m in Sources */,
+				7E26A1C621778A4500B181D1 /* BKCBCentralManagerProxy.m in Sources */,
+				7E371D712174F43900ECC2C6 /* ViewController.m in Sources */,
+				7E371D7C2174F43B00ECC2C6 /* main.m in Sources */,
+				7E371D6E2174F43900ECC2C6 /* AppDelegate.m in Sources */,
+				7E26A1CC2177962800B181D1 /* BKConfiguration.m in Sources */,
+				7E26A1C321777C5100B181D1 /* BKBluetoothAdapter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7E371D722174F43900ECC2C6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7E371D732174F43900ECC2C6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7E371D772174F43B00ECC2C6 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7E371D782174F43B00ECC2C6 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7E371D7D2174F43B00ECC2C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		7E371D7E2174F43B00ECC2C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7E371D802174F43B00ECC2C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7EAD003435C6A68FDA4E07FD /* Pods-BluetoothKitObjC.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = BluetoothKitObjC/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.babyface.bluetoothkit.BluetoothKitObjC;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7E371D812174F43B00ECC2C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09CA040F6599DF3469093500 /* Pods-BluetoothKitObjC.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = BluetoothKitObjC/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.babyface.bluetoothkit.BluetoothKitObjC;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7E371D642174F43900ECC2C6 /* Build configuration list for PBXProject "BluetoothKitObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E371D7D2174F43B00ECC2C6 /* Debug */,
+				7E371D7E2174F43B00ECC2C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7E371D7F2174F43B00ECC2C6 /* Build configuration list for PBXNativeTarget "BluetoothKitObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E371D802174F43B00ECC2C6 /* Debug */,
+				7E371D812174F43B00ECC2C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7E371D612174F43900ECC2C6 /* Project object */;
+}
