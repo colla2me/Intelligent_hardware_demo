@@ -10,6 +10,11 @@
 
 @implementation BKConfiguration
 
++ (BKConfiguration *)defaultConfiguration {
+    //TODO:
+    return nil;
+}
+
 - (instancetype)initWithServiceUUID:(NSUUID *)serviceUUID characteristicUUID:(NSUUID *)characteristicUUID {
     self = [super init];
     if (self) {

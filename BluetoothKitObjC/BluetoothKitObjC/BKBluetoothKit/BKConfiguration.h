@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BKConfiguration : NSObject
 
+@property (class, readonly, strong) BKConfiguration *defaultConfiguration;
+
 @property (nonatomic, strong) CBUUID *dataServiceUUID;
 
 @property (nonatomic, strong) CBUUID *dataServiceCharacteristicUUID;

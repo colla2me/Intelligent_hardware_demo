@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BKBluetoothAdapter (CBCentralManager) <CBCentralManagerDelegate>
+@interface BKBluetoothAdapter (CBCentralManager)
+<
+CBCentralManagerDelegate,
+CBPeripheralDelegate
+>
 
 @end
 

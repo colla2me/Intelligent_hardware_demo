@@ -4,4 +4,5 @@ target 'BluetoothKitObjC' do
     pod 'IGListKit', '~> 3.0'
     pod 'ObjectiveSugar'
     pod 'PromisesObjC'
+    pod 'AFNetworking'
 end

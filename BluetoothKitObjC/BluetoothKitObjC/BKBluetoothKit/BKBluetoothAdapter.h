@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, nullable, weak) CBPeripheral *peripheral;
 
-@property (nonatomic, nullable, weak) CBPeripheralManager *peripheralManager;
+//@property (nonatomic, nullable, weak) CBPeripheralManager *peripheralManager;
 
 @end
 

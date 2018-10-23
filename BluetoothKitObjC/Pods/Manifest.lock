@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
   - IGListKit (3.4.0):
     - IGListKit/Default (= 3.4.0)
   - IGListKit/Default (3.4.0):
@@ -8,21 +23,24 @@ PODS:
   - PromisesObjC (1.2.3)
 
 DEPENDENCIES:
+  - AFNetworking
   - IGListKit (~> 3.0)
   - ObjectiveSugar
   - PromisesObjC
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AFNetworking
     - IGListKit
     - ObjectiveSugar
     - PromisesObjC
 
 SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   IGListKit: 7a5d788e9fb746bcd402baa8e8b24bc3bd2a5a07
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
   PromisesObjC: a3a4263d8a9260214267e0b3788d0f83466ad449
 
-PODFILE CHECKSUM: 9fecc3e6e8bee73acd89db84f884f7619897fe86
+PODFILE CHECKSUM: 806bf8ca3695dc1dc24cb0945aa94f7905d33d31
 
 COCOAPODS: 1.5.3
