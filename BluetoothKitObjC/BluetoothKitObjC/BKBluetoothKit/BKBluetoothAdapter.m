@@ -7,7 +7,10 @@
 //
 
 #import "BKBluetoothAdapter.h"
+#import "BKBluetoothAdapterInternal.h"
 
 @implementation BKBluetoothAdapter
+
+
 
 @end

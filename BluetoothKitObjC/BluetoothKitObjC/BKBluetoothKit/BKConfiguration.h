@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface BKConfiguration : NSObject
 
 @property (nonatomic, strong) CBUUID *dataServiceUUID;
@@ -24,3 +26,5 @@
 - (instancetype)initWithServiceUUID:(NSUUID *)serviceUUID characteristicUUID:(NSUUID *)characteristicUUID;
 
 @end
+
+NS_ASSUME_NONNULL_END
