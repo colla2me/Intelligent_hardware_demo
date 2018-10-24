@@ -10,6 +10,8 @@
 
 @implementation BKConfiguration
 
+static NSString * const BKCBRestoreIdentifierKey = @"com.bkcb.restore.identifier";
+
 + (BKConfiguration *)defaultConfiguration {
     //TODO:
     return nil;
@@ -23,6 +25,7 @@
         _serviceUUIDs = @[ _dataServiceUUID ].mutableCopy;
         _endOfDataMark = [@"EOD" dataUsingEncoding:NSUTF8StringEncoding];
         _dataCancelledMark = [@"COD" dataUsingEncoding:NSUTF8StringEncoding];
+        _options = @{CBCentralManagerOptionShowPowerAlertKey: @YES, CBCentralManagerOptionRestoreIdentifierKey: BKCBRestoreIdentifierKey};
     }
     return self;
 }

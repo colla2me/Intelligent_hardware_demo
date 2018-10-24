@@ -10,7 +10,8 @@
 #import "BKConfiguration.h"
 #import "BKRemotePeer.h"
 #import "BKSendDataTask.h"
-#import "BKDefines.h"
+
+typedef void(^BKSendDataCompletionHandler)(NSData *data, BKRemotePeer *remotePeer, NSError *error);
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -9,23 +9,34 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <PromisesObjC/FBLPromises.h>
 #import "BKConfiguration.h"
+#import "BKDiscovery.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BKCBCentralManager : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
 
-- (instancetype)initWithConfiguration:(BKConfiguration *)configuration;
+@property (class, readonly, nonatomic, strong) BKCBCentralManager *manager;
 
 @property (readonly, nonatomic, strong) CBCentralManager *centralManager;
 
-@property (readonly, nonatomic, strong) BKConfiguration *configuration;
+@property (readonly, nonatomic, strong, nullable) CBPeripheral *connectedPeripheral;
 
-@property (readonly, nonatomic, strong) dispatch_queue_t queue;
+@property (readonly, nonatomic, strong, nullable) BKConfiguration *configuration;
 
-@property (readonly, nonatomic, copy) NSDictionary *options;
+- (instancetype)initWithConfiguration:(nullable BKConfiguration *)configuration;
 
-//- (void)setScanPeripheralCompleteBlock:(void(^)(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI))block;
+- (FBLPromise<BKDiscovery *> *)scanForPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs;
 
-- (void)startScanForPeripheralsWithCompletionHandler:(void(^)(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI))completionHandler;
+- (FBLPromise<CBPeripheral *> *)connectPeripheral:(CBPeripheral *)peripheral;
+
+- (FBLPromise<NSArray<CBService *> *> *)discoverServices:(nullable NSArray<CBUUID *> *)serviceUUIDs;
+
+- (FBLPromise<NSArray<CBCharacteristic *> *> *)discoverCharacteristics:(nullable NSArray<CBUUID *> *)characteristicUUIDs forService:(CBService *)service;
+
+- (FBLPromise<NSData *> *)readValueForCharacteristic:(CBCharacteristic *)characteristic;
 
 - (void)stopScan;
 
 @end
+
+NS_ASSUME_NONNULL_END

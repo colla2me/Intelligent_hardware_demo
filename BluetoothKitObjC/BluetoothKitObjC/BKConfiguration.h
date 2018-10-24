@@ -23,7 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSData *dataCancelledMark;
 
-@property (nonatomic, strong) NSMutableArray<CBUUID *> *serviceUUIDs;
+@property (nonatomic, strong, nullable) NSMutableArray<CBUUID *> *serviceUUIDs;
+
+@property (nonatomic, copy, nullable) NSDictionary *options;
 
 - (instancetype)initWithServiceUUID:(NSUUID *)serviceUUID characteristicUUID:(NSUUID *)characteristicUUID;
 
