@@ -7,14 +7,16 @@
 //
 
 #import "BKCBCentralManager.h"
+#import <ObjectiveSugar.h>
 
-@interface BKCBCentralManager ()
+@interface BKCBCentralManager () <CBCentralManagerDelegate, CBPeripheralDelegate>
 
 @property (readwrite, nonatomic, strong) CBCentralManager *centralManager;
 @property (readwrite, nonatomic, strong) CBPeripheral *connectedPeripheral;
 @property (readwrite, nonatomic, strong) BKConfiguration *configuration;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, FBLPromise<id> *> *multiPendingPromises;
 @property (nonatomic, strong) NSMutableDictionary<NSUUID *, CBPeripheral *> *connectedPeripherals;
+@property (nonatomic, strong) NSMutableDictionary<NSUUID *, CBPeripheral *> *discoveryPeripherals;
 
 @end
 
@@ -27,7 +29,7 @@ static NSString * const BKDiscoverCharacteristicsKey = @"BKDiscoverCharacteristi
 static NSString * const BKReadValueForCharacteristicKey = @"BKReadValueForCharacteristicKey";
 
 + (BKCBCentralManager *)manager {
-    return [[BKCBCentralManager alloc] initWithConfiguration:nil];
+    return [[BKCBCentralManager alloc] initWithConfiguration:[BKConfiguration defaultConfiguration]];
 }
 
 - (instancetype)initWithConfiguration:(nullable BKConfiguration *)configuration {
@@ -44,6 +46,8 @@ static NSString * const BKReadValueForCharacteristicKey = @"BKReadValueForCharac
     
     self.connectedPeripherals = [NSMutableDictionary dictionary];
     
+    self.discoveryPeripherals = [NSMutableDictionary dictionary];
+    
     self.configuration = configuration;
     
     self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:configuration.options];
@@ -51,13 +55,17 @@ static NSString * const BKReadValueForCharacteristicKey = @"BKReadValueForCharac
     return self;
 }
 
-- (void)cancelPeripheralConnection:(CBPeripheral *)peripheral {
+- (void)disconnectPeripheral:(CBPeripheral *)peripheral {
+    NSLog(@"断开与外设(name:%@)的连接", peripheral.name);
     [self.centralManager cancelPeripheralConnection:peripheral];
 }
 
 - (void)stopScan {
     NSLog(@"停止搜索!!!");
     [self.centralManager stopScan];
+    for (CBPeripheral *p in self.connectedPeripherals.allValues) {
+        [self disconnectPeripheral:p];
+    }
 }
 
 - (FBLPromise<BKDiscovery *> *)scanForPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs {
@@ -68,7 +76,7 @@ static NSString * const BKReadValueForCharacteristicKey = @"BKReadValueForCharac
         [self.multiPendingPromises[BKDiscoverPeripheralsKey] reject:error];
     }
     self.multiPendingPromises[BKDiscoverPeripheralsKey] = promise;
-    NSDictionary *options = @{CBCentralManagerScanOptionAllowDuplicatesKey: @YES};
+    NSDictionary *options = @{CBCentralManagerScanOptionAllowDuplicatesKey: @NO};
     [self.centralManager scanForPeripheralsWithServices:serviceUUIDs options:options];
     return promise;
 }
@@ -82,11 +90,10 @@ static NSString * const BKReadValueForCharacteristicKey = @"BKReadValueForCharac
     return promise;
 }
 
-- (FBLPromise<NSArray<CBService *> *> *)discoverServices:(nullable NSArray<CBUUID *> *)serviceUUIDs {
+- (FBLPromise<NSArray<CBService *> *> *)discoverServices:(nullable NSArray<CBUUID *> *)serviceUUIDs forPeripheral:(CBPeripheral *)peripheral {
     NSLog(@"开始搜索服务集合...");
     FBLPromise<id> *promise = [FBLPromise pendingPromise];
     self.multiPendingPromises[BKDiscoverServicesKey] = promise;
-    CBPeripheral *peripheral = [[self.centralManager retrieveConnectedPeripheralsWithServices:serviceUUIDs] firstObject];
     [peripheral discoverServices:serviceUUIDs];
     return promise;
 }
@@ -95,7 +102,9 @@ static NSString * const BKReadValueForCharacteristicKey = @"BKReadValueForCharac
     NSLog(@"开始搜索服务的特征集合...");
     FBLPromise<id> *promise = [FBLPromise pendingPromise];
     self.multiPendingPromises[BKDiscoverCharacteristicsKey] = promise;
-    CBPeripheral *peripheral = [[self.centralManager retrieveConnectedPeripheralsWithServices:@[service.UUID]] firstObject];
+    CBPeripheral *peripheral = [self.discoveryPeripherals.allValues find:^BOOL(CBPeripheral *peripheral) {
+        return peripheral.state == CBPeripheralStateConnected;
+    }];
     [peripheral discoverCharacteristics:characteristicUUIDs forService:service];
     return promise;
 }
@@ -103,8 +112,14 @@ static NSString * const BKReadValueForCharacteristicKey = @"BKReadValueForCharac
 - (FBLPromise<NSData *> *)readValueForCharacteristic:(CBCharacteristic *)characteristic {
     NSLog(@"读取特征中的值...");
     FBLPromise<id> *promise = [FBLPromise pendingPromise];
+    if (!characteristic) {
+        [promise reject:[NSError errorWithDomain:@"com.bkcb.characteristic" code:404 userInfo:@{NSLocalizedDescriptionKey: @"not found characteristic"}]];
+        return promise;
+    }
     self.multiPendingPromises[BKReadValueForCharacteristicKey] = promise;
-    CBPeripheral *peripheral = [[self.centralManager retrieveConnectedPeripheralsWithServices:@[characteristic.service.UUID]] firstObject];
+    CBPeripheral *peripheral = [self.discoveryPeripherals.allValues find:^BOOL(CBPeripheral *peripheral) {
+        return peripheral.state == CBPeripheralStateConnected;
+    }];
     [peripheral readValueForCharacteristic:characteristic];
     return promise;
 }
@@ -140,23 +155,42 @@ static NSString * const BKReadValueForCharacteristicKey = @"BKReadValueForCharac
     }
 }
 
+- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary<NSString *,id> *)state {
+    NSArray<CBPeripheral *> *peripherals = state[CBCentralManagerRestoredStatePeripheralsKey];
+    for (CBPeripheral *peripheral in peripherals) {
+        if (peripheral.state == CBPeripheralStateConnecting || peripheral.state == CBPeripheralStateConnected) {
+            [self disconnectPeripheral:peripheral];
+        }
+        self.discoveryPeripherals[peripheral.identifier] = peripheral;
+    }
+    NSLog(@"central will Restore State: %@", state);
+}
+
 // 扫描到外设
+static NSString * const BTKName = @"BluetoothKit";
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI {
-    NSLog(@"扫描到外设");
+    NSLog(@"扫描到外设 name: %@", peripheral.name);
+    self.discoveryPeripherals[peripheral.identifier] = peripheral;
+    
+    if (![peripheral.name isEqualToString:BTKName]) {
+        return;
+    }
+    
     if (_multiPendingPromises[BKDiscoverPeripheralsKey]) {
         FBLPromise<NSArray *> *promise = _multiPendingPromises[BKDiscoverPeripheralsKey];
         BKDiscovery *discovery = [[BKDiscovery alloc] initWithAdvertisementData:advertisementData pheripheral:peripheral RSSI:RSSI];
         [promise fulfill:discovery];
         _multiPendingPromises[BKDiscoverPeripheralsKey] = nil;
     }
+    [self stopScan];
 }
 
 // 连接到外设
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     NSLog(@"连接到外设");
-    self.connectedPeripheral = peripheral;
-    self.connectedPeripherals[peripheral.identifier] = peripheral;
     peripheral.delegate = self;
+//    self.connectedPeripheral = peripheral;
+    self.connectedPeripherals[peripheral.identifier] = peripheral;
     if (_multiPendingPromises[BKConnectPeripheralKey]) {
         FBLPromise<NSArray *> *promise = _multiPendingPromises[BKConnectPeripheralKey];
         [promise fulfill:peripheral];
@@ -167,6 +201,9 @@ static NSString * const BKReadValueForCharacteristicKey = @"BKReadValueForCharac
 
 // 连接外设失败
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error {
+    if (error) {
+        NSLog(@"连接外设失败: %@", error);
+    }
     if (_multiPendingPromises[BKConnectPeripheralKey]) {
         FBLPromise<NSArray *> *promise = _multiPendingPromises[BKConnectPeripheralKey];
         [promise reject:error];
@@ -188,7 +225,10 @@ static NSString * const BKReadValueForCharacteristicKey = @"BKReadValueForCharac
         if (error) {
             [promise reject:error];
         } else {
-            [promise fulfill:peripheral.services];
+            NSArray<CBService *> *services = [peripheral.services select:^BOOL(CBService *service) {
+                return [service.UUID isEqual:self.configuration.dataServiceUUID];
+            }];
+            [promise fulfill:services];
         }
         _multiPendingPromises[BKDiscoverServicesKey] = nil;
     }
@@ -202,7 +242,10 @@ static NSString * const BKReadValueForCharacteristicKey = @"BKReadValueForCharac
         if (error) {
             [promise reject:error];
         } else {
-            [promise fulfill:service.characteristics];
+            NSArray<CBCharacteristic *> *characteristics = [service.characteristics select:^BOOL(CBCharacteristic *characteristics) {
+                return [characteristics.UUID isEqual:self.configuration.dataServiceCharacteristicUUID];
+            }];
+            [promise fulfill:characteristics];
         }
         _multiPendingPromises[BKDiscoverCharacteristicsKey] = nil;
     }

@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BKCBCentralManager : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
+@interface BKCBCentralManager : NSObject
 
 @property (class, readonly, nonatomic, strong) BKCBCentralManager *manager;
 
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (FBLPromise<CBPeripheral *> *)connectPeripheral:(CBPeripheral *)peripheral;
 
-- (FBLPromise<NSArray<CBService *> *> *)discoverServices:(nullable NSArray<CBUUID *> *)serviceUUIDs;
+- (FBLPromise<NSArray<CBService *> *> *)discoverServices:(nullable NSArray<CBUUID *> *)serviceUUIDs forPeripheral:(CBPeripheral *)peripheral;
 
 - (FBLPromise<NSArray<CBCharacteristic *> *> *)discoverCharacteristics:(nullable NSArray<CBUUID *> *)characteristicUUIDs forService:(CBService *)service;
 

@@ -33,6 +33,7 @@
 		8407236C217F1B080039A788 /* BKDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407236B217F1B080039A788 /* BKDiscovery.m */; };
 		8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407237221801CF30039A788 /* AIMultiDelegate.m */; };
 		8407237621801EE30039A788 /* BKConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407237521801EE30039A788 /* BKConnection.m */; };
+		840C4971218162360081AD35 /* CBPeriperalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C4970218162360081AD35 /* CBPeriperalViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,8 @@
 		8407237221801CF30039A788 /* AIMultiDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIMultiDelegate.m; sourceTree = "<group>"; };
 		8407237421801EE30039A788 /* BKConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKConnection.h; sourceTree = "<group>"; };
 		8407237521801EE30039A788 /* BKConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKConnection.m; sourceTree = "<group>"; };
+		840C496F218162360081AD35 /* CBPeriperalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBPeriperalViewController.h; sourceTree = "<group>"; };
+		840C4970218162360081AD35 /* CBPeriperalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBPeriperalViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +164,8 @@
 				7E371D6D2174F43900ECC2C6 /* AppDelegate.m */,
 				7E371D6F2174F43900ECC2C6 /* ViewController.h */,
 				7E371D702174F43900ECC2C6 /* ViewController.m */,
+				840C496F218162360081AD35 /* CBPeriperalViewController.h */,
+				840C4970218162360081AD35 /* CBPeriperalViewController.m */,
 				7E1DE5B6217E21DF002614E9 /* BKDefines.h */,
 				7E1DE5B7217E21DF002614E9 /* BKDefines.m */,
 				84072367217F05EC0039A788 /* BKCBCentralManager.h */,
@@ -248,6 +253,11 @@
 				TargetAttributes = {
 					7E371D682174F43900ECC2C6 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -319,6 +329,7 @@
 				8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */,
 				7E1DE5AB217E19F1002614E9 /* BKPeer.m in Sources */,
 				84072357217EC8A60039A788 /* BKCentral.m in Sources */,
+				840C4971218162360081AD35 /* CBPeriperalViewController.m in Sources */,
 				7E1DE5AE217E1A54002614E9 /* BKRemotePeer.m in Sources */,
 				8407237621801EE30039A788 /* BKConnection.m in Sources */,
 				7E1DE5A8217E181A002614E9 /* BKBluetoothAdapter+CBCentralManager.m in Sources */,

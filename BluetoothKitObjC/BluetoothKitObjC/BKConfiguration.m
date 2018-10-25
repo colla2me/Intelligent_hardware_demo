@@ -14,7 +14,9 @@ static NSString * const BKCBRestoreIdentifierKey = @"com.bkcb.restore.identifier
 
 + (BKConfiguration *)defaultConfiguration {
     //TODO:
-    return nil;
+    NSUUID *serviceUUID = [[NSUUID alloc] initWithUUIDString:@"8EE4CFC9-9DB5-417D-A08A-EE397C54672F"];
+    NSUUID *characteristicUUID = [[NSUUID alloc] initWithUUIDString:@"180D"];
+    return [[BKConfiguration alloc] initWithServiceUUID:serviceUUID characteristicUUID:characteristicUUID];
 }
 
 - (instancetype)initWithServiceUUID:(NSUUID *)serviceUUID characteristicUUID:(NSUUID *)characteristicUUID {
@@ -26,6 +28,7 @@ static NSString * const BKCBRestoreIdentifierKey = @"com.bkcb.restore.identifier
         _endOfDataMark = [@"EOD" dataUsingEncoding:NSUTF8StringEncoding];
         _dataCancelledMark = [@"COD" dataUsingEncoding:NSUTF8StringEncoding];
         _options = @{CBCentralManagerOptionShowPowerAlertKey: @YES, CBCentralManagerOptionRestoreIdentifierKey: BKCBRestoreIdentifierKey};
+        // CBCentralManagerOptionRestoreIdentifierKey: BKCBRestoreIdentifierKey
     }
     return self;
 }
