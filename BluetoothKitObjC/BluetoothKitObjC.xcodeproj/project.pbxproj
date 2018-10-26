@@ -8,27 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		17CEAE718752DEF2AFA3E036 /* libPods-BluetoothKitObjC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCFEFA83DA3B316A1D714D7 /* libPods-BluetoothKitObjC.a */; };
-		7E1DE5A8217E181A002614E9 /* BKBluetoothAdapter+CBCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DE5A7217E181A002614E9 /* BKBluetoothAdapter+CBCentralManager.m */; };
-		7E1DE5AB217E19F1002614E9 /* BKPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DE5AA217E19F1002614E9 /* BKPeer.m */; };
-		7E1DE5AE217E1A54002614E9 /* BKRemotePeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DE5AD217E1A54002614E9 /* BKRemotePeer.m */; };
-		7E1DE5B5217E20C4002614E9 /* BKSendDataTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DE5B4217E20C4002614E9 /* BKSendDataTask.m */; };
 		7E1DE5B8217E21DF002614E9 /* BKDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DE5B7217E21DF002614E9 /* BKDefines.m */; };
-		7E26A1C321777C5100B181D1 /* BKBluetoothAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1C221777C5100B181D1 /* BKBluetoothAdapter.m */; };
 		7E26A1C621778A4500B181D1 /* BKCBCentralManagerProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1C521778A4500B181D1 /* BKCBCentralManagerProxy.m */; };
-		7E26A1C921778A6C00B181D1 /* BKCBPeripheralManagerProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1C821778A6C00B181D1 /* BKCBPeripheralManagerProxy.m */; };
 		7E26A1CC2177962800B181D1 /* BKConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1CB2177962800B181D1 /* BKConfiguration.m */; };
-		7E26A1CF2178E9F500B181D1 /* BKCBPeripheralProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1CE2178E9F500B181D1 /* BKCBPeripheralProxy.m */; };
 		7E371D6E2174F43900ECC2C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D6D2174F43900ECC2C6 /* AppDelegate.m */; };
 		7E371D712174F43900ECC2C6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D702174F43900ECC2C6 /* ViewController.m */; };
 		7E371D742174F43900ECC2C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D722174F43900ECC2C6 /* Main.storyboard */; };
 		7E371D762174F43B00ECC2C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D752174F43B00ECC2C6 /* Assets.xcassets */; };
 		7E371D792174F43B00ECC2C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D772174F43B00ECC2C6 /* LaunchScreen.storyboard */; };
 		7E371D7C2174F43B00ECC2C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D7B2174F43B00ECC2C6 /* main.m */; };
-		84072357217EC8A60039A788 /* BKCentral.m in Sources */ = {isa = PBXBuildFile; fileRef = 84072356217EC8A60039A788 /* BKCentral.m */; };
-		8407235A217EC8C00039A788 /* BKPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 84072359217EC8C00039A788 /* BKPeripheral.m */; };
 		8407235D217EC9570039A788 /* BKScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407235C217EC9570039A788 /* BKScanner.m */; };
-		84072363217EF8A00039A788 /* BKCentralAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84072362217EF8A00039A788 /* BKCentralAdapter.m */; };
-		84072366217EF8B40039A788 /* BKPeripheralAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84072365217EF8B40039A788 /* BKPeripheralAdapter.m */; };
 		84072369217F05EC0039A788 /* BKCBCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84072368217F05EC0039A788 /* BKCBCentralManager.m */; };
 		8407236C217F1B080039A788 /* BKDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407236B217F1B080039A788 /* BKDiscovery.m */; };
 		8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407237221801CF30039A788 /* AIMultiDelegate.m */; };
@@ -39,27 +28,12 @@
 /* Begin PBXFileReference section */
 		09CA040F6599DF3469093500 /* Pods-BluetoothKitObjC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothKitObjC.release.xcconfig"; path = "Pods/Target Support Files/Pods-BluetoothKitObjC/Pods-BluetoothKitObjC.release.xcconfig"; sourceTree = "<group>"; };
 		4BCFEFA83DA3B316A1D714D7 /* libPods-BluetoothKitObjC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BluetoothKitObjC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E1DE5A5217E1665002614E9 /* BKBluetoothAdapterInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKBluetoothAdapterInternal.h; sourceTree = "<group>"; };
-		7E1DE5A6217E181A002614E9 /* BKBluetoothAdapter+CBCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BKBluetoothAdapter+CBCentralManager.h"; sourceTree = "<group>"; };
-		7E1DE5A7217E181A002614E9 /* BKBluetoothAdapter+CBCentralManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BKBluetoothAdapter+CBCentralManager.m"; sourceTree = "<group>"; };
-		7E1DE5A9217E19F1002614E9 /* BKPeer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKPeer.h; sourceTree = "<group>"; };
-		7E1DE5AA217E19F1002614E9 /* BKPeer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKPeer.m; sourceTree = "<group>"; };
-		7E1DE5AC217E1A54002614E9 /* BKRemotePeer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKRemotePeer.h; sourceTree = "<group>"; };
-		7E1DE5AD217E1A54002614E9 /* BKRemotePeer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKRemotePeer.m; sourceTree = "<group>"; };
-		7E1DE5B3217E20C4002614E9 /* BKSendDataTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKSendDataTask.h; sourceTree = "<group>"; };
-		7E1DE5B4217E20C4002614E9 /* BKSendDataTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKSendDataTask.m; sourceTree = "<group>"; };
 		7E1DE5B6217E21DF002614E9 /* BKDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKDefines.h; sourceTree = "<group>"; };
 		7E1DE5B7217E21DF002614E9 /* BKDefines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKDefines.m; sourceTree = "<group>"; };
-		7E26A1C121777C5100B181D1 /* BKBluetoothAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKBluetoothAdapter.h; sourceTree = "<group>"; };
-		7E26A1C221777C5100B181D1 /* BKBluetoothAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKBluetoothAdapter.m; sourceTree = "<group>"; };
 		7E26A1C421778A4500B181D1 /* BKCBCentralManagerProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCBCentralManagerProxy.h; sourceTree = "<group>"; };
 		7E26A1C521778A4500B181D1 /* BKCBCentralManagerProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCBCentralManagerProxy.m; sourceTree = "<group>"; };
-		7E26A1C721778A6C00B181D1 /* BKCBPeripheralManagerProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCBPeripheralManagerProxy.h; sourceTree = "<group>"; };
-		7E26A1C821778A6C00B181D1 /* BKCBPeripheralManagerProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCBPeripheralManagerProxy.m; sourceTree = "<group>"; };
 		7E26A1CA2177962800B181D1 /* BKConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKConfiguration.h; sourceTree = "<group>"; };
 		7E26A1CB2177962800B181D1 /* BKConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKConfiguration.m; sourceTree = "<group>"; };
-		7E26A1CD2178E9F500B181D1 /* BKCBPeripheralProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCBPeripheralProxy.h; sourceTree = "<group>"; };
-		7E26A1CE2178E9F500B181D1 /* BKCBPeripheralProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCBPeripheralProxy.m; sourceTree = "<group>"; };
 		7E371D692174F43900ECC2C6 /* BluetoothKitObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothKitObjC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E371D6C2174F43900ECC2C6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7E371D6D2174F43900ECC2C6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -71,16 +45,8 @@
 		7E371D7A2174F43B00ECC2C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E371D7B2174F43B00ECC2C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7EAD003435C6A68FDA4E07FD /* Pods-BluetoothKitObjC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothKitObjC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BluetoothKitObjC/Pods-BluetoothKitObjC.debug.xcconfig"; sourceTree = "<group>"; };
-		84072355217EC8A60039A788 /* BKCentral.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCentral.h; sourceTree = "<group>"; };
-		84072356217EC8A60039A788 /* BKCentral.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCentral.m; sourceTree = "<group>"; };
-		84072358217EC8C00039A788 /* BKPeripheral.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKPeripheral.h; sourceTree = "<group>"; };
-		84072359217EC8C00039A788 /* BKPeripheral.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKPeripheral.m; sourceTree = "<group>"; };
 		8407235B217EC9570039A788 /* BKScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKScanner.h; sourceTree = "<group>"; };
 		8407235C217EC9570039A788 /* BKScanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKScanner.m; sourceTree = "<group>"; };
-		84072361217EF8A00039A788 /* BKCentralAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCentralAdapter.h; sourceTree = "<group>"; };
-		84072362217EF8A00039A788 /* BKCentralAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCentralAdapter.m; sourceTree = "<group>"; };
-		84072364217EF8B40039A788 /* BKPeripheralAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKPeripheralAdapter.h; sourceTree = "<group>"; };
-		84072365217EF8B40039A788 /* BKPeripheralAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKPeripheralAdapter.m; sourceTree = "<group>"; };
 		84072367217F05EC0039A788 /* BKCBCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCBCentralManager.h; sourceTree = "<group>"; };
 		84072368217F05EC0039A788 /* BKCBCentralManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCBCentralManager.m; sourceTree = "<group>"; };
 		8407236A217F1B080039A788 /* BKDiscovery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKDiscovery.h; sourceTree = "<group>"; };
@@ -122,22 +88,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7E1DE5B2217E1F27002614E9 /* BKBluetoothKit */ = {
-			isa = PBXGroup;
-			children = (
-				7E26A1C121777C5100B181D1 /* BKBluetoothAdapter.h */,
-				7E26A1C221777C5100B181D1 /* BKBluetoothAdapter.m */,
-				7E1DE5A6217E181A002614E9 /* BKBluetoothAdapter+CBCentralManager.h */,
-				7E1DE5A7217E181A002614E9 /* BKBluetoothAdapter+CBCentralManager.m */,
-				7E1DE5A5217E1665002614E9 /* BKBluetoothAdapterInternal.h */,
-				7E1DE5AC217E1A54002614E9 /* BKRemotePeer.h */,
-				7E1DE5AD217E1A54002614E9 /* BKRemotePeer.m */,
-				7E1DE5B3217E20C4002614E9 /* BKSendDataTask.h */,
-				7E1DE5B4217E20C4002614E9 /* BKSendDataTask.m */,
-			);
-			path = BKBluetoothKit;
-			sourceTree = "<group>";
-		};
 		7E371D602174F43900ECC2C6 = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +114,20 @@
 				7E371D6D2174F43900ECC2C6 /* AppDelegate.m */,
 				7E371D6F2174F43900ECC2C6 /* ViewController.h */,
 				7E371D702174F43900ECC2C6 /* ViewController.m */,
+				8462E8EB21830D7200339A6A /* BKBluetoothBlock */,
+				7E371D722174F43900ECC2C6 /* Main.storyboard */,
+				7E371D752174F43B00ECC2C6 /* Assets.xcassets */,
+				7E371D772174F43B00ECC2C6 /* LaunchScreen.storyboard */,
+				7E371D7A2174F43B00ECC2C6 /* Info.plist */,
+				7E371D7B2174F43B00ECC2C6 /* main.m */,
+				84072354217EC8060039A788 /* BKBluetoothPromise */,
+			);
+			path = BluetoothKitObjC;
+			sourceTree = "<group>";
+		};
+		84072354217EC8060039A788 /* BKBluetoothPromise */ = {
+			isa = PBXGroup;
+			children = (
 				840C496F218162360081AD35 /* CBPeriperalViewController.h */,
 				840C4970218162360081AD35 /* CBPeriperalViewController.m */,
 				7E1DE5B6217E21DF002614E9 /* BKDefines.h */,
@@ -178,36 +142,8 @@
 				8407237521801EE30039A788 /* BKConnection.m */,
 				7E26A1CA2177962800B181D1 /* BKConfiguration.h */,
 				7E26A1CB2177962800B181D1 /* BKConfiguration.m */,
-				7E371D722174F43900ECC2C6 /* Main.storyboard */,
-				7E371D752174F43B00ECC2C6 /* Assets.xcassets */,
-				7E371D772174F43B00ECC2C6 /* LaunchScreen.storyboard */,
-				7E371D7A2174F43B00ECC2C6 /* Info.plist */,
-				7E371D7B2174F43B00ECC2C6 /* main.m */,
-				84072354217EC8060039A788 /* BKBluetoothPromise */,
-				7E1DE5B2217E1F27002614E9 /* BKBluetoothKit */,
-			);
-			path = BluetoothKitObjC;
-			sourceTree = "<group>";
-		};
-		84072354217EC8060039A788 /* BKBluetoothPromise */ = {
-			isa = PBXGroup;
-			children = (
-				7E26A1CD2178E9F500B181D1 /* BKCBPeripheralProxy.h */,
-				7E26A1CE2178E9F500B181D1 /* BKCBPeripheralProxy.m */,
-				7E26A1C721778A6C00B181D1 /* BKCBPeripheralManagerProxy.h */,
-				7E26A1C821778A6C00B181D1 /* BKCBPeripheralManagerProxy.m */,
 				7E26A1C421778A4500B181D1 /* BKCBCentralManagerProxy.h */,
 				7E26A1C521778A4500B181D1 /* BKCBCentralManagerProxy.m */,
-				7E1DE5A9217E19F1002614E9 /* BKPeer.h */,
-				7E1DE5AA217E19F1002614E9 /* BKPeer.m */,
-				84072355217EC8A60039A788 /* BKCentral.h */,
-				84072356217EC8A60039A788 /* BKCentral.m */,
-				84072358217EC8C00039A788 /* BKPeripheral.h */,
-				84072359217EC8C00039A788 /* BKPeripheral.m */,
-				84072361217EF8A00039A788 /* BKCentralAdapter.h */,
-				84072362217EF8A00039A788 /* BKCentralAdapter.m */,
-				84072364217EF8B40039A788 /* BKPeripheralAdapter.h */,
-				84072365217EF8B40039A788 /* BKPeripheralAdapter.m */,
 			);
 			path = BKBluetoothPromise;
 			sourceTree = "<group>";
@@ -219,6 +155,13 @@
 				8407237221801CF30039A788 /* AIMultiDelegate.m */,
 			);
 			path = MultiDelegate;
+			sourceTree = "<group>";
+		};
+		8462E8EB21830D7200339A6A /* BKBluetoothBlock */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BKBluetoothBlock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,29 +261,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E26A1CF2178E9F500B181D1 /* BKCBPeripheralProxy.m in Sources */,
-				7E26A1C921778A6C00B181D1 /* BKCBPeripheralManagerProxy.m in Sources */,
 				7E26A1C621778A4500B181D1 /* BKCBCentralManagerProxy.m in Sources */,
 				7E371D712174F43900ECC2C6 /* ViewController.m in Sources */,
 				7E1DE5B8217E21DF002614E9 /* BKDefines.m in Sources */,
 				8407236C217F1B080039A788 /* BKDiscovery.m in Sources */,
-				8407235A217EC8C00039A788 /* BKPeripheral.m in Sources */,
 				84072369217F05EC0039A788 /* BKCBCentralManager.m in Sources */,
 				8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */,
-				7E1DE5AB217E19F1002614E9 /* BKPeer.m in Sources */,
-				84072357217EC8A60039A788 /* BKCentral.m in Sources */,
 				840C4971218162360081AD35 /* CBPeriperalViewController.m in Sources */,
-				7E1DE5AE217E1A54002614E9 /* BKRemotePeer.m in Sources */,
 				8407237621801EE30039A788 /* BKConnection.m in Sources */,
-				7E1DE5A8217E181A002614E9 /* BKBluetoothAdapter+CBCentralManager.m in Sources */,
-				84072363217EF8A00039A788 /* BKCentralAdapter.m in Sources */,
 				7E371D7C2174F43B00ECC2C6 /* main.m in Sources */,
 				7E371D6E2174F43900ECC2C6 /* AppDelegate.m in Sources */,
 				7E26A1CC2177962800B181D1 /* BKConfiguration.m in Sources */,
-				84072366217EF8B40039A788 /* BKPeripheralAdapter.m in Sources */,
 				8407235D217EC9570039A788 /* BKScanner.m in Sources */,
-				7E26A1C321777C5100B181D1 /* BKBluetoothAdapter.m in Sources */,
-				7E1DE5B5217E20C4002614E9 /* BKSendDataTask.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
