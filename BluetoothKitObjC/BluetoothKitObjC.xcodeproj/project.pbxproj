@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		17CEAE718752DEF2AFA3E036 /* libPods-BluetoothKitObjC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCFEFA83DA3B316A1D714D7 /* libPods-BluetoothKitObjC.a */; };
-		7E1DE5B8217E21DF002614E9 /* BKDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1DE5B7217E21DF002614E9 /* BKDefines.m */; };
 		7E26A1C621778A4500B181D1 /* BKCBCentralManagerProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1C521778A4500B181D1 /* BKCBCentralManagerProxy.m */; };
 		7E26A1CC2177962800B181D1 /* BKConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1CB2177962800B181D1 /* BKConfiguration.m */; };
 		7E371D6E2174F43900ECC2C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D6D2174F43900ECC2C6 /* AppDelegate.m */; };
@@ -28,8 +27,6 @@
 /* Begin PBXFileReference section */
 		09CA040F6599DF3469093500 /* Pods-BluetoothKitObjC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothKitObjC.release.xcconfig"; path = "Pods/Target Support Files/Pods-BluetoothKitObjC/Pods-BluetoothKitObjC.release.xcconfig"; sourceTree = "<group>"; };
 		4BCFEFA83DA3B316A1D714D7 /* libPods-BluetoothKitObjC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BluetoothKitObjC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E1DE5B6217E21DF002614E9 /* BKDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKDefines.h; sourceTree = "<group>"; };
-		7E1DE5B7217E21DF002614E9 /* BKDefines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKDefines.m; sourceTree = "<group>"; };
 		7E26A1C421778A4500B181D1 /* BKCBCentralManagerProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCBCentralManagerProxy.h; sourceTree = "<group>"; };
 		7E26A1C521778A4500B181D1 /* BKCBCentralManagerProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCBCentralManagerProxy.m; sourceTree = "<group>"; };
 		7E26A1CA2177962800B181D1 /* BKConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKConfiguration.h; sourceTree = "<group>"; };
@@ -130,8 +127,6 @@
 			children = (
 				840C496F218162360081AD35 /* CBPeriperalViewController.h */,
 				840C4970218162360081AD35 /* CBPeriperalViewController.m */,
-				7E1DE5B6217E21DF002614E9 /* BKDefines.h */,
-				7E1DE5B7217E21DF002614E9 /* BKDefines.m */,
 				84072367217F05EC0039A788 /* BKCBCentralManager.h */,
 				84072368217F05EC0039A788 /* BKCBCentralManager.m */,
 				8407235B217EC9570039A788 /* BKScanner.h */,
@@ -263,7 +258,6 @@
 			files = (
 				7E26A1C621778A4500B181D1 /* BKCBCentralManagerProxy.m in Sources */,
 				7E371D712174F43900ECC2C6 /* ViewController.m in Sources */,
-				7E1DE5B8217E21DF002614E9 /* BKDefines.m in Sources */,
 				8407236C217F1B080039A788 /* BKDiscovery.m in Sources */,
 				84072369217F05EC0039A788 /* BKCBCentralManager.m in Sources */,
 				8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */,
