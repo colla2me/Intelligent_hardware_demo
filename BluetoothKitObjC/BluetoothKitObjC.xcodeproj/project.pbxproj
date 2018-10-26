@@ -114,7 +114,7 @@
 				7E371D6D2174F43900ECC2C6 /* AppDelegate.m */,
 				7E371D6F2174F43900ECC2C6 /* ViewController.h */,
 				7E371D702174F43900ECC2C6 /* ViewController.m */,
-				8462E8EB21830D7200339A6A /* BKBluetoothBlock */,
+				8462E8EB21830D7200339A6A /* SugarBLE */,
 				7E371D722174F43900ECC2C6 /* Main.storyboard */,
 				7E371D752174F43B00ECC2C6 /* Assets.xcassets */,
 				7E371D772174F43B00ECC2C6 /* LaunchScreen.storyboard */,
@@ -155,13 +155,45 @@
 			path = MultiDelegate;
 			sourceTree = "<group>";
 		};
-		8462E8EB21830D7200339A6A /* BKBluetoothBlock */ = {
+		8462E8EB21830D7200339A6A /* SugarBLE */ = {
 			isa = PBXGroup;
 			children = (
+				8462E8F2218313F300339A6A /* Extensions */,
+				8462E8F1218313E300339A6A /* BLETransaction */,
+				8462E8F0218313DC00339A6A /* BLEManager */,
+				8462E8EF218313D200339A6A /* BLEMaker */,
 				8462E8EC218310E100339A6A /* SugarBLE.h */,
 				8462E8ED218310E100339A6A /* SugarBLE.m */,
 			);
-			path = BKBluetoothBlock;
+			path = SugarBLE;
+			sourceTree = "<group>";
+		};
+		8462E8EF218313D200339A6A /* BLEMaker */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BLEMaker;
+			sourceTree = "<group>";
+		};
+		8462E8F0218313DC00339A6A /* BLEManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BLEManager;
+			sourceTree = "<group>";
+		};
+		8462E8F1218313E300339A6A /* BLETransaction */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BLETransaction;
+			sourceTree = "<group>";
+		};
+		8462E8F2218313F300339A6A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
