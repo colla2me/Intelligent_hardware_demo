@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, viewport-fit=cover">
+    <title></title>
+    <style>
+        .btn {
+            margin: 100px auto;
+            padding: 10px 20px;
+            border: 1px solid black;
+            color: black;
+            border-radius: 10px;
+        }
+    
+        #text {
+            margin: 0;
+            padding: 0;
+            font: 20px;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="btn" class="btn">run javascript</button>
+    <p id="text"></p>
+    
+    <script>
+        const OBtn = document.querySelector('#btn');
+        const OP = document.querySelector('#text');
+        OBtn.addEventListener('click', function() {
+                              
+                              const text = window.prompt('hello ObjC', 'I am here');
+                              OP.innerText = text;
+                              
+                              })
+    
+    </script>
+</body>
+</html>
