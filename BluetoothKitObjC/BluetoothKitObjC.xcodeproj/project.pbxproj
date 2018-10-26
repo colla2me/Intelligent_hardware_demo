@@ -22,6 +22,7 @@
 		8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407237221801CF30039A788 /* AIMultiDelegate.m */; };
 		8407237621801EE30039A788 /* BKConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407237521801EE30039A788 /* BKConnection.m */; };
 		840C4971218162360081AD35 /* CBPeriperalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C4970218162360081AD35 /* CBPeriperalViewController.m */; };
+		8462E8EE218310E100339A6A /* SugarBLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 8462E8ED218310E100339A6A /* SugarBLE.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,8 @@
 		8407237521801EE30039A788 /* BKConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKConnection.m; sourceTree = "<group>"; };
 		840C496F218162360081AD35 /* CBPeriperalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBPeriperalViewController.h; sourceTree = "<group>"; };
 		840C4970218162360081AD35 /* CBPeriperalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBPeriperalViewController.m; sourceTree = "<group>"; };
+		8462E8EC218310E100339A6A /* SugarBLE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SugarBLE.h; sourceTree = "<group>"; };
+		8462E8ED218310E100339A6A /* SugarBLE.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SugarBLE.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +158,8 @@
 		8462E8EB21830D7200339A6A /* BKBluetoothBlock */ = {
 			isa = PBXGroup;
 			children = (
+				8462E8EC218310E100339A6A /* SugarBLE.h */,
+				8462E8ED218310E100339A6A /* SugarBLE.m */,
 			);
 			path = BKBluetoothBlock;
 			sourceTree = "<group>";
@@ -258,6 +263,7 @@
 			files = (
 				7E26A1C621778A4500B181D1 /* BKCBCentralManagerProxy.m in Sources */,
 				7E371D712174F43900ECC2C6 /* ViewController.m in Sources */,
+				8462E8EE218310E100339A6A /* SugarBLE.m in Sources */,
 				8407236C217F1B080039A788 /* BKDiscovery.m in Sources */,
 				84072369217F05EC0039A788 /* BKCBCentralManager.m in Sources */,
 				8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */,
