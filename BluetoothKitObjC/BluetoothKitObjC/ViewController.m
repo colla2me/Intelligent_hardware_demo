@@ -8,13 +8,15 @@
 
 #import "ViewController.h"
 #import "BKCBCentralManager.h"
+#import "Bleu/Bleu.h"
 
 @interface ViewController ()
 
 @property (nonatomic, strong) BKCBCentralManager *manager;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) NSMutableString *consoleText;
-
+@property (nonatomic, strong) dispatch_queue_t operationQueue;
+@property (nonatomic, strong) dispatch_queue_t dataQueue;
 @end
 
 @implementation ViewController
@@ -67,10 +69,45 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.manager = [BKCBCentralManager manager];
+//    self.manager = [BKCBCentralManager manager];
     self.textView.text = @"bluetooth standby";
     self.textView.layer.borderColor = [UIColor redColor].CGColor;
     self.textView.layer.borderWidth = 1;
+    
+//    _operationQueue = dispatch_queue_create("com.sugar.ble.central", DISPATCH_QUEUE_CONCURRENT);
+//    _dataQueue = dispatch_queue_create("com.sugar.ble.central", DISPATCH_QUEUE_SERIAL);
+    
+//    dispatch_async(_operationQueue, ^{
+//        NSLog(@"aaaaa");
+//        sleep(2);
+//    });
+//
+//    dispatch_async(_operationQueue, ^{
+//        NSLog(@"ccccc");
+//        sleep(2);
+//    });
+//
+//    dispatch_async(_operationQueue, ^{
+//        NSLog(@"ddddd");
+//        sleep(2);
+//    });
+//
+//    NSLog(@"bbbbb");
+    
+    RadarOptions *options = [[RadarOptions alloc] init];
+    
+    CBUUID *serviceUUID = [CBUUID UUIDWithString:@"4E6C6189-D06B-4835-8F3B-F5CBC36560FB"];
+    CBUUID *characteristicUUID = [CBUUID UUIDWithString:@"BC9E790A-5682-4B4E-9366-E81BB97107A1"];
+    
+    RadarRequest *request = [[RadarRequest alloc] initWithServiceUUID:serviceUUID characteristicUUID:characteristicUUID];
+    request.response = ^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
+        
+    };
+    
+    [Bleu sendRequest:request options:options completionHandler:^(NSDictionary * _Nullable info, NSError * _Nullable error) {
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

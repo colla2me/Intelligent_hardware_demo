@@ -16,6 +16,16 @@
 		7E371D762174F43B00ECC2C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D752174F43B00ECC2C6 /* Assets.xcassets */; };
 		7E371D792174F43B00ECC2C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D772174F43B00ECC2C6 /* LaunchScreen.storyboard */; };
 		7E371D7C2174F43B00ECC2C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D7B2174F43B00ECC2C6 /* main.m */; };
+		7EC0AD6921841C6500F145AE /* SGCentralManagerMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD6821841C6500F145AE /* SGCentralManagerMaker.m */; };
+		7EC0AD6D21842EAC00F145AE /* SGDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD6C21842EAC00F145AE /* SGDefinitions.m */; };
+		7EC0AD702184310D00F145AE /* SGServiceMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD6F2184310D00F145AE /* SGServiceMaker.m */; };
+		7EC0AD732184316C00F145AE /* SGCharacteristicMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD722184316C00F145AE /* SGCharacteristicMaker.m */; };
+		7EC0AD7621845D9000F145AE /* SGCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD7521845D9000F145AE /* SGCentralManager.m */; };
+		7EC0AD792184C72200F145AE /* BLETransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD782184C72200F145AE /* BLETransaction.m */; };
+		7EC0AD7D21856C9800F145AE /* Radar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD7C21856C9800F145AE /* Radar.m */; };
+		7EC0AD8021856E1300F145AE /* RadarOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD7F21856E1300F145AE /* RadarOptions.m */; };
+		7EC0AD842185862B00F145AE /* RadarRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD832185862B00F145AE /* RadarRequest.m */; };
+		7EC0AD8721860E3500F145AE /* Bleu.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD8621860E3500F145AE /* Bleu.m */; };
 		8407235D217EC9570039A788 /* BKScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407235C217EC9570039A788 /* BKScanner.m */; };
 		84072369217F05EC0039A788 /* BKCBCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84072368217F05EC0039A788 /* BKCBCentralManager.m */; };
 		8407236C217F1B080039A788 /* BKDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407236B217F1B080039A788 /* BKDiscovery.m */; };
@@ -43,6 +53,27 @@
 		7E371D7A2174F43B00ECC2C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E371D7B2174F43B00ECC2C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7EAD003435C6A68FDA4E07FD /* Pods-BluetoothKitObjC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothKitObjC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BluetoothKitObjC/Pods-BluetoothKitObjC.debug.xcconfig"; sourceTree = "<group>"; };
+		7EC0AD6721841C6500F145AE /* SGCentralManagerMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SGCentralManagerMaker.h; path = ../../../../../../Documents/SGCentralManagerMaker.h; sourceTree = "<group>"; };
+		7EC0AD6821841C6500F145AE /* SGCentralManagerMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SGCentralManagerMaker.m; path = ../../../../../../Documents/SGCentralManagerMaker.m; sourceTree = "<group>"; };
+		7EC0AD6B21842EAC00F145AE /* SGDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SGDefinitions.h; path = ../../../../../../Documents/SGDefinitions.h; sourceTree = "<group>"; };
+		7EC0AD6C21842EAC00F145AE /* SGDefinitions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SGDefinitions.m; path = ../../../../../../Documents/SGDefinitions.m; sourceTree = "<group>"; };
+		7EC0AD6E2184310D00F145AE /* SGServiceMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SGServiceMaker.h; path = ../../../../../../Documents/SGServiceMaker.h; sourceTree = "<group>"; };
+		7EC0AD6F2184310D00F145AE /* SGServiceMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SGServiceMaker.m; path = ../../../../../../Documents/SGServiceMaker.m; sourceTree = "<group>"; };
+		7EC0AD712184316C00F145AE /* SGCharacteristicMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SGCharacteristicMaker.h; path = ../../../../../../Documents/SGCharacteristicMaker.h; sourceTree = "<group>"; };
+		7EC0AD722184316C00F145AE /* SGCharacteristicMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SGCharacteristicMaker.m; path = ../../../../../../Documents/SGCharacteristicMaker.m; sourceTree = "<group>"; };
+		7EC0AD7421845D9000F145AE /* SGCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SGCentralManager.h; path = ../../../../../../Documents/SGCentralManager.h; sourceTree = "<group>"; };
+		7EC0AD7521845D9000F145AE /* SGCentralManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SGCentralManager.m; path = ../../../../../../Documents/SGCentralManager.m; sourceTree = "<group>"; };
+		7EC0AD772184C72200F145AE /* BLETransaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BLETransaction.h; path = ../../../../../../Documents/BLETransaction.h; sourceTree = "<group>"; };
+		7EC0AD782184C72200F145AE /* BLETransaction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BLETransaction.m; path = ../../../../../../Documents/BLETransaction.m; sourceTree = "<group>"; };
+		7EC0AD7B21856C9800F145AE /* Radar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Radar.h; sourceTree = "<group>"; };
+		7EC0AD7C21856C9800F145AE /* Radar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Radar.m; sourceTree = "<group>"; };
+		7EC0AD7E21856E1300F145AE /* RadarOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RadarOptions.h; sourceTree = "<group>"; };
+		7EC0AD7F21856E1300F145AE /* RadarOptions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RadarOptions.m; sourceTree = "<group>"; };
+		7EC0AD812185801300F145AE /* Communicable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Communicable.h; sourceTree = "<group>"; };
+		7EC0AD822185862B00F145AE /* RadarRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RadarRequest.h; sourceTree = "<group>"; };
+		7EC0AD832185862B00F145AE /* RadarRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RadarRequest.m; sourceTree = "<group>"; };
+		7EC0AD8521860E3500F145AE /* Bleu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bleu.h; sourceTree = "<group>"; };
+		7EC0AD8621860E3500F145AE /* Bleu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Bleu.m; sourceTree = "<group>"; };
 		8407235B217EC9570039A788 /* BKScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKScanner.h; sourceTree = "<group>"; };
 		8407235C217EC9570039A788 /* BKScanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKScanner.m; sourceTree = "<group>"; };
 		84072367217F05EC0039A788 /* BKCBCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCBCentralManager.h; sourceTree = "<group>"; };
@@ -109,6 +140,7 @@
 		7E371D6B2174F43900ECC2C6 /* BluetoothKitObjC */ = {
 			isa = PBXGroup;
 			children = (
+				7EC0AD7A21856C4B00F145AE /* Bleu */,
 				8407237021801CF30039A788 /* MultiDelegate */,
 				7E371D6C2174F43900ECC2C6 /* AppDelegate.h */,
 				7E371D6D2174F43900ECC2C6 /* AppDelegate.m */,
@@ -123,6 +155,48 @@
 				84072354217EC8060039A788 /* BKBluetoothPromise */,
 			);
 			path = BluetoothKitObjC;
+			sourceTree = "<group>";
+		};
+		7EC0AD6421841C3E00F145AE /* BLEMaker */ = {
+			isa = PBXGroup;
+			children = (
+				7EC0AD6721841C6500F145AE /* SGCentralManagerMaker.h */,
+				7EC0AD6821841C6500F145AE /* SGCentralManagerMaker.m */,
+				7EC0AD6E2184310D00F145AE /* SGServiceMaker.h */,
+				7EC0AD6F2184310D00F145AE /* SGServiceMaker.m */,
+				7EC0AD712184316C00F145AE /* SGCharacteristicMaker.h */,
+				7EC0AD722184316C00F145AE /* SGCharacteristicMaker.m */,
+			);
+			path = BLEMaker;
+			sourceTree = "<group>";
+		};
+		7EC0AD6A21842E8B00F145AE /* BLEManager */ = {
+			isa = PBXGroup;
+			children = (
+				7EC0AD6B21842EAC00F145AE /* SGDefinitions.h */,
+				7EC0AD6C21842EAC00F145AE /* SGDefinitions.m */,
+				7EC0AD7421845D9000F145AE /* SGCentralManager.h */,
+				7EC0AD7521845D9000F145AE /* SGCentralManager.m */,
+				7EC0AD772184C72200F145AE /* BLETransaction.h */,
+				7EC0AD782184C72200F145AE /* BLETransaction.m */,
+			);
+			path = BLEManager;
+			sourceTree = "<group>";
+		};
+		7EC0AD7A21856C4B00F145AE /* Bleu */ = {
+			isa = PBXGroup;
+			children = (
+				7EC0AD8521860E3500F145AE /* Bleu.h */,
+				7EC0AD8621860E3500F145AE /* Bleu.m */,
+				7EC0AD7B21856C9800F145AE /* Radar.h */,
+				7EC0AD7C21856C9800F145AE /* Radar.m */,
+				7EC0AD7E21856E1300F145AE /* RadarOptions.h */,
+				7EC0AD7F21856E1300F145AE /* RadarOptions.m */,
+				7EC0AD812185801300F145AE /* Communicable.h */,
+				7EC0AD822185862B00F145AE /* RadarRequest.h */,
+				7EC0AD832185862B00F145AE /* RadarRequest.m */,
+			);
+			path = Bleu;
 			sourceTree = "<group>";
 		};
 		84072354217EC8060039A788 /* BKBluetoothPromise */ = {
@@ -158,42 +232,12 @@
 		8462E8EB21830D7200339A6A /* SugarBLE */ = {
 			isa = PBXGroup;
 			children = (
-				8462E8F2218313F300339A6A /* Extensions */,
-				8462E8F1218313E300339A6A /* BLETransaction */,
-				8462E8F0218313DC00339A6A /* BLEManager */,
-				8462E8EF218313D200339A6A /* BLEMaker */,
+				7EC0AD6A21842E8B00F145AE /* BLEManager */,
+				7EC0AD6421841C3E00F145AE /* BLEMaker */,
 				8462E8EC218310E100339A6A /* SugarBLE.h */,
 				8462E8ED218310E100339A6A /* SugarBLE.m */,
 			);
 			path = SugarBLE;
-			sourceTree = "<group>";
-		};
-		8462E8EF218313D200339A6A /* BLEMaker */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BLEMaker;
-			sourceTree = "<group>";
-		};
-		8462E8F0218313DC00339A6A /* BLEManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BLEManager;
-			sourceTree = "<group>";
-		};
-		8462E8F1218313E300339A6A /* BLETransaction */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BLETransaction;
-			sourceTree = "<group>";
-		};
-		8462E8F2218313F300339A6A /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,16 +339,26 @@
 			files = (
 				7E26A1C621778A4500B181D1 /* BKCBCentralManagerProxy.m in Sources */,
 				7E371D712174F43900ECC2C6 /* ViewController.m in Sources */,
+				7EC0AD6D21842EAC00F145AE /* SGDefinitions.m in Sources */,
 				8462E8EE218310E100339A6A /* SugarBLE.m in Sources */,
 				8407236C217F1B080039A788 /* BKDiscovery.m in Sources */,
+				7EC0AD7621845D9000F145AE /* SGCentralManager.m in Sources */,
+				7EC0AD842185862B00F145AE /* RadarRequest.m in Sources */,
+				7EC0AD732184316C00F145AE /* SGCharacteristicMaker.m in Sources */,
 				84072369217F05EC0039A788 /* BKCBCentralManager.m in Sources */,
+				7EC0AD8721860E3500F145AE /* Bleu.m in Sources */,
 				8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */,
 				840C4971218162360081AD35 /* CBPeriperalViewController.m in Sources */,
+				7EC0AD792184C72200F145AE /* BLETransaction.m in Sources */,
 				8407237621801EE30039A788 /* BKConnection.m in Sources */,
 				7E371D7C2174F43B00ECC2C6 /* main.m in Sources */,
+				7EC0AD7D21856C9800F145AE /* Radar.m in Sources */,
+				7EC0AD6921841C6500F145AE /* SGCentralManagerMaker.m in Sources */,
+				7EC0AD702184310D00F145AE /* SGServiceMaker.m in Sources */,
 				7E371D6E2174F43900ECC2C6 /* AppDelegate.m in Sources */,
 				7E26A1CC2177962800B181D1 /* BKConfiguration.m in Sources */,
 				8407235D217EC9570039A788 /* BKScanner.m in Sources */,
+				7EC0AD8021856E1300F145AE /* RadarOptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
