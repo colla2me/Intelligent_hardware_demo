@@ -17,8 +17,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    NSArray *centralManagerIdentifiers = launchOptions[UIApplicationLaunchOptionsBluetoothCentralsKey];
-    NSLog(@"centralManagerIdentifiers: %@", centralManagerIdentifiers);
+//    NSArray *centralManagerIdentifiers = launchOptions[UIApplicationLaunchOptionsBluetoothCentralsKey];
+//    NSLog(@"centralManagerIdentifiers: %@", centralManagerIdentifiers);
     return YES;
 }
 

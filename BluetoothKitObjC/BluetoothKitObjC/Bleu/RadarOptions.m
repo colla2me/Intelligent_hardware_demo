@@ -13,7 +13,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         _showPowerAlertKey = NO;
-        _restoreIdentifierKey = nil;//@"com.bleu.radar.restore.key";
+        _restoreIdentifierKey = @"com.bleu.radar.restore.key";
         _allowDuplicatesKey = NO;
         _thresholdRSSI = -30;
         _timeout = 10;

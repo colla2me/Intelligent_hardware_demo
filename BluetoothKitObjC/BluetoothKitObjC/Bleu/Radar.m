@@ -111,7 +111,8 @@
     switch (central.state) {
         case CBCentralManagerStatePoweredOn:
             NSLog(@"蓝牙已开启");
-            if (_startScanBlock) self.startScanBlock(self.scanOptions);
+            if (self.isScanning) [self.centralManager stopScan];
+            if (self.startScanBlock) self.startScanBlock(self.scanOptions);
             break;
         case CBCentralManagerStatePoweredOff:
             NSLog(@"蓝牙未打开");
@@ -131,19 +132,19 @@
     }
 }
 
-//- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary<NSString *,id> *)state {
-//    NSArray<CBPeripheral *> *peripherals = state[CBCentralManagerRestoredStatePeripheralsKey];
-//    for (CBPeripheral *peripheral in peripherals) {
-//        [self.discoveredPeripherals addObject:peripheral];
-//        if (peripheral.state == CBPeripheralStateConnected) {
-//            [self.connectedPeripherals addObject:peripheral];
-//        }
-//    }
-//    NSLog(@"central will Restore State: %@", state);
-//}
+- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary<NSString *,id> *)state {
+    NSArray<CBPeripheral *> *peripherals = state[CBCentralManagerRestoredStatePeripheralsKey];
+    for (CBPeripheral *peripheral in peripherals) {
+        [self.discoveredPeripherals addObject:peripheral];
+        if (peripheral.state == CBPeripheralStateConnected) {
+            [self.connectedPeripherals addObject:peripheral];
+        }
+    }
+    NSLog(@"central will Restore State: %@", state);
+}
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI {
-    NSLog(@"[Bleu Radar] discover peripheral: %@, RSSI: %@", peripheral, RSSI);
+    NSLog(@"[Bleu Radar] discover peripheral: %@, advertisementData: %@, RSSI: %@", peripheral, advertisementData, RSSI);
     [self.discoveredPeripherals addObject:peripheral];
     NSDictionary *options = @{CBConnectPeripheralOptionNotifyOnConnectionKey: @YES, CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES};
     if (_radarOptions.allowDuplicatesKey) {
@@ -161,6 +162,12 @@
     peripheral.delegate = self;
     [peripheral discoverServices:self.serviceUUIDs];
     [self.connectedPeripherals addObject:peripheral];
+}
+
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error {
+    NSLog(@"[Bleu Radar] did disconnect peripheral. %@ %@", peripheral, error);
+//    [self.connectedPeripherals removeObject:peripheral];
+    [self checkScanCompletedIfnNeeded];
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error {
@@ -191,6 +198,10 @@
 }
 
 - (void)receiveResponse:(CBPeripheral *)peripheral characteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    if (error) {
+        NSLog(@"[Bleu Radar] update value error: %@", error);
+        return;
+    }
     if ([self.request.characteristicUUID isEqual:characteristic.UUID]) {
         if (self.request.response) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -297,7 +308,7 @@
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(nonnull CBCharacteristic *)characteristic error:(nullable NSError *)error {
-    NSLog(@"[Bleu Radar] did update value for characteristic %@ %@", peripheral, characteristic);
+    NSLog(@"[Bleu Radar] did update value for characteristic %@ %@ %@", peripheral, characteristic, error);
     [self receiveResponse:peripheral characteristic:characteristic error:error];
 }
 

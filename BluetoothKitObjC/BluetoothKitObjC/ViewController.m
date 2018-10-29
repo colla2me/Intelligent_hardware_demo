@@ -96,8 +96,8 @@
     
     RadarOptions *options = [[RadarOptions alloc] init];
     
-    CBUUID *serviceUUID = [CBUUID UUIDWithString:@"4E6C6189-D06B-4835-8F3B-F5CBC36560FB"];
-    CBUUID *characteristicUUID = [CBUUID UUIDWithString:@"BC9E790A-5682-4B4E-9366-E81BB97107A1"];
+    CBUUID *serviceUUID = [CBUUID UUIDWithString:@"8EE4CFC9-9DB5-417D-A08A-EE397C54672F"];
+    CBUUID *characteristicUUID = [CBUUID UUIDWithString:@"A265E5E3-1E11-4E55-B725-95465188B4FE"];
     
     RadarRequest *request = [[RadarRequest alloc] initWithServiceUUID:serviceUUID characteristicUUID:characteristicUUID];
     request.response = ^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {

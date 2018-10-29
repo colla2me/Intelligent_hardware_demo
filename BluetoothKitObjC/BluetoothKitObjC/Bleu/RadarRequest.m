@@ -13,6 +13,7 @@
 - (instancetype)initWithServiceUUID:(CBUUID *)serviceUUID characteristicUUID:(CBUUID *)characteristicUUID {
     if (self = [super init])  {
         _serviceUUID = serviceUUID;
+        _value = [@"Write same data is abc_123" dataUsingEncoding:NSUTF8StringEncoding];
         _characteristicUUID = characteristicUUID;
         _characteristic = [[CBMutableCharacteristic alloc] initWithType:characteristicUUID properties:CBCharacteristicPropertyRead | CBCharacteristicPropertyNotify value:_value permissions:CBAttributePermissionsReadable];
     }
