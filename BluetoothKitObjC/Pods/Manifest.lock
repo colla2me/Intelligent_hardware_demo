@@ -1,20 +1,24 @@
 PODS:
+  - Masonry (1.1.0)
   - ObjectiveSugar (1.1.0)
   - PromisesObjC (1.2.3)
 
 DEPENDENCIES:
+  - Masonry
   - ObjectiveSugar
   - PromisesObjC
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Masonry
     - ObjectiveSugar
     - PromisesObjC
 
 SPEC CHECKSUMS:
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
   PromisesObjC: a3a4263d8a9260214267e0b3788d0f83466ad449
 
-PODFILE CHECKSUM: ba2e9803f72afc882ddd4f1d9c8bf6259eb75cf5
+PODFILE CHECKSUM: 7811fad1f470f4fe6ff8beef8ace2d55c5f4cc6f
 
 COCOAPODS: 1.5.3
