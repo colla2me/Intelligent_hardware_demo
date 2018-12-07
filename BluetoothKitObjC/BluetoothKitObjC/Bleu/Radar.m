@@ -11,7 +11,10 @@
 @interface Radar () <CBCentralManagerDelegate, CBPeripheralDelegate>
 @property (nonatomic, strong) RadarRequest *request;
 @property (nonatomic, assign) BOOL isNeedCheckScanCompleted;
+@property (nonatomic, strong) CBPeripheral *testPeripheral;
 @end
+
+static NSString * const kDBN_Periperal = @"30days-tech-ble"; //@"DBN_44A6E54018CD";
 
 @implementation Radar
 
@@ -27,8 +30,8 @@
     self.request = request;
     self.queue = dispatch_queue_create("com.bleu.radar", DISPATCH_QUEUE_SERIAL);
     
-    self.serviceUUIDs = @[request.serviceUUID];
-    self.characteristics = @[request.characteristic];
+    self.serviceUUIDs = request.serviceUUID ? @[request.serviceUUID] : nil;
+    self.characteristics = request.characteristic ? @[request.characteristic] : nil;
     self.connectedPeripherals = [NSMutableSet set];
     self.discoveredPeripherals = [NSMutableSet set];
 //    self.completedRequests = [NSMutableDictionary dictionary];
@@ -85,6 +88,13 @@
     [self stopScan:YES];
     NSError *error = [NSError errorWithDomain:@"com.bleu.cancel" code:canceled userInfo:nil];
     if (self.completionHandler) self.completionHandler(@{}, error);
+}
+
+- (void)disconnect {
+    for (CBPeripheral *peripheral in self.connectedPeripherals) {
+        [peripheral setNotifyValue:NO forCharacteristic:self.request.characteristic];
+        [self.centralManager cancelPeripheralConnection:peripheral];
+    }
 }
 
 - (void)stopScan:(BOOL)cleaned {
@@ -144,16 +154,32 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI {
-    NSLog(@"[Bleu Radar] discover peripheral: %@, advertisementData: %@, RSSI: %@", peripheral, advertisementData, RSSI);
-    [self.discoveredPeripherals addObject:peripheral];
-    NSDictionary *options = @{CBConnectPeripheralOptionNotifyOnConnectionKey: @YES, CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES};
-    if (_radarOptions.allowDuplicatesKey) {
-        if (_radarOptions.thresholdRSSI < RSSI.integerValue) {
+//    if (RSSI.integerValue > -15) {
+//        NSLog(@"Reject any where the value is above reasonable range");
+//        return;
+//    }
+    
+    // Reject if the signal strength is too low to be close enough (Close is around -22dB)
+//    if (RSSI.integerValue < -35) {
+//        NSLog(@"Reject if the signal strength is too low to be close enough (Close is around -22dB)");
+//        return;
+//    }
+    
+    NSLog(@"[Bleu Radar] discover peripheral name is: %@", peripheral.name ?: advertisementData[CBAdvertisementDataLocalNameKey]);
+    
+    if (peripheral.name && [peripheral.name isEqualToString:kDBN_Periperal]) {
+        NSLog(@"[Bleu Radar] discover peripheral: %@, advertisementData: %@, RSSI: %@", peripheral, advertisementData, RSSI);
+        self.testPeripheral = peripheral;
+        [self.discoveredPeripherals addObject:peripheral];
+        NSDictionary *options = @{CBConnectPeripheralOptionNotifyOnConnectionKey: @YES, CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES};
+        if (_radarOptions.allowDuplicatesKey) {
+            if (_radarOptions.thresholdRSSI < RSSI.integerValue) {
+                [self.centralManager connectPeripheral:peripheral options:options];
+                [self stopScan:NO];
+            }
+        } else {
             [self.centralManager connectPeripheral:peripheral options:options];
-            [self stopScan:NO];
         }
-    } else {
-        [self.centralManager connectPeripheral:peripheral options:options];
     }
 }
 
@@ -176,6 +202,10 @@
 }
 
 #pragma mark -
+
+- (void)sendData:(NSData *)data {
+    [self.testPeripheral writeValue:data forCharacteristic:self.request.characteristic type:CBCharacteristicWriteWithResponse];
+}
 
 - (void)get:(CBPeripheral *)peripheral characteristic:(CBCharacteristic *)characteristic {
     if ([self.request.characteristicUUID isEqual:characteristic.UUID]) {
@@ -258,8 +288,9 @@
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(nullable NSError *)error {
     NSArray<CBService *> *serives = peripheral.services;
     NSLog(@"[Bleu Radar] did discover service %@ peripheral %@ error %@", serives, peripheral, error);
-    NSArray<CBUUID *> *characteristicUUIDs = @[self.request.characteristicUUID];
+    NSArray<CBUUID *> *characteristicUUIDs = self.request.characteristicUUID ? @[self.request.characteristicUUID] : nil;
     for (CBService *service in serives) {
+//        [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:@"F000FFC0-0451-4000-B000-000000000000"]] forService:service];
         [peripheral discoverCharacteristics:characteristicUUIDs forService:service];
     }
 }
@@ -287,7 +318,7 @@
         NSLog(@"[Bleu Radar] did discover characteristics for service error: %@", peripheral);
         return;
     }
-    NSLog(@"[Bleu Radar] did discover characteristics for service %@", peripheral);
+    NSLog(@"[Bleu Radar] did discover characteristics for service %@", service.characteristics);
     CBCharacteristicProperties properties = CBCharacteristicPropertyRead | CBCharacteristicPropertyWrite | CBCharacteristicPropertyNotify;
     for (CBCharacteristic *characteristic in service.characteristics) {
         if ([characteristic.UUID isEqual:self.request.characteristicUUID]) {

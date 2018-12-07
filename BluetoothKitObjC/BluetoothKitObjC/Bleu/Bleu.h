@@ -13,9 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Bleu : NSObject
 
+@property (nonatomic, strong) Radar *radar;
+
 + (Bleu *)shared;
 
 + (Radar *)sendRequest:(RadarRequest *)request options:(RadarOptions *)options completionHandler:(void(^)(NSDictionary* _Nullable, NSError * _Nullable))completionHandler;
+
++ (void)cancel;
 
 @end
 

@@ -8,40 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		17CEAE718752DEF2AFA3E036 /* libPods-BluetoothKitObjC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCFEFA83DA3B316A1D714D7 /* libPods-BluetoothKitObjC.a */; };
-		7E26A1C621778A4500B181D1 /* BKCBCentralManagerProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1C521778A4500B181D1 /* BKCBCentralManagerProxy.m */; };
-		7E26A1CC2177962800B181D1 /* BKConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E26A1CB2177962800B181D1 /* BKConfiguration.m */; };
 		7E371D6E2174F43900ECC2C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D6D2174F43900ECC2C6 /* AppDelegate.m */; };
 		7E371D712174F43900ECC2C6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D702174F43900ECC2C6 /* ViewController.m */; };
 		7E371D742174F43900ECC2C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D722174F43900ECC2C6 /* Main.storyboard */; };
 		7E371D762174F43B00ECC2C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D752174F43B00ECC2C6 /* Assets.xcassets */; };
 		7E371D792174F43B00ECC2C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D772174F43B00ECC2C6 /* LaunchScreen.storyboard */; };
 		7E371D7C2174F43B00ECC2C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D7B2174F43B00ECC2C6 /* main.m */; };
-		7EC0AD6921841C6500F145AE /* SGCentralManagerMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD6821841C6500F145AE /* SGCentralManagerMaker.m */; };
-		7EC0AD6D21842EAC00F145AE /* SGDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD6C21842EAC00F145AE /* SGDefinitions.m */; };
-		7EC0AD702184310D00F145AE /* SGServiceMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD6F2184310D00F145AE /* SGServiceMaker.m */; };
-		7EC0AD732184316C00F145AE /* SGCharacteristicMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD722184316C00F145AE /* SGCharacteristicMaker.m */; };
-		7EC0AD7621845D9000F145AE /* SGCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD7521845D9000F145AE /* SGCentralManager.m */; };
-		7EC0AD792184C72200F145AE /* BLETransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD782184C72200F145AE /* BLETransaction.m */; };
 		7EC0AD7D21856C9800F145AE /* Radar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD7C21856C9800F145AE /* Radar.m */; };
 		7EC0AD8021856E1300F145AE /* RadarOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD7F21856E1300F145AE /* RadarOptions.m */; };
 		7EC0AD842185862B00F145AE /* RadarRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD832185862B00F145AE /* RadarRequest.m */; };
 		7EC0AD8721860E3500F145AE /* Bleu.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD8621860E3500F145AE /* Bleu.m */; };
-		8407235D217EC9570039A788 /* BKScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407235C217EC9570039A788 /* BKScanner.m */; };
-		84072369217F05EC0039A788 /* BKCBCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84072368217F05EC0039A788 /* BKCBCentralManager.m */; };
-		8407236C217F1B080039A788 /* BKDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407236B217F1B080039A788 /* BKDiscovery.m */; };
 		8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407237221801CF30039A788 /* AIMultiDelegate.m */; };
-		8407237621801EE30039A788 /* BKConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407237521801EE30039A788 /* BKConnection.m */; };
-		840C4971218162360081AD35 /* CBPeriperalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840C4970218162360081AD35 /* CBPeriperalViewController.m */; };
-		8462E8EE218310E100339A6A /* SugarBLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 8462E8ED218310E100339A6A /* SugarBLE.m */; };
+		8424F2D421BA567C006D86B5 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2D321BA567C006D86B5 /* TestViewController.m */; };
+		8424F2DD21BA82BC006D86B5 /* BleCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2DC21BA82BC006D86B5 /* BleCentralManager.m */; };
+		8424F2E021BA82CF006D86B5 /* BleCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2DF21BA82CF006D86B5 /* BleCharacteristic.m */; };
+		8424F2E321BA82EF006D86B5 /* BlePeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2E221BA82EF006D86B5 /* BlePeripheral.m */; };
+		8424F2E621BA8351006D86B5 /* BleService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2E521BA8351006D86B5 /* BleService.m */; };
+		8424F2E921BA83DF006D86B5 /* BleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2E821BA83DF006D86B5 /* BleUtils.m */; };
+		8424F2F821BA87BD006D86B5 /* LGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2EF21BA87BD006D86B5 /* LGUtils.m */; };
+		8424F2F921BA87BD006D86B5 /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2F221BA87BD006D86B5 /* CBUUID+StringExtraction.m */; };
+		8424F2FA21BA87BD006D86B5 /* LGService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2F321BA87BD006D86B5 /* LGService.m */; };
+		8424F2FB21BA87BD006D86B5 /* LGCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2F521BA87BD006D86B5 /* LGCharacteristic.m */; };
+		8424F2FC21BA87BD006D86B5 /* LGPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2F621BA87BD006D86B5 /* LGPeripheral.m */; };
+		8424F2FD21BA87BD006D86B5 /* LGCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2F721BA87BD006D86B5 /* LGCentralManager.m */; };
+		84C2E3D421B902B300591040 /* Pulsator.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E3D321B902B300591040 /* Pulsator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		09CA040F6599DF3469093500 /* Pods-BluetoothKitObjC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothKitObjC.release.xcconfig"; path = "Pods/Target Support Files/Pods-BluetoothKitObjC/Pods-BluetoothKitObjC.release.xcconfig"; sourceTree = "<group>"; };
 		4BCFEFA83DA3B316A1D714D7 /* libPods-BluetoothKitObjC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BluetoothKitObjC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E26A1C421778A4500B181D1 /* BKCBCentralManagerProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCBCentralManagerProxy.h; sourceTree = "<group>"; };
-		7E26A1C521778A4500B181D1 /* BKCBCentralManagerProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCBCentralManagerProxy.m; sourceTree = "<group>"; };
-		7E26A1CA2177962800B181D1 /* BKConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKConfiguration.h; sourceTree = "<group>"; };
-		7E26A1CB2177962800B181D1 /* BKConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKConfiguration.m; sourceTree = "<group>"; };
 		7E371D692174F43900ECC2C6 /* BluetoothKitObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothKitObjC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E371D6C2174F43900ECC2C6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7E371D6D2174F43900ECC2C6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -53,18 +48,6 @@
 		7E371D7A2174F43B00ECC2C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E371D7B2174F43B00ECC2C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7EAD003435C6A68FDA4E07FD /* Pods-BluetoothKitObjC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothKitObjC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BluetoothKitObjC/Pods-BluetoothKitObjC.debug.xcconfig"; sourceTree = "<group>"; };
-		7EC0AD6721841C6500F145AE /* SGCentralManagerMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SGCentralManagerMaker.h; path = ../../../../../../Documents/SGCentralManagerMaker.h; sourceTree = "<group>"; };
-		7EC0AD6821841C6500F145AE /* SGCentralManagerMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SGCentralManagerMaker.m; path = ../../../../../../Documents/SGCentralManagerMaker.m; sourceTree = "<group>"; };
-		7EC0AD6B21842EAC00F145AE /* SGDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SGDefinitions.h; path = ../../../../../../Documents/SGDefinitions.h; sourceTree = "<group>"; };
-		7EC0AD6C21842EAC00F145AE /* SGDefinitions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SGDefinitions.m; path = ../../../../../../Documents/SGDefinitions.m; sourceTree = "<group>"; };
-		7EC0AD6E2184310D00F145AE /* SGServiceMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SGServiceMaker.h; path = ../../../../../../Documents/SGServiceMaker.h; sourceTree = "<group>"; };
-		7EC0AD6F2184310D00F145AE /* SGServiceMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SGServiceMaker.m; path = ../../../../../../Documents/SGServiceMaker.m; sourceTree = "<group>"; };
-		7EC0AD712184316C00F145AE /* SGCharacteristicMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SGCharacteristicMaker.h; path = ../../../../../../Documents/SGCharacteristicMaker.h; sourceTree = "<group>"; };
-		7EC0AD722184316C00F145AE /* SGCharacteristicMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SGCharacteristicMaker.m; path = ../../../../../../Documents/SGCharacteristicMaker.m; sourceTree = "<group>"; };
-		7EC0AD7421845D9000F145AE /* SGCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SGCentralManager.h; path = ../../../../../../Documents/SGCentralManager.h; sourceTree = "<group>"; };
-		7EC0AD7521845D9000F145AE /* SGCentralManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SGCentralManager.m; path = ../../../../../../Documents/SGCentralManager.m; sourceTree = "<group>"; };
-		7EC0AD772184C72200F145AE /* BLETransaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BLETransaction.h; path = ../../../../../../Documents/BLETransaction.h; sourceTree = "<group>"; };
-		7EC0AD782184C72200F145AE /* BLETransaction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BLETransaction.m; path = ../../../../../../Documents/BLETransaction.m; sourceTree = "<group>"; };
 		7EC0AD7B21856C9800F145AE /* Radar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Radar.h; sourceTree = "<group>"; };
 		7EC0AD7C21856C9800F145AE /* Radar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Radar.m; sourceTree = "<group>"; };
 		7EC0AD7E21856E1300F145AE /* RadarOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RadarOptions.h; sourceTree = "<group>"; };
@@ -74,20 +57,36 @@
 		7EC0AD832185862B00F145AE /* RadarRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RadarRequest.m; sourceTree = "<group>"; };
 		7EC0AD8521860E3500F145AE /* Bleu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bleu.h; sourceTree = "<group>"; };
 		7EC0AD8621860E3500F145AE /* Bleu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Bleu.m; sourceTree = "<group>"; };
-		8407235B217EC9570039A788 /* BKScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKScanner.h; sourceTree = "<group>"; };
-		8407235C217EC9570039A788 /* BKScanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKScanner.m; sourceTree = "<group>"; };
-		84072367217F05EC0039A788 /* BKCBCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCBCentralManager.h; sourceTree = "<group>"; };
-		84072368217F05EC0039A788 /* BKCBCentralManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCBCentralManager.m; sourceTree = "<group>"; };
-		8407236A217F1B080039A788 /* BKDiscovery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKDiscovery.h; sourceTree = "<group>"; };
-		8407236B217F1B080039A788 /* BKDiscovery.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKDiscovery.m; sourceTree = "<group>"; };
 		8407237121801CF30039A788 /* AIMultiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIMultiDelegate.h; sourceTree = "<group>"; };
 		8407237221801CF30039A788 /* AIMultiDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIMultiDelegate.m; sourceTree = "<group>"; };
-		8407237421801EE30039A788 /* BKConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKConnection.h; sourceTree = "<group>"; };
-		8407237521801EE30039A788 /* BKConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKConnection.m; sourceTree = "<group>"; };
-		840C496F218162360081AD35 /* CBPeriperalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBPeriperalViewController.h; sourceTree = "<group>"; };
-		840C4970218162360081AD35 /* CBPeriperalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBPeriperalViewController.m; sourceTree = "<group>"; };
-		8462E8EC218310E100339A6A /* SugarBLE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SugarBLE.h; sourceTree = "<group>"; };
-		8462E8ED218310E100339A6A /* SugarBLE.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SugarBLE.m; sourceTree = "<group>"; };
+		8424F2D221BA567C006D86B5 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		8424F2D321BA567C006D86B5 /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		8424F2DB21BA82BC006D86B5 /* BleCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleCentralManager.h; sourceTree = "<group>"; };
+		8424F2DC21BA82BC006D86B5 /* BleCentralManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleCentralManager.m; sourceTree = "<group>"; };
+		8424F2DE21BA82CF006D86B5 /* BleCharacteristic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleCharacteristic.h; sourceTree = "<group>"; };
+		8424F2DF21BA82CF006D86B5 /* BleCharacteristic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleCharacteristic.m; sourceTree = "<group>"; };
+		8424F2E121BA82EF006D86B5 /* BlePeripheral.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlePeripheral.h; sourceTree = "<group>"; };
+		8424F2E221BA82EF006D86B5 /* BlePeripheral.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlePeripheral.m; sourceTree = "<group>"; };
+		8424F2E421BA8351006D86B5 /* BleService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleService.h; sourceTree = "<group>"; };
+		8424F2E521BA8351006D86B5 /* BleService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleService.m; sourceTree = "<group>"; };
+		8424F2E721BA83DF006D86B5 /* BleUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleUtils.h; sourceTree = "<group>"; };
+		8424F2E821BA83DF006D86B5 /* BleUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleUtils.m; sourceTree = "<group>"; };
+		8424F2EB21BA87BD006D86B5 /* CBUUID+StringExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+StringExtraction.h"; sourceTree = "<group>"; };
+		8424F2EC21BA87BD006D86B5 /* LGBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGBluetooth.h; sourceTree = "<group>"; };
+		8424F2ED21BA87BD006D86B5 /* LGCharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGCharacteristic.h; sourceTree = "<group>"; };
+		8424F2EE21BA87BD006D86B5 /* LGService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGService.h; sourceTree = "<group>"; };
+		8424F2EF21BA87BD006D86B5 /* LGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGUtils.m; sourceTree = "<group>"; };
+		8424F2F021BA87BD006D86B5 /* LGCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGCentralManager.h; sourceTree = "<group>"; };
+		8424F2F121BA87BD006D86B5 /* LGPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGPeripheral.h; sourceTree = "<group>"; };
+		8424F2F221BA87BD006D86B5 /* CBUUID+StringExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+StringExtraction.m"; sourceTree = "<group>"; };
+		8424F2F321BA87BD006D86B5 /* LGService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGService.m; sourceTree = "<group>"; };
+		8424F2F421BA87BD006D86B5 /* LGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGUtils.h; sourceTree = "<group>"; };
+		8424F2F521BA87BD006D86B5 /* LGCharacteristic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGCharacteristic.m; sourceTree = "<group>"; };
+		8424F2F621BA87BD006D86B5 /* LGPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGPeripheral.m; sourceTree = "<group>"; };
+		8424F2F721BA87BD006D86B5 /* LGCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGCentralManager.m; sourceTree = "<group>"; };
+		8424F2FE21BA884F006D86B5 /* BluetoothKitObjC.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BluetoothKitObjC.pch; sourceTree = "<group>"; };
+		84C2E3D221B902B300591040 /* Pulsator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pulsator.h; sourceTree = "<group>"; };
+		84C2E3D321B902B300591040 /* Pulsator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pulsator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,47 +139,25 @@
 		7E371D6B2174F43900ECC2C6 /* BluetoothKitObjC */ = {
 			isa = PBXGroup;
 			children = (
+				8424F2EA21BA87BD006D86B5 /* LGBluetooth */,
+				8424F2D121BA26B6006D86B5 /* BleClient */,
+				84C2E3D121B9026D00591040 /* Pulsator */,
 				7EC0AD7A21856C4B00F145AE /* Bleu */,
 				8407237021801CF30039A788 /* MultiDelegate */,
 				7E371D6C2174F43900ECC2C6 /* AppDelegate.h */,
 				7E371D6D2174F43900ECC2C6 /* AppDelegate.m */,
 				7E371D6F2174F43900ECC2C6 /* ViewController.h */,
 				7E371D702174F43900ECC2C6 /* ViewController.m */,
-				8462E8EB21830D7200339A6A /* SugarBLE */,
+				8424F2D221BA567C006D86B5 /* TestViewController.h */,
+				8424F2D321BA567C006D86B5 /* TestViewController.m */,
 				7E371D722174F43900ECC2C6 /* Main.storyboard */,
 				7E371D752174F43B00ECC2C6 /* Assets.xcassets */,
 				7E371D772174F43B00ECC2C6 /* LaunchScreen.storyboard */,
 				7E371D7A2174F43B00ECC2C6 /* Info.plist */,
 				7E371D7B2174F43B00ECC2C6 /* main.m */,
-				84072354217EC8060039A788 /* BKBluetoothPromise */,
+				8424F2FE21BA884F006D86B5 /* BluetoothKitObjC.pch */,
 			);
 			path = BluetoothKitObjC;
-			sourceTree = "<group>";
-		};
-		7EC0AD6421841C3E00F145AE /* BLEMaker */ = {
-			isa = PBXGroup;
-			children = (
-				7EC0AD6721841C6500F145AE /* SGCentralManagerMaker.h */,
-				7EC0AD6821841C6500F145AE /* SGCentralManagerMaker.m */,
-				7EC0AD6E2184310D00F145AE /* SGServiceMaker.h */,
-				7EC0AD6F2184310D00F145AE /* SGServiceMaker.m */,
-				7EC0AD712184316C00F145AE /* SGCharacteristicMaker.h */,
-				7EC0AD722184316C00F145AE /* SGCharacteristicMaker.m */,
-			);
-			path = BLEMaker;
-			sourceTree = "<group>";
-		};
-		7EC0AD6A21842E8B00F145AE /* BLEManager */ = {
-			isa = PBXGroup;
-			children = (
-				7EC0AD6B21842EAC00F145AE /* SGDefinitions.h */,
-				7EC0AD6C21842EAC00F145AE /* SGDefinitions.m */,
-				7EC0AD7421845D9000F145AE /* SGCentralManager.h */,
-				7EC0AD7521845D9000F145AE /* SGCentralManager.m */,
-				7EC0AD772184C72200F145AE /* BLETransaction.h */,
-				7EC0AD782184C72200F145AE /* BLETransaction.m */,
-			);
-			path = BLEManager;
 			sourceTree = "<group>";
 		};
 		7EC0AD7A21856C4B00F145AE /* Bleu */ = {
@@ -199,27 +176,6 @@
 			path = Bleu;
 			sourceTree = "<group>";
 		};
-		84072354217EC8060039A788 /* BKBluetoothPromise */ = {
-			isa = PBXGroup;
-			children = (
-				840C496F218162360081AD35 /* CBPeriperalViewController.h */,
-				840C4970218162360081AD35 /* CBPeriperalViewController.m */,
-				84072367217F05EC0039A788 /* BKCBCentralManager.h */,
-				84072368217F05EC0039A788 /* BKCBCentralManager.m */,
-				8407235B217EC9570039A788 /* BKScanner.h */,
-				8407235C217EC9570039A788 /* BKScanner.m */,
-				8407236A217F1B080039A788 /* BKDiscovery.h */,
-				8407236B217F1B080039A788 /* BKDiscovery.m */,
-				8407237421801EE30039A788 /* BKConnection.h */,
-				8407237521801EE30039A788 /* BKConnection.m */,
-				7E26A1CA2177962800B181D1 /* BKConfiguration.h */,
-				7E26A1CB2177962800B181D1 /* BKConfiguration.m */,
-				7E26A1C421778A4500B181D1 /* BKCBCentralManagerProxy.h */,
-				7E26A1C521778A4500B181D1 /* BKCBCentralManagerProxy.m */,
-			);
-			path = BKBluetoothPromise;
-			sourceTree = "<group>";
-		};
 		8407237021801CF30039A788 /* MultiDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,15 +185,50 @@
 			path = MultiDelegate;
 			sourceTree = "<group>";
 		};
-		8462E8EB21830D7200339A6A /* SugarBLE */ = {
+		8424F2D121BA26B6006D86B5 /* BleClient */ = {
 			isa = PBXGroup;
 			children = (
-				7EC0AD6A21842E8B00F145AE /* BLEManager */,
-				7EC0AD6421841C3E00F145AE /* BLEMaker */,
-				8462E8EC218310E100339A6A /* SugarBLE.h */,
-				8462E8ED218310E100339A6A /* SugarBLE.m */,
+				8424F2DB21BA82BC006D86B5 /* BleCentralManager.h */,
+				8424F2DC21BA82BC006D86B5 /* BleCentralManager.m */,
+				8424F2DE21BA82CF006D86B5 /* BleCharacteristic.h */,
+				8424F2DF21BA82CF006D86B5 /* BleCharacteristic.m */,
+				8424F2E121BA82EF006D86B5 /* BlePeripheral.h */,
+				8424F2E221BA82EF006D86B5 /* BlePeripheral.m */,
+				8424F2E421BA8351006D86B5 /* BleService.h */,
+				8424F2E521BA8351006D86B5 /* BleService.m */,
+				8424F2E721BA83DF006D86B5 /* BleUtils.h */,
+				8424F2E821BA83DF006D86B5 /* BleUtils.m */,
 			);
-			path = SugarBLE;
+			path = BleClient;
+			sourceTree = "<group>";
+		};
+		8424F2EA21BA87BD006D86B5 /* LGBluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				8424F2EB21BA87BD006D86B5 /* CBUUID+StringExtraction.h */,
+				8424F2EC21BA87BD006D86B5 /* LGBluetooth.h */,
+				8424F2ED21BA87BD006D86B5 /* LGCharacteristic.h */,
+				8424F2EE21BA87BD006D86B5 /* LGService.h */,
+				8424F2EF21BA87BD006D86B5 /* LGUtils.m */,
+				8424F2F021BA87BD006D86B5 /* LGCentralManager.h */,
+				8424F2F121BA87BD006D86B5 /* LGPeripheral.h */,
+				8424F2F221BA87BD006D86B5 /* CBUUID+StringExtraction.m */,
+				8424F2F321BA87BD006D86B5 /* LGService.m */,
+				8424F2F421BA87BD006D86B5 /* LGUtils.h */,
+				8424F2F521BA87BD006D86B5 /* LGCharacteristic.m */,
+				8424F2F621BA87BD006D86B5 /* LGPeripheral.m */,
+				8424F2F721BA87BD006D86B5 /* LGCentralManager.m */,
+			);
+			path = LGBluetooth;
+			sourceTree = "<group>";
+		};
+		84C2E3D121B9026D00591040 /* Pulsator */ = {
+			isa = PBXGroup;
+			children = (
+				84C2E3D221B902B300591040 /* Pulsator.h */,
+				84C2E3D321B902B300591040 /* Pulsator.m */,
+			);
+			path = Pulsator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,27 +328,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E26A1C621778A4500B181D1 /* BKCBCentralManagerProxy.m in Sources */,
 				7E371D712174F43900ECC2C6 /* ViewController.m in Sources */,
-				7EC0AD6D21842EAC00F145AE /* SGDefinitions.m in Sources */,
-				8462E8EE218310E100339A6A /* SugarBLE.m in Sources */,
-				8407236C217F1B080039A788 /* BKDiscovery.m in Sources */,
-				7EC0AD7621845D9000F145AE /* SGCentralManager.m in Sources */,
+				8424F2E021BA82CF006D86B5 /* BleCharacteristic.m in Sources */,
 				7EC0AD842185862B00F145AE /* RadarRequest.m in Sources */,
-				7EC0AD732184316C00F145AE /* SGCharacteristicMaker.m in Sources */,
-				84072369217F05EC0039A788 /* BKCBCentralManager.m in Sources */,
+				8424F2E321BA82EF006D86B5 /* BlePeripheral.m in Sources */,
+				8424F2D421BA567C006D86B5 /* TestViewController.m in Sources */,
 				7EC0AD8721860E3500F145AE /* Bleu.m in Sources */,
 				8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */,
-				840C4971218162360081AD35 /* CBPeriperalViewController.m in Sources */,
-				7EC0AD792184C72200F145AE /* BLETransaction.m in Sources */,
-				8407237621801EE30039A788 /* BKConnection.m in Sources */,
 				7E371D7C2174F43B00ECC2C6 /* main.m in Sources */,
+				8424F2FA21BA87BD006D86B5 /* LGService.m in Sources */,
 				7EC0AD7D21856C9800F145AE /* Radar.m in Sources */,
-				7EC0AD6921841C6500F145AE /* SGCentralManagerMaker.m in Sources */,
-				7EC0AD702184310D00F145AE /* SGServiceMaker.m in Sources */,
+				8424F2FC21BA87BD006D86B5 /* LGPeripheral.m in Sources */,
+				8424F2FD21BA87BD006D86B5 /* LGCentralManager.m in Sources */,
 				7E371D6E2174F43900ECC2C6 /* AppDelegate.m in Sources */,
-				7E26A1CC2177962800B181D1 /* BKConfiguration.m in Sources */,
-				8407235D217EC9570039A788 /* BKScanner.m in Sources */,
+				8424F2F821BA87BD006D86B5 /* LGUtils.m in Sources */,
+				8424F2E921BA83DF006D86B5 /* BleUtils.m in Sources */,
+				84C2E3D421B902B300591040 /* Pulsator.m in Sources */,
+				8424F2FB21BA87BD006D86B5 /* LGCharacteristic.m in Sources */,
+				8424F2E621BA8351006D86B5 /* BleService.m in Sources */,
+				8424F2F921BA87BD006D86B5 /* CBUUID+StringExtraction.m in Sources */,
+				8424F2DD21BA82BC006D86B5 /* BleCentralManager.m in Sources */,
 				7EC0AD8021856E1300F145AE /* RadarOptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,6 +491,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4E86YQZE64;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = BluetoothKitObjC/BluetoothKitObjC.pch;
 				INFOPLIST_FILE = BluetoothKitObjC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -519,6 +511,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4E86YQZE64;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = BluetoothKitObjC/BluetoothKitObjC.pch;
 				INFOPLIST_FILE = BluetoothKitObjC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

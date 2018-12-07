@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
-//typedef void(^<#name#>)(<#arguments#>);
-
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol Communicable <NSObject>

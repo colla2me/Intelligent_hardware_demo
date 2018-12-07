@@ -36,8 +36,15 @@
     Radar *radar = [[Radar alloc] initWithRequest:request options:options];
     radar.completionHandler = completionHandler;
     [[Bleu shared].radars addObject:radar];
+    [Bleu shared].radar = radar;
     [radar resume];
     return radar;
+}
+
++ (void)cancel {
+    for (Radar *radar in [Bleu shared].radars) {
+        [radar disconnect];
+    }
 }
 
 @end

@@ -49,6 +49,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)cancel;
 
+- (void)disconnect;
+
+- (void)sendData:(NSData *)data;
+
 @end
 
 NS_ASSUME_NONNULL_END
