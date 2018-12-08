@@ -1,24 +1,42 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
   - Masonry (1.1.0)
   - ObjectiveSugar (1.1.0)
   - PromisesObjC (1.2.3)
 
 DEPENDENCIES:
+  - AFNetworking
   - Masonry
   - ObjectiveSugar
   - PromisesObjC
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AFNetworking
     - Masonry
     - ObjectiveSugar
     - PromisesObjC
 
 SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
   PromisesObjC: a3a4263d8a9260214267e0b3788d0f83466ad449
 
-PODFILE CHECKSUM: 7811fad1f470f4fe6ff8beef8ace2d55c5f4cc6f
+PODFILE CHECKSUM: 86c28a70c40719fa182de2b72de2051173099266
 
 COCOAPODS: 1.5.3

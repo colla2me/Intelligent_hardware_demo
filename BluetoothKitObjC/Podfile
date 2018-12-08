@@ -5,5 +5,5 @@ target 'BluetoothKitObjC' do
     pod 'ObjectiveSugar'
     pod 'PromisesObjC'
     pod 'Masonry'
-#    pod 'AFNetworking'
+    pod 'AFNetworking'
 end
