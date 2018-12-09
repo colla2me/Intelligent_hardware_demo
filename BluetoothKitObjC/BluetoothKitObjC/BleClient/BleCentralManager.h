@@ -18,24 +18,34 @@ typedef NS_ENUM(NSInteger, BleManagerState) {
     BleManagerStatePoweredOn,
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface BleCentralManager : NSObject
 
-@property (nonatomic, copy) NSString *peripheralName;
+@property (nonatomic, copy, nullable) NSString *peripheralName;
 @property (nonatomic, copy) NSString *serviceUUIDString;
 @property (nonatomic, copy) NSString *characteristicUUIDString;
+
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, id> *managerOptions;
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, id> *scanOptions;
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, id> *connectionOptions;
+
+@property (nonatomic, strong, readonly) CBCentralManager *centralManager;
+@property (nonatomic, strong, readonly, nullable) CBPeripheral *peripheral;
 @property (nonatomic, assign, readonly) BleManagerState state;
+@property (nonatomic, assign, readonly) BOOL isScanning;
 
-//@property (nonatomic, strong, readonly) NSMutableSet<CBPeripheral *> *discoveredPeripherals;
-//@property (nonatomic, strong, readonly) NSMutableSet<CBService *> *discoveredServices;
-//@property (nonatomic, strong, readonly) NSMutableSet<CBCharacteristic *> *discoveredCharacteristics;
-
-/** convinience init */
+/** convenience init */
 + (instancetype)manager;
 
 /** designated init */
-- (instancetype)initWithOptions:(NSDictionary<NSString *, id> *)options;
+- (instancetype)initWithOptions:(nullable NSDictionary<NSString *, id> *)options;
 
-- (void)connectPeripheralName:(NSString *)peripheralName options:(NSDictionary<NSString *, id> *)options;
+- (void)scanForPeripheralsWithOptions:(nullable NSDictionary<NSString *, id> *)options handler:(void(^ _Nullable)(NSArray<CBPeripheral *> *peripherals))handler;
+
+- (void)scanForPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs options:(nullable NSDictionary<NSString *, id> *)options handler:(void(^ _Nullable)(NSArray<CBPeripheral *> *peripherals))handler;
+
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *, id> *)options;
 
 - (void)readValueForCharacteristic:(CBUUID *)UUID completion:(void(^)(NSData *data, NSError *error))completion;
 
@@ -56,3 +66,5 @@ typedef NS_ENUM(NSInteger, BleManagerState) {
 - (void)cancel;
 
 @end
+
+NS_ASSUME_NONNULL_END

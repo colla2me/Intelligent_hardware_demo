@@ -11,6 +11,7 @@
 #define SERVICE_UUID        @"CDD1"
 #define CHARACTERISTIC_UUID @"CDD2"
 
+typedef void(^BLECentralScanForPeripheralsBlock)(NSArray<CBPeripheral *> *peripherals);
 typedef void(^BLECentralDidDisoverPeripheralBlock)(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI);
 typedef void(^BLECentralDidDiscoverServicesBlock)(CBPeripheral *peripheral, NSError *error);
 typedef void(^BLECentralDidDiscoverCharacteristicsBlock)(CBPeripheral *peripheral, CBService *service, NSError *error);
@@ -30,11 +31,13 @@ typedef void(^BLEWriteValueCompletion)(NSError *error);
 @property (nonatomic, strong) NSMutableSet<CBService *> *discoveredServices;
 @property (nonatomic, strong) NSMutableSet<CBCharacteristic *> *discoveredCharacteristics;
 
+@property (nonatomic, copy) BLECentralScanForPeripheralsBlock centralScanForPeripherals;
 @property (nonatomic, copy) BLECentralDidDisoverPeripheralBlock centralDidDisoverPeripheral;
 @property (nonatomic, copy) BLECentralDidDiscoverServicesBlock centralDidDiscoverServices;
 @property (nonatomic, copy) BLECentralDidDiscoverCharacteristicsBlock centralDidDiscoverCharacteristics;
 @property (nonatomic, copy) BLEReadValueCompletion readValueCompletion;
 @property (nonatomic, copy) BLEWriteValueCompletion writeValueCompletion;
+@property (nonatomic, strong) NSSortDescriptor *sortRSSIDescriptor;
 
 @end
 
@@ -48,12 +51,13 @@ typedef void(^BLEWriteValueCompletion)(NSError *error);
     return [self initWithOptions:nil];
 }
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *, id> *)options {
+- (instancetype)initWithOptions:(nullable NSDictionary<NSString *, id> *)options {
     self = [super init];
     if (!self) {
         return nil;
     }
     
+    self.managerOptions = options;
     self.discoveredPeripherals = [NSMutableSet set];
     self.discoveredServices = [NSMutableSet set];
     self.discoveredCharacteristics = [NSMutableSet set];
@@ -62,8 +66,11 @@ typedef void(^BLEWriteValueCompletion)(NSError *error);
     return self;
 }
 
-- (void)stopNotifyingForCharacteristic:(CBCharacteristic *)characteristic {
-    [self.peripheral setNotifyValue:NO forCharacteristic:characteristic];
+- (NSSortDescriptor *)sortRSSIDescriptor {
+    if (!_sortRSSIDescriptor) {
+        _sortRSSIDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"RSSI" ascending:NO];
+    }
+    return _sortRSSIDescriptor;
 }
 
 - (void)cleanup {
@@ -84,7 +91,7 @@ typedef void(^BLEWriteValueCompletion)(NSError *error);
     
     for (CBCharacteristic *characteristic in self.discoveredCharacteristics) {
         if (!characteristic.isNotifying) continue;
-        [self stopNotifyingForCharacteristic:characteristic];
+        [self.peripheral setNotifyValue:NO forCharacteristic:characteristic];
     }
     
     [self cleanup];
@@ -92,6 +99,24 @@ typedef void(^BLEWriteValueCompletion)(NSError *error);
 
 - (BleManagerState)state {
     return (BleManagerState)self.centralManager.state;
+}
+
+- (BOOL)isScanning {
+    return self.centralManager.isScanning;
+}
+
+- (void)scanForPeripheralsWithOptions:(NSDictionary<NSString *,id> *)options handler:(void (^ _Nullable)(NSArray<CBPeripheral *> * _Nonnull))handler {
+    [self scanForPeripheralsWithServices:nil options:options handler:handler];
+}
+
+- (void)scanForPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs options:(nullable NSDictionary<NSString *, id> *)options handler:(void(^ _Nullable)(NSArray<CBPeripheral *> *peripherals))handler {
+    self.centralScanForPeripherals = handler;
+    
+    if (self.isScanning) return;
+    
+    if (BleManagerStatePoweredOn == self.state) {
+        [self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:SERVICE_UUID]] options:options];
+    }
 }
 
 - (void)setCentralDidDiscoverPeripheralBlock:(void(^)(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI))block {
@@ -110,26 +135,20 @@ typedef void(^BLEWriteValueCompletion)(NSError *error);
     self.readValueCompletion = block;
 }
 
-- (void)connectPeripheralName:(NSString *)peripheralName options:(NSDictionary<NSString *,id> *)options {
-    if (!peripheralName || 0 == self.discoveredPeripherals.count) return;
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *,id> *)options {
+    if (!peripheral || 0 == self.discoveredPeripherals.count) return;
     
-    for (CBPeripheral *peripheral in self.discoveredPeripherals) {
-        if (peripheral.name &&
-            [peripheralName isEqualToString:peripheral.name] &&
-            CBPeripheralStateConnected != peripheral.state) {
-            
-            // 断开之前的设备
-            if (self.peripheral) {
-                [self.centralManager cancelPeripheralConnection:self.peripheral];
-            }
-
-            self.peripheral = peripheral;
-            
-            // 连接到新的设备
-            [self.centralManager connectPeripheral:peripheral options:options];
-            break;
-        }
+    self.connectionOptions = options;
+    
+    // 断开之前的设备
+    if (self.peripheral) {
+        [self.centralManager cancelPeripheralConnection:self.peripheral];
     }
+    
+    self.peripheral = peripheral;
+    
+    // 连接到新的设备
+    [self.centralManager connectPeripheral:peripheral options:options];
 }
 
 - (void)readValueForCharacteristic:(CBUUID *)UUID completion:(void(^)(NSData *data, NSError *error))completion {
@@ -199,13 +218,18 @@ typedef void(^BLEWriteValueCompletion)(NSError *error);
     // 记录发现的外设
     [self.discoveredPeripherals addObject:peripheral];
     
+    if (self.centralScanForPeripherals) {
+        NSArray *array = [self.discoveredServices sortedArrayUsingDescriptors:@[self.sortRSSIDescriptor]];
+        self.centralScanForPeripherals(array);
+    }
+    
     // 可以根据外设名字来过滤外设
-//    if (self.peripheralName && [peripheral.name hasPrefix:self.peripheralName]) {
-//        [central connectPeripheral:peripheral options:nil];
-//    }
+    if (self.peripheralName && peripheral.name && [peripheral.name hasPrefix:self.peripheralName]) {
+        [central connectPeripheral:peripheral options:nil];
+    }
     
     // 连接外设
-    [central connectPeripheral:peripheral options:nil];
+//    [central connectPeripheral:peripheral options:nil];
     
     if (self.centralDidDisoverPeripheral) {
         self.centralDidDisoverPeripheral(peripheral, advertisementData, RSSI);

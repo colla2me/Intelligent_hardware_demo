@@ -14,6 +14,12 @@
 		7E371D762174F43B00ECC2C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D752174F43B00ECC2C6 /* Assets.xcassets */; };
 		7E371D792174F43B00ECC2C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D772174F43B00ECC2C6 /* LaunchScreen.storyboard */; };
 		7E371D7C2174F43B00ECC2C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D7B2174F43B00ECC2C6 /* main.m */; };
+		7E7FD21821BCD06600402B8C /* BKCentralManagerMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7FD21721BCD06600402B8C /* BKCentralManagerMaker.m */; };
+		7E7FD22021BCD2C500402B8C /* BKServiceMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7FD21F21BCD2C500402B8C /* BKServiceMaker.m */; };
+		7E7FD22321BCD2DA00402B8C /* BKCharacteristicMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7FD22221BCD2DA00402B8C /* BKCharacteristicMaker.m */; };
+		7E7FD22621BCEA6900402B8C /* BKCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7FD22521BCEA6900402B8C /* BKCentralManager.m */; };
+		7E7FD22921BCECD900402B8C /* BKTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7FD22821BCECD900402B8C /* BKTransaction.m */; };
+		7E7FD22C21BCF28700402B8C /* NSData+BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7FD22B21BCF28700402B8C /* NSData+BLE.m */; };
 		7EC0AD7D21856C9800F145AE /* Radar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD7C21856C9800F145AE /* Radar.m */; };
 		7EC0AD8021856E1300F145AE /* RadarOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD7F21856E1300F145AE /* RadarOptions.m */; };
 		7EC0AD842185862B00F145AE /* RadarRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD832185862B00F145AE /* RadarRequest.m */; };
@@ -50,6 +56,18 @@
 		7E371D782174F43B00ECC2C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7E371D7A2174F43B00ECC2C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E371D7B2174F43B00ECC2C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7E7FD21621BCD06600402B8C /* BKCentralManagerMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCentralManagerMaker.h; sourceTree = "<group>"; };
+		7E7FD21721BCD06600402B8C /* BKCentralManagerMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCentralManagerMaker.m; sourceTree = "<group>"; };
+		7E7FD21E21BCD2C500402B8C /* BKServiceMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKServiceMaker.h; sourceTree = "<group>"; };
+		7E7FD21F21BCD2C500402B8C /* BKServiceMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKServiceMaker.m; sourceTree = "<group>"; };
+		7E7FD22121BCD2DA00402B8C /* BKCharacteristicMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCharacteristicMaker.h; sourceTree = "<group>"; };
+		7E7FD22221BCD2DA00402B8C /* BKCharacteristicMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCharacteristicMaker.m; sourceTree = "<group>"; };
+		7E7FD22421BCEA6900402B8C /* BKCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCentralManager.h; sourceTree = "<group>"; };
+		7E7FD22521BCEA6900402B8C /* BKCentralManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCentralManager.m; sourceTree = "<group>"; };
+		7E7FD22721BCECD900402B8C /* BKTransaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKTransaction.h; sourceTree = "<group>"; };
+		7E7FD22821BCECD900402B8C /* BKTransaction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKTransaction.m; sourceTree = "<group>"; };
+		7E7FD22A21BCF28700402B8C /* NSData+BLE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+BLE.h"; sourceTree = "<group>"; };
+		7E7FD22B21BCF28700402B8C /* NSData+BLE.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+BLE.m"; sourceTree = "<group>"; };
 		7EAD003435C6A68FDA4E07FD /* Pods-BluetoothKitObjC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothKitObjC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BluetoothKitObjC/Pods-BluetoothKitObjC.debug.xcconfig"; sourceTree = "<group>"; };
 		7EC0AD7B21856C9800F145AE /* Radar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Radar.h; sourceTree = "<group>"; };
 		7EC0AD7C21856C9800F145AE /* Radar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Radar.m; sourceTree = "<group>"; };
@@ -148,6 +166,7 @@
 		7E371D6B2174F43900ECC2C6 /* BluetoothKitObjC */ = {
 			isa = PBXGroup;
 			children = (
+				7E7FD21221BCCE9700402B8C /* BluetoothKit */,
 				8424F2EA21BA87BD006D86B5 /* LGBluetooth */,
 				8424F2D121BA26B6006D86B5 /* BleClient */,
 				84C2E3D121B9026D00591040 /* Pulsator */,
@@ -171,6 +190,65 @@
 				8424F2FE21BA884F006D86B5 /* BluetoothKitObjC.pch */,
 			);
 			path = BluetoothKitObjC;
+			sourceTree = "<group>";
+		};
+		7E7FD21221BCCE9700402B8C /* BluetoothKit */ = {
+			isa = PBXGroup;
+			children = (
+				7E7FD21D21BCD17A00402B8C /* Logger */,
+				7E7FD21C21BCD17100402B8C /* Extensions */,
+				7E7FD21B21BCD16300402B8C /* BKTransaction */,
+				7E7FD21A21BCD15700402B8C /* BKManager */,
+				7E7FD21921BCD14C00402B8C /* BKMaker */,
+			);
+			path = BluetoothKit;
+			sourceTree = "<group>";
+		};
+		7E7FD21921BCD14C00402B8C /* BKMaker */ = {
+			isa = PBXGroup;
+			children = (
+				7E7FD21E21BCD2C500402B8C /* BKServiceMaker.h */,
+				7E7FD21F21BCD2C500402B8C /* BKServiceMaker.m */,
+				7E7FD22121BCD2DA00402B8C /* BKCharacteristicMaker.h */,
+				7E7FD22221BCD2DA00402B8C /* BKCharacteristicMaker.m */,
+				7E7FD21621BCD06600402B8C /* BKCentralManagerMaker.h */,
+				7E7FD21721BCD06600402B8C /* BKCentralManagerMaker.m */,
+			);
+			path = BKMaker;
+			sourceTree = "<group>";
+		};
+		7E7FD21A21BCD15700402B8C /* BKManager */ = {
+			isa = PBXGroup;
+			children = (
+				7E7FD22421BCEA6900402B8C /* BKCentralManager.h */,
+				7E7FD22521BCEA6900402B8C /* BKCentralManager.m */,
+			);
+			path = BKManager;
+			sourceTree = "<group>";
+		};
+		7E7FD21B21BCD16300402B8C /* BKTransaction */ = {
+			isa = PBXGroup;
+			children = (
+				7E7FD22721BCECD900402B8C /* BKTransaction.h */,
+				7E7FD22821BCECD900402B8C /* BKTransaction.m */,
+			);
+			path = BKTransaction;
+			sourceTree = "<group>";
+		};
+		7E7FD21C21BCD17100402B8C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7E7FD22A21BCF28700402B8C /* NSData+BLE.h */,
+				7E7FD22B21BCF28700402B8C /* NSData+BLE.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7E7FD21D21BCD17A00402B8C /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Logger;
 			sourceTree = "<group>";
 		};
 		7EC0AD7A21856C4B00F145AE /* Bleu */ = {
@@ -353,7 +431,10 @@
 			files = (
 				7E371D712174F43900ECC2C6 /* ViewController.m in Sources */,
 				8424F2E021BA82CF006D86B5 /* BleCharacteristic.m in Sources */,
+				7E7FD22621BCEA6900402B8C /* BKCentralManager.m in Sources */,
 				7EC0AD842185862B00F145AE /* RadarRequest.m in Sources */,
+				7E7FD22321BCD2DA00402B8C /* BKCharacteristicMaker.m in Sources */,
+				7E7FD22921BCECD900402B8C /* BKTransaction.m in Sources */,
 				8424F2E321BA82EF006D86B5 /* BlePeripheral.m in Sources */,
 				8424F2D421BA567C006D86B5 /* TestViewController.m in Sources */,
 				7EC0AD8721860E3500F145AE /* Bleu.m in Sources */,
@@ -366,10 +447,13 @@
 				8424F2FD21BA87BD006D86B5 /* LGCentralManager.m in Sources */,
 				7E371D6E2174F43900ECC2C6 /* AppDelegate.m in Sources */,
 				84590C2221BBDE18006495F5 /* CentralModeViewController.m in Sources */,
+				7E7FD22021BCD2C500402B8C /* BKServiceMaker.m in Sources */,
 				8424F2F821BA87BD006D86B5 /* LGUtils.m in Sources */,
+				7E7FD22C21BCF28700402B8C /* NSData+BLE.m in Sources */,
 				8424F2E921BA83DF006D86B5 /* BleUtils.m in Sources */,
 				84590C1E21BB6599006495F5 /* BleEventBus.m in Sources */,
 				84C2E3D421B902B300591040 /* Pulsator.m in Sources */,
+				7E7FD21821BCD06600402B8C /* BKCentralManagerMaker.m in Sources */,
 				8424F2FB21BA87BD006D86B5 /* LGCharacteristic.m in Sources */,
 				8424F2E621BA8351006D86B5 /* BleService.m in Sources */,
 				8424F2F921BA87BD006D86B5 /* CBUUID+StringExtraction.m in Sources */,

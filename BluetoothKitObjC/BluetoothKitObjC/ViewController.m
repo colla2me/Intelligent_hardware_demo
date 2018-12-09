@@ -45,9 +45,7 @@ const float kMaxDuration = 10.0;
     
     RadarRequest *request = [[RadarRequest alloc] initWithServiceUUID:serviceUUID characteristicUUID:characteristicUUID];
     
-    request.response = ^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {
-        
-    };
+    request.response = ^(CBPeripheral *peripheral, CBCharacteristic *characteristic, NSError *error) {};
     
     [Bleu sendRequest:request options:options completionHandler:^(NSDictionary * _Nullable info, NSError * _Nullable error) {
         NSLog(@"[Bleu sendRequest]>>>>>>>> info: %@, error: %@", info, error);
@@ -60,10 +58,15 @@ const float kMaxDuration = 10.0;
     [super viewDidLoad];
 //    [self setupPeripheralMode];
 
-    [self setupCentralMode];
+//    [self setupCentralMode];
     self.pulsator = [[Pulsator alloc] init];
     [self setupPalsotor];
     [self.sourceView.layer.superlayer insertSublayer:self.pulsator below:self.sourceView.layer];
+    
+    NSString *testName = @"test_ble_peripheral";
+    if ([testName hasPrefix:@"test_ble_peripheral"]) {
+        NSLog(@"matched !!!!");
+    }
 }
 
 - (void)setupPalsotor {
