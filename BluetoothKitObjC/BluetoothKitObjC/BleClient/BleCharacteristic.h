@@ -20,11 +20,11 @@ typedef void (^BLECharacteristicWriteBlock)(NSError *error);
  */
 @property (strong, nonatomic, readonly) CBCharacteristic *characteristic;
 
-@property (nonatomic, copy) BleCharacteristicNotifyBlock notifyValueBlock;
+@property (nonatomic, copy) BLECharacteristicNotifyBlock notifyValueBlock;
 
-@property (nonatomic, copy) BleCharacteristicWriteBlock writeValueBlock;
+@property (nonatomic, copy) BLECharacteristicWriteBlock writeValueBlock;
 
-@property (nonatomic, copy) BleCharacteristicReadBlock readValueBlock;
+@property (nonatomic, copy) BLECharacteristicReadBlock readValueBlock;
 
 /**
  * @return Wrapper object over Core Bluetooth's CBCharacteristic
