@@ -16,9 +16,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSArray *centralManagerIdentifiers = launchOptions[UIApplicationLaunchOptionsBluetoothCentralsKey];
+    if (centralManagerIdentifiers) {
+        NSLog(@"launching App with UIApplicationLaunchOptionsBluetoothCentralsKey %@", centralManagerIdentifiers);
+    }
     
-//    NSArray *centralManagerIdentifiers = launchOptions[UIApplicationLaunchOptionsBluetoothCentralsKey];
-//    NSLog(@"centralManagerIdentifiers: %@", centralManagerIdentifiers);
+    NSArray *peripheralManagerIdentifiers = launchOptions[UIApplicationLaunchOptionsBluetoothPeripheralsKey];
+    if (peripheralManagerIdentifiers) {
+        NSLog(@"launching App with UIApplicationLaunchOptionsBluetoothPeripheralsKey %@", peripheralManagerIdentifiers);
+    }
+    
     return YES;
 }
 

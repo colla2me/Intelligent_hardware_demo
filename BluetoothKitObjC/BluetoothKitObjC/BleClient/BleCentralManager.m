@@ -11,6 +11,8 @@
 #define SERVICE_UUID        @"CDD1"
 #define CHARACTERISTIC_UUID @"CDD2"
 
+static NSString * const kBLECentralRestoreIdentifier = @"kBLECentralRestoreIdentifier";
+
 typedef void(^BLECentralScanForPeripheralsBlock)(NSArray<CBPeripheral *> *peripherals);
 typedef void(^BLECentralDidDisoverPeripheralBlock)(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI);
 typedef void(^BLECentralDidDiscoverServicesBlock)(CBPeripheral *peripheral, NSError *error);
@@ -56,8 +58,15 @@ typedef void(^BLEWriteValueCompletion)(NSError *error);
     if (!self) {
         return nil;
     }
+    NSMutableDictionary *managerOptions = [NSMutableDictionary dictionary];
+    if (options) {
+        [managerOptions addEntriesFromDictionary:options];
+    }
+    managerOptions[CBCentralManagerOptionRestoreIdentifierKey] = kBLECentralRestoreIdentifier;
+    self.managerOptions = managerOptions;
     
-    self.managerOptions = options;
+    self.connectionOptions = @{CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES};
+    
     self.discoveredPeripherals = [NSMutableSet set];
     self.discoveredServices = [NSMutableSet set];
     self.discoveredCharacteristics = [NSMutableSet set];
@@ -213,6 +222,19 @@ typedef void(^BLEWriteValueCompletion)(NSError *error);
     }
 }
 
+/** 恢复与外设的连接 */
+- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary<NSString *,id> *)dict {
+    NSArray *peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey];
+    [peripherals enumerateObjectsUsingBlock:^(CBPeripheral *peripheral, NSUInteger idx, BOOL *stop) {
+        if (peripheral.state == CBPeripheralStateDisconnected) {
+            self.peripheral = peripheral;
+            peripheral.delegate = self;
+            [central connectPeripheral:peripheral options:nil];
+            *stop = YES;
+        }
+    }];
+}
+
 /** 发现符合要求的外设，回调 */
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI {
     // 记录发现的外设
@@ -225,7 +247,7 @@ typedef void(^BLEWriteValueCompletion)(NSError *error);
     
     // 可以根据外设名字来过滤外设
     if (self.peripheralName && peripheral.name && [peripheral.name hasPrefix:self.peripheralName]) {
-        [central connectPeripheral:peripheral options:nil];
+        [central connectPeripheral:peripheral options:self.connectionOptions];
     }
     
     // 连接外设
@@ -370,11 +392,6 @@ typedef void(^BLEWriteValueCompletion)(NSError *error);
     if (self.writeValueCompletion) {
         self.writeValueCompletion(error);
     }
-}
-
-/** 发现描述回调 */
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(nonnull CBCharacteristic *)characteristic error:(nullable NSError *)error {
-    NSLog(@"特征的所有描述 %@", characteristic.descriptors);
 }
 
 @end

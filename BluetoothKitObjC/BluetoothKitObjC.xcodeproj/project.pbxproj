@@ -281,10 +281,10 @@
 			children = (
 				8424F2DB21BA82BC006D86B5 /* BleCentralManager.h */,
 				8424F2DC21BA82BC006D86B5 /* BleCentralManager.m */,
-				8424F2DE21BA82CF006D86B5 /* BleCharacteristic.h */,
-				8424F2DF21BA82CF006D86B5 /* BleCharacteristic.m */,
 				8424F2E121BA82EF006D86B5 /* BlePeripheral.h */,
 				8424F2E221BA82EF006D86B5 /* BlePeripheral.m */,
+				8424F2DE21BA82CF006D86B5 /* BleCharacteristic.h */,
+				8424F2DF21BA82CF006D86B5 /* BleCharacteristic.m */,
 				8424F2E421BA8351006D86B5 /* BleService.h */,
 				8424F2E521BA8351006D86B5 /* BleService.m */,
 				8424F2E721BA83DF006D86B5 /* BleUtils.h */,

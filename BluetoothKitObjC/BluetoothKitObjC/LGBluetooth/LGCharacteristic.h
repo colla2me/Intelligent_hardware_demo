@@ -24,9 +24,9 @@
 
 @interface LGCharacteristic : NSObject
 
-typedef void (^LGCharacteristicReadCallback)  (NSData *data, NSError *error);
+typedef void (^LGCharacteristicReadCallback)(NSData *data, NSError *error);
 typedef void (^LGCharacteristicNotifyCallback)(NSError *error);
-typedef void (^LGCharacteristicWriteCallback) (NSError *error);
+typedef void (^LGCharacteristicWriteCallback)(NSError *error);
 
 /**
  * Core Bluetooth's CBCharacteristic instance
