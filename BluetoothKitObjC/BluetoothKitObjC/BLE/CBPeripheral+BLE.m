@@ -16,7 +16,7 @@ static char BLE_ADVERTISEMENT_RSSI_IDENTIFER;
 
 - (void)ble_setAdvertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber*)rssi {
     if (advertisementData) {
-        id manufacturerData = [advertisementData objectForKey:CBAdvertisementDataManufacturerDataKey];
+        NSData *manufacturerData = [advertisementData objectForKey:CBAdvertisementDataManufacturerDataKey];
         if (manufacturerData) {
             const uint8_t *bytes = [manufacturerData bytes];
             long len = [manufacturerData length];
@@ -29,20 +29,19 @@ static char BLE_ADVERTISEMENT_RSSI_IDENTIFER;
     [self setBleAdvertisementRSSI:rssi];
 }
 
--(void)setBleAdvertising:(NSString *)newAdvertisingValue{
+- (void)setBleAdvertising:(NSString *)newAdvertisingValue{
     objc_setAssociatedObject(self, &BLE_ADVERTISING_IDENTIFER, newAdvertisingValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(NSString*)bleAdvertising{
+- (NSString*)bleAdvertising{
     return objc_getAssociatedObject(self, &BLE_ADVERTISING_IDENTIFER);
 }
 
-
--(void)setBleAdvertisementRSSI:(NSNumber *)newAdvertisementRSSIValue {
+- (void)setBleAdvertisementRSSI:(NSNumber *)newAdvertisementRSSIValue {
     objc_setAssociatedObject(self, &BLE_ADVERTISEMENT_RSSI_IDENTIFER, newAdvertisementRSSIValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(NSString*)bleAdvertisementRSSI{
+- (NSString*)bleAdvertisementRSSI{
     return objc_getAssociatedObject(self, &BLE_ADVERTISEMENT_RSSI_IDENTIFER);
 }
 

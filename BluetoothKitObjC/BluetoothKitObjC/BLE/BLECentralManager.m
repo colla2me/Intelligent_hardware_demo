@@ -9,6 +9,16 @@
 #import "BLECentralManager.h"
 #import "CBPeripheral+BLE.h"
 
+static NSString * const kBLECentralRestoreIdentifier = @"kBLECentralRestoreIdentifier";
+
+@interface BLECentralManager ()
+
+@property (nonatomic, strong) NSMutableArray *peripherals;
+@property (nonatomic, strong) CBCentralManager *centralManager;
+@property (nonatomic, strong) CBPeripheral *activePeripheral;
+
+@end
+
 @implementation BLECentralManager
 
 static bool isConnected = false;
@@ -18,9 +28,22 @@ static CBUUID *serialServiceUUID;
 static CBUUID *readCharacteristicUUID;
 static CBUUID *writeCharacteristicUUID;
 
-- (void)controlSetup
-{
-    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
++ (instancetype)manager {
+    return [[BLECentralManager alloc] init];
+}
+
+- (instancetype)init {
+    return [self initWithOptions:@{CBCentralManagerOptionRestoreIdentifierKey: kBLECentralRestoreIdentifier} queue:dispatch_get_main_queue()];
+}
+
+- (instancetype)initWithOptions:(nullable NSDictionary<NSString *, id> *)options queue:(nullable dispatch_queue_t)queue {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+
+    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:queue options:options];
+    return self;
 }
 
 - (void)readRSSI {
@@ -207,14 +230,6 @@ static CBUUID *writeCharacteristicUUID;
     return 0; // Started scanning OK !
 }
 
-- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
-{
-    done = false;
-    
-    [[self delegate] bleDidDisconnect];
-    
-    isConnected = false;
-}
 
 - (void)connectPeripheral:(CBPeripheral *)peripheral
 {
@@ -376,6 +391,15 @@ static CBUUID *writeCharacteristicUUID;
 
 #pragma mark - CBCentralManager & CBPeripheral delegate methods
 
+- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary<NSString *,id> *)dict {
+    NSArray<CBPeripheral *> *peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey];
+    [peripherals enumerateObjectsUsingBlock:^(CBPeripheral *peripheral, NSUInteger idx, BOOL *stop) {
+        if (peripheral.state == CBPeripheralStateDisconnected) {
+            [self connectPeripheral:peripheral];
+        }
+    }];
+}
+
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     NSLog(@"Status of CoreBluetooth central manager changed %ld (%s)", (long)central.state, [self centralManagerStateToString:central.state]);
@@ -425,6 +449,17 @@ static CBUUID *writeCharacteristicUUID;
 
 static bool done = false;
 
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
+{
+    done = false;
+    
+    if ([_delegate respondsToSelector:@selector(bleDidDisconnect)]) {
+        [_delegate bleDidDisconnect];
+    }
+    
+    isConnected = false;
+}
+
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
     if (!error)
@@ -446,7 +481,10 @@ static bool done = false;
             if (!done)
             {
                 [self enableReadNotification:_activePeripheral];
-                [[self delegate] bleDidConnect];
+                if ([_delegate respondsToSelector:@selector(bleDidConnect)]) {
+                    [_delegate bleDidConnect];
+                }
+                
                 isConnected = true;
                 done = true;
             }
@@ -523,6 +561,13 @@ static bool done = false;
         NSLog(@"Error code was %s", [[error description] cStringUsingEncoding:NSStringEncodingConversionAllowLossy]);
         return;
     }
+    
+    if (characteristic.isNotifying) {
+        NSLog(@"订阅成功");
+    } else {
+        NSLog(@"取消订阅");
+    }
+    
 //    printf("Updated notification state for characteristic with UUID %s on service with  UUID %s on peripheral with UUID %s\r\n",[self CBUUIDToString:characteristic.UUID],[self CBUUIDToString:characteristic.service.UUID],[self UUIDToString:peripheral.UUID]);
 }
 
@@ -551,7 +596,9 @@ static bool done = false;
             
             if (len >= 64)
             {
-                [[self delegate] bleDidReceiveData:buf length:len];
+                if ([_delegate respondsToSelector:@selector(bleDidReceiveData:length:)]) {
+                    [_delegate bleDidReceiveData:buf length:len];
+                }
                 len = 0;
             }
         }
@@ -560,7 +607,9 @@ static bool done = false;
             memcpy(&buf[len], data, data_len);
             len += data_len;
             
-            [[self delegate] bleDidReceiveData:buf length:len];
+            if ([_delegate respondsToSelector:@selector(bleDidReceiveData:length:)]) {
+                [_delegate bleDidReceiveData:buf length:len];
+            }
             len = 0;
         }
     }
@@ -572,7 +621,9 @@ static bool done = false;
     if (rssi != RSSI.intValue)
     {
         rssi = RSSI.intValue;
-        [[self delegate] bleDidReadRSSI:RSSI error:error];
+        if ([_delegate respondsToSelector:@selector(bleDidReadRSSI:error:)]) {
+            [_delegate bleDidReadRSSI:RSSI error:error];
+        }
     }
 }
 

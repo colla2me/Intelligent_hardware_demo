@@ -21,14 +21,13 @@
 @interface BLECentralManager : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
 
 @property (nonatomic, weak) id<BLEDelegate> delegate;
-@property (nonatomic, strong) NSMutableArray *peripherals;
-@property (nonatomic, strong) CBCentralManager *centralManager;
-@property (nonatomic, strong) CBPeripheral *activePeripheral;
+@property (nonatomic, strong, readonly) NSMutableArray *peripherals;
+@property (nonatomic, strong, readonly) CBCentralManager *centralManager;
+@property (nonatomic, strong, readonly) CBPeripheral *activePeripheral;
 
-//- (UInt16)swap:(UInt16)s;
-//- (void)controlSetup;
-//- (void)printKnownPeripherals;
-//- (void)printPeripheralInfo:(CBPeripheral*)peripheral;
++ (instancetype)manager;
+
+- (instancetype)initWithOptions:(nullable NSDictionary<NSString *, id> *)options queue:(nullable dispatch_queue_t)queue NS_DESIGNATED_INITIALIZER;
 
 - (void)enableReadNotification:(CBPeripheral *)peripheral;
 - (void)read;
