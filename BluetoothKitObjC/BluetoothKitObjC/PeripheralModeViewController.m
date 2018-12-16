@@ -8,6 +8,7 @@
 
 #import "PeripheralModeViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
+#import <Masonry.h>
 
 #define SERVICE_UUID @"CDD1"
 #define CHARACTERISTIC_UUID @"CDD2"
@@ -15,18 +16,65 @@
 @interface PeripheralModeViewController ()
 <CBPeripheralManagerDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) UITextField *textField;
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager;
 @property (nonatomic, strong) CBMutableCharacteristic *characteristic;
 @end
 
 @implementation PeripheralModeViewController
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    [self.textField resignFirstResponder];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.peripheralManager stopAdvertising];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     self.title = @"蓝牙外设";
     // 创建外设管理器，会回调peripheralManagerDidUpdateState方法
     self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
+    
+    UITextField *textField = [[UITextField alloc] init];
+    textField.font = [UIFont systemFontOfSize:15];
+    textField.textColor = [UIColor blackColor];
+    textField.borderStyle = UITextBorderStyleRoundedRect;
+    [self.view addSubview:textField];
+    self.textField = textField;
+    [textField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(260, 40));
+        make.top.mas_equalTo(100);
+        make.centerX.equalTo(self.view);
+    }];
+    
+    UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    sendBtn.contentEdgeInsets = UIEdgeInsetsMake(4, 6, 4, 6);
+    sendBtn.layer.borderColor = [UIColor grayColor].CGColor;
+    sendBtn.layer.borderWidth = 0.5;
+    [sendBtn setTitle:@"send data" forState:UIControlStateNormal];
+    [sendBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [sendBtn addTarget:self action:@selector(sendAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:sendBtn];
+    [sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(textField.mas_bottom).offset(20);
+        make.centerX.equalTo(self.view);
+    }];
+}
+
+/** 通过固定的特征发送数据到中心设备 */
+- (void)sendAction {
+    BOOL sendSuccess = [self.peripheralManager updateValue:[self.textField.text dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:self.characteristic onSubscribedCentrals:nil];
+    if (sendSuccess) {
+        NSLog(@"数据发送成功");
+    }else {
+        NSLog(@"数据发送失败");
+    }
 }
 
 /** 设备的蓝牙状态
@@ -73,6 +121,15 @@
     self.characteristic = characteristic;
 }
 
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error {
+    if (error) {
+        NSLog(@"Add Service Failed: %@", error);
+        return;
+    }
+    NSLog(@"Add Service Successfully! Start Advertising......");
+    [peripheral startAdvertising:@{CBAdvertisementDataLocalNameKey: @"my_test_ble", CBAdvertisementDataServiceUUIDsKey: @[service.UUID]}];
+}
+
 /** 中心设备读取数据的时候回调 */
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request {
     // 请求中的数据，这里把文本框中的数据发给中心设备
@@ -97,16 +154,6 @@
 /** 取消订阅回调 */
 -(void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic {
     NSLog(@"%s",__FUNCTION__);
-}
-
-/** 通过固定的特征发送数据到中心设备 */
-- (IBAction)didClickPost:(id)sender {
-    BOOL sendSuccess = [self.peripheralManager updateValue:[self.textField.text dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:self.characteristic onSubscribedCentrals:nil];
-    if (sendSuccess) {
-        NSLog(@"数据发送成功");
-    }else {
-        NSLog(@"数据发送失败");
-    }
 }
 
 

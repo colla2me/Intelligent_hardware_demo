@@ -8,26 +8,152 @@
 
 #import "CentralModeViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
+#import <Masonry.h>
+#import "BLECentralManager.h"
 
 #define SERVICE_UUID        @"CDD1"
 #define CHARACTERISTIC_UUID @"CDD2"
 
-@interface CentralModeViewController ()<CBCentralManagerDelegate,CBPeripheralDelegate>
+@interface CentralModeViewController ()<CBCentralManagerDelegate,CBPeripheralDelegate, BLEDelegate>
 
 @property (nonatomic, strong) CBCentralManager *centralManager;
 @property (nonatomic, strong) CBPeripheral *peripheral;
 @property (nonatomic, strong) CBCharacteristic *characteristic;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) UITextField *textField;
+
+@property (nonatomic, strong) BLECentralManager *centralBLE;
 
 @end
 
 @implementation CentralModeViewController
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    [self.textField resignFirstResponder];
+}
+
+#pragma mark - BLEDelegate
+
+- (void)bleDidDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
+    [self.centralBLE connectPeripheral:peripheral];
+}
+
+- (void)bleDidReceiveData:(unsigned char *)data length:(NSUInteger)length {
+    BLELog(@"bleDidReceiveData");
+    
+    // Append to the buffer
+    NSData *d = [NSData dataWithBytes:data length:length];
+    NSString *s = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+    BLELog(@"Received data %@", s);
+    self.textField.text = s;
+}
+
+- (void)bleDidChangeState:(BOOL)isEnabled {
+    NSString *state = isEnabled ? @"bluetoothEnabled" : @"bluetoothDisabled";
+    BLELog(@"bleDidChangedState: %@", state);
+    if (isEnabled) {
+        [self.centralBLE findBLEPeripherals:10.0];
+    }
+}
+
+- (void)bleDidConnect {
+    BLELog(@"bleDidConnect");
+}
+
+- (void)bleDidDisconnect {
+    BLELog(@"bleDidDisconnect");
+}
+
+- (void)bleDidReadRSSI:(NSNumber *)rssi {
+    BLELog(@"bleDidReadRSSI: %@", rssi);
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.centralBLE cancelConnection];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     self.title = @"蓝牙中心设备";
     // 创建中心设备管理器，会回调centralManagerDidUpdateState
-    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
+//    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
+    
+    self.centralBLE = [BLECentralManager manager];
+    self.centralBLE.delegate = self;
+    
+    UITextField *textField = [[UITextField alloc] init];
+    textField.font = [UIFont systemFontOfSize:15];
+    textField.textColor = [UIColor blackColor];
+    textField.borderStyle = UITextBorderStyleRoundedRect;
+    [self.view addSubview:textField];
+    self.textField = textField;
+    [textField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(260, 40));
+        make.top.mas_equalTo(100);
+        make.centerX.equalTo(self.view);
+    }];
+    
+    UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    sendBtn.contentEdgeInsets = UIEdgeInsetsMake(4, 6, 4, 6);
+    sendBtn.layer.borderColor = [UIColor grayColor].CGColor;
+    sendBtn.layer.borderWidth = 0.5;
+    [sendBtn setTitle:@"write data" forState:UIControlStateNormal];
+    [sendBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [sendBtn addTarget:self action:@selector(sendAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:sendBtn];
+    [sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(textField.mas_bottom).offset(20);
+        make.left.equalTo(textField.mas_left);
+    }];
+    
+    UIButton *fetchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    fetchBtn.contentEdgeInsets = UIEdgeInsetsMake(4, 6, 4, 6);
+    fetchBtn.layer.borderColor = [UIColor grayColor].CGColor;
+    fetchBtn.layer.borderWidth = 0.5;
+    [fetchBtn setTitle:@"fetch data" forState:UIControlStateNormal];
+    [fetchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [fetchBtn addTarget:self action:@selector(fetchAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:fetchBtn];
+    [fetchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(textField.mas_bottom).offset(20);
+        make.right.equalTo(textField.mas_right);
+    }];
+    
+    UIButton *readBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    readBtn.contentEdgeInsets = UIEdgeInsetsMake(4, 6, 4, 6);
+    readBtn.layer.borderColor = [UIColor grayColor].CGColor;
+    readBtn.layer.borderWidth = 0.5;
+    [readBtn setTitle:@"read rssi" forState:UIControlStateNormal];
+    [readBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [readBtn addTarget:self action:@selector(readAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:readBtn];
+    [readBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(fetchBtn.mas_bottom).offset(20);
+        make.centerX.equalTo(self.view);
+    }];
+}
+
+- (void)readAction {
+    [self.centralBLE readRSSI];
+}
+
+/** 读取数据 */
+- (void)fetchAction {
+//    [self.peripheral readValueForCharacteristic:self.characteristic];
+    [self.centralBLE read];
+}
+
+/** 写入数据 */
+- (void)sendAction {
+    // 用NSData类型来写入
+    NSData *data = [self.textField.text dataUsingEncoding:NSUTF8StringEncoding];
+    // 根据上面的特征self.characteristic来写入数据
+//    [self.peripheral writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
+    
+    [self.centralBLE write:data];
 }
 
 /** 判断手机蓝牙状态
@@ -45,10 +171,10 @@
         // 根据SERVICE_UUID来扫描外设，如果不设置SERVICE_UUID，则扫描所有蓝牙设备
         [central scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:SERVICE_UUID]] options:nil];
     }
-    if(central.state==CBManagerStateUnsupported) {
+    if(central.state == CBManagerStateUnsupported) {
         NSLog(@"该设备不支持蓝牙");
     }
-    if (central.state==CBManagerStatePoweredOff) {
+    if (central.state == CBManagerStatePoweredOff) {
         NSLog(@"蓝牙已关闭");
     }
 }
@@ -104,7 +230,7 @@
     // 这里仅有一个服务，所以直接获取
     CBService *service = peripheral.services.lastObject;
     // 根据UUID寻找服务中的特征
-    [peripheral discoverCharacteristics:@[[CBUUID UUIDWithString:CHARACTERISTIC_UUID]] forService:service];
+    [peripheral discoverCharacteristics:nil forService:service];
 }
 
 /** 发现特征回调 */
@@ -128,7 +254,7 @@
     // 直接读取这个特征数据，会调用didUpdateValueForCharacteristic
     if (self.characteristic.properties & CBCharacteristicPropertyRead) {
         [peripheral readValueForCharacteristic:self.characteristic];
-    }
+    }  
     
     // 订阅通知
     if (self.characteristic.properties & CBCharacteristicPropertyNotify) {
@@ -159,19 +285,6 @@
 /** 写入数据回调 */
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(nonnull CBCharacteristic *)characteristic error:(nullable NSError *)error {
     NSLog(@"写入成功");
-}
-
-/** 读取数据 */
-- (IBAction)didClickGet:(id)sender {
-    [self.peripheral readValueForCharacteristic:self.characteristic];
-}
-
-/** 写入数据 */
-- (IBAction)didClickPost:(id)sender {
-    // 用NSData类型来写入
-    NSData *data = [self.textField.text dataUsingEncoding:NSUTF8StringEncoding];
-    // 根据上面的特征self.characteristic来写入数据
-    [self.peripheral writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
 }
 
 @end

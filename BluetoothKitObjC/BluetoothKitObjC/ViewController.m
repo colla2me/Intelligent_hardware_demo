@@ -10,6 +10,7 @@
 //#import "BKCBCentralManager.h"
 #import "Bleu.h"
 #import "Pulsator.h"
+#import "BLEClient.h"
 
 @interface ViewController ()<CBPeripheralManagerDelegate>
 
@@ -67,6 +68,19 @@ const float kMaxDuration = 10.0;
     if ([testName hasPrefix:@"test_ble_peripheral"]) {
         NSLog(@"matched !!!!");
     }
+    
+ 
+//    [BLEClient readValueWithBlock:^(NSString * _Nonnull v) {
+//        
+//    }];
+//    
+//    [BLEClient findPeripheralsWithBlock:^(NSArray<CBPeripheral *> * _Nonnull v) {
+//        
+//    }];
+    
+//    [[BLEClient sharedClient] read:^(NSString *value) {
+//
+//    }];
 }
 
 - (void)setupPalsotor {

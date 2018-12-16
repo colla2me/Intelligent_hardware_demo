@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		17CEAE718752DEF2AFA3E036 /* libPods-BluetoothKitObjC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BCFEFA83DA3B316A1D714D7 /* libPods-BluetoothKitObjC.a */; };
+		7E018CE121C4E4E400916333 /* BLEClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E018CE021C4E4E400916333 /* BLEClient.m */; };
+		7E018CE421C5FF0C00916333 /* BLEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E018CE321C5FF0C00916333 /* BLEViewController.m */; };
 		7E371D6E2174F43900ECC2C6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D6D2174F43900ECC2C6 /* AppDelegate.m */; };
 		7E371D712174F43900ECC2C6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E371D702174F43900ECC2C6 /* ViewController.m */; };
 		7E371D742174F43900ECC2C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E371D722174F43900ECC2C6 /* Main.storyboard */; };
@@ -48,6 +50,11 @@
 /* Begin PBXFileReference section */
 		09CA040F6599DF3469093500 /* Pods-BluetoothKitObjC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothKitObjC.release.xcconfig"; path = "Pods/Target Support Files/Pods-BluetoothKitObjC/Pods-BluetoothKitObjC.release.xcconfig"; sourceTree = "<group>"; };
 		4BCFEFA83DA3B316A1D714D7 /* libPods-BluetoothKitObjC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BluetoothKitObjC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E018CDE21C40E4500916333 /* BLEDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		7E018CDF21C4E4E400916333 /* BLEClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEClient.h; sourceTree = "<group>"; };
+		7E018CE021C4E4E400916333 /* BLEClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEClient.m; sourceTree = "<group>"; };
+		7E018CE221C5FF0C00916333 /* BLEViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEViewController.h; sourceTree = "<group>"; };
+		7E018CE321C5FF0C00916333 /* BLEViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEViewController.m; sourceTree = "<group>"; };
 		7E371D692174F43900ECC2C6 /* BluetoothKitObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothKitObjC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E371D6C2174F43900ECC2C6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7E371D6D2174F43900ECC2C6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -185,6 +192,8 @@
 				7E371D702174F43900ECC2C6 /* ViewController.m */,
 				8424F2D221BA567C006D86B5 /* TestViewController.h */,
 				8424F2D321BA567C006D86B5 /* TestViewController.m */,
+				7E018CE221C5FF0C00916333 /* BLEViewController.h */,
+				7E018CE321C5FF0C00916333 /* BLEViewController.m */,
 				84590C2021BBDE18006495F5 /* CentralModeViewController.h */,
 				84590C2121BBDE18006495F5 /* CentralModeViewController.m */,
 				84590C2321BBDE45006495F5 /* PeripheralModeViewController.h */,
@@ -261,10 +270,13 @@
 		7E86196921BEB85F00866DAF /* BLE */ = {
 			isa = PBXGroup;
 			children = (
+				7E018CDF21C4E4E400916333 /* BLEClient.h */,
+				7E018CE021C4E4E400916333 /* BLEClient.m */,
 				7E86196A21BEB89D00866DAF /* BLECentralManager.h */,
 				7E86196B21BEB89D00866DAF /* BLECentralManager.m */,
 				7E86196D21BEB8E500866DAF /* CBPeripheral+BLE.h */,
 				7E86196E21BEB8E500866DAF /* CBPeripheral+BLE.m */,
+				7E018CDE21C40E4500916333 /* BLEDefines.h */,
 			);
 			path = BLE;
 			sourceTree = "<group>";
@@ -455,6 +467,7 @@
 				7E7FD22921BCECD900402B8C /* BKTransaction.m in Sources */,
 				8424F2E321BA82EF006D86B5 /* BlePeripheral.m in Sources */,
 				8424F2D421BA567C006D86B5 /* TestViewController.m in Sources */,
+				7E018CE121C4E4E400916333 /* BLEClient.m in Sources */,
 				7EC0AD8721860E3500F145AE /* Bleu.m in Sources */,
 				8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */,
 				7E371D7C2174F43B00ECC2C6 /* main.m in Sources */,
@@ -468,6 +481,7 @@
 				84590C2221BBDE18006495F5 /* CentralModeViewController.m in Sources */,
 				7E7FD22021BCD2C500402B8C /* BKServiceMaker.m in Sources */,
 				8424F2F821BA87BD006D86B5 /* LGUtils.m in Sources */,
+				7E018CE421C5FF0C00916333 /* BLEViewController.m in Sources */,
 				7E7FD22C21BCF28700402B8C /* NSData+BLE.m in Sources */,
 				8424F2E921BA83DF006D86B5 /* BleUtils.m in Sources */,
 				84590C1E21BB6599006495F5 /* BleEventBus.m in Sources */,

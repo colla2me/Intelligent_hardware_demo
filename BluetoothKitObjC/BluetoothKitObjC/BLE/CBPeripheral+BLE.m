@@ -2,7 +2,7 @@
 //  CBPeripheral+BLE.m
 //  BluetoothKitObjC
 //
-//  Created by samuel on 2018/12/10.
+//  Created by samuel on 2018/11/10.
 //  Copyright © 2018 samuel. All rights reserved.
 //
 
