@@ -60,7 +60,7 @@
     if (_bleShield.activePeripheral) {
         if(_bleShield.activePeripheral.state == CBPeripheralStateConnected)
         {
-            [_bleShield.centralManager cancelPeripheralConnection:[_bleShield activePeripheral]];
+//            [_bleShield.centralManager cancelPeripheralConnection:[_bleShield activePeripheral]];
         }
     }
 }
@@ -204,7 +204,7 @@
     if (_bleShield.activePeripheral) {
         if(_bleShield.activePeripheral.state == CBPeripheralStateConnected)
         {
-            [_bleShield.centralManager cancelPeripheralConnection:[_bleShield activePeripheral]];
+//            [_bleShield.centralManager cancelPeripheralConnection:[_bleShield activePeripheral]];
             return;
         }
     }

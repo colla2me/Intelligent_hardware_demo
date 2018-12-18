@@ -44,6 +44,8 @@
 		84590C1E21BB6599006495F5 /* BleEventBus.m in Sources */ = {isa = PBXBuildFile; fileRef = 84590C1D21BB6599006495F5 /* BleEventBus.m */; };
 		84590C2221BBDE18006495F5 /* CentralModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84590C2121BBDE18006495F5 /* CentralModeViewController.m */; };
 		84590C2521BBDE45006495F5 /* PeripheralModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84590C2421BBDE45006495F5 /* PeripheralModeViewController.m */; };
+		84A62E5121C88FDA0001FBB7 /* BLECell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A62E5021C88FDA0001FBB7 /* BLECell.m */; };
+		84A62E8D21C8F3720001FBB7 /* BLEPear.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A62E8C21C8F3720001FBB7 /* BLEPear.m */; };
 		84C2E3D421B902B300591040 /* Pulsator.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E3D321B902B300591040 /* Pulsator.m */; };
 /* End PBXBuildFile section */
 
@@ -125,6 +127,10 @@
 		84590C2121BBDE18006495F5 /* CentralModeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CentralModeViewController.m; sourceTree = "<group>"; };
 		84590C2321BBDE45006495F5 /* PeripheralModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PeripheralModeViewController.h; sourceTree = "<group>"; };
 		84590C2421BBDE45006495F5 /* PeripheralModeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeripheralModeViewController.m; sourceTree = "<group>"; };
+		84A62E4F21C88FDA0001FBB7 /* BLECell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLECell.h; sourceTree = "<group>"; };
+		84A62E5021C88FDA0001FBB7 /* BLECell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLECell.m; sourceTree = "<group>"; };
+		84A62E8B21C8F3720001FBB7 /* BLEPear.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEPear.h; sourceTree = "<group>"; };
+		84A62E8C21C8F3720001FBB7 /* BLEPear.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEPear.m; sourceTree = "<group>"; };
 		84C2E3D221B902B300591040 /* Pulsator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pulsator.h; sourceTree = "<group>"; };
 		84C2E3D321B902B300591040 /* Pulsator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pulsator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -198,6 +204,10 @@
 				84590C2121BBDE18006495F5 /* CentralModeViewController.m */,
 				84590C2321BBDE45006495F5 /* PeripheralModeViewController.h */,
 				84590C2421BBDE45006495F5 /* PeripheralModeViewController.m */,
+				7E018CDF21C4E4E400916333 /* BLEClient.h */,
+				7E018CE021C4E4E400916333 /* BLEClient.m */,
+				84A62E4F21C88FDA0001FBB7 /* BLECell.h */,
+				84A62E5021C88FDA0001FBB7 /* BLECell.m */,
 				7E371D722174F43900ECC2C6 /* Main.storyboard */,
 				7E371D752174F43B00ECC2C6 /* Assets.xcassets */,
 				7E371D772174F43B00ECC2C6 /* LaunchScreen.storyboard */,
@@ -270,13 +280,13 @@
 		7E86196921BEB85F00866DAF /* BLE */ = {
 			isa = PBXGroup;
 			children = (
-				7E018CDF21C4E4E400916333 /* BLEClient.h */,
-				7E018CE021C4E4E400916333 /* BLEClient.m */,
 				7E86196A21BEB89D00866DAF /* BLECentralManager.h */,
 				7E86196B21BEB89D00866DAF /* BLECentralManager.m */,
 				7E86196D21BEB8E500866DAF /* CBPeripheral+BLE.h */,
 				7E86196E21BEB8E500866DAF /* CBPeripheral+BLE.m */,
 				7E018CDE21C40E4500916333 /* BLEDefines.h */,
+				84A62E8B21C8F3720001FBB7 /* BLEPear.h */,
+				84A62E8C21C8F3720001FBB7 /* BLEPear.m */,
 			);
 			path = BLE;
 			sourceTree = "<group>";
@@ -466,6 +476,7 @@
 				7E7FD22321BCD2DA00402B8C /* BKCharacteristicMaker.m in Sources */,
 				7E7FD22921BCECD900402B8C /* BKTransaction.m in Sources */,
 				8424F2E321BA82EF006D86B5 /* BlePeripheral.m in Sources */,
+				84A62E8D21C8F3720001FBB7 /* BLEPear.m in Sources */,
 				8424F2D421BA567C006D86B5 /* TestViewController.m in Sources */,
 				7E018CE121C4E4E400916333 /* BLEClient.m in Sources */,
 				7EC0AD8721860E3500F145AE /* Bleu.m in Sources */,
@@ -477,6 +488,7 @@
 				7EC0AD7D21856C9800F145AE /* Radar.m in Sources */,
 				8424F2FC21BA87BD006D86B5 /* LGPeripheral.m in Sources */,
 				8424F2FD21BA87BD006D86B5 /* LGCentralManager.m in Sources */,
+				84A62E5121C88FDA0001FBB7 /* BLECell.m in Sources */,
 				7E371D6E2174F43900ECC2C6 /* AppDelegate.m in Sources */,
 				84590C2221BBDE18006495F5 /* CentralModeViewController.m in Sources */,
 				7E7FD22021BCD2C500402B8C /* BKServiceMaker.m in Sources */,

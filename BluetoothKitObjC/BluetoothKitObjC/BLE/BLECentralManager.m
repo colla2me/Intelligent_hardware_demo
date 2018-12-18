@@ -14,12 +14,13 @@ static const int MAX_BUF_LENGTH = 100;
 
 // TODO:
 // should have a configurable list of services
-static CBUUID *testSerivceUUID;
+static CBUUID *heartRateSerivceUUID;
 static CBUUID *serialServiceUUID;
 static CBUUID *readCharacteristicUUID;
 static CBUUID *writeCharacteristicUUID;
 
 @implementation BLECentralManager {
+    CBCentralManager *_centralManager;
     BOOL _isConnected, _done;
     int _rssi;
 }
@@ -29,7 +30,7 @@ static CBUUID *writeCharacteristicUUID;
 }
 
 - (instancetype)init {
-    return [self initWithOptions:@{CBCentralManagerOptionRestoreIdentifierKey: kBLECentralRestoreIdentifier} queue:dispatch_get_main_queue()];
+    return [self initWithOptions:@{CBCentralManagerOptionRestoreIdentifierKey: kBLECentralRestoreIdentifier} queue:nil];
 }
 
 - (instancetype)initWithOptions:(nullable NSDictionary<NSString *, id> *)options queue:(nullable dispatch_queue_t)queue {
@@ -64,6 +65,15 @@ static CBUUID *writeCharacteristicUUID;
     //    CBUUID *uuid_char = [CBUUID UUIDWithString:@RBL_CHAR_TX_UUID];
     //    [self readValue:uuid_service characteristicUUID:uuid_char p:activePeripheral];
     [self readValue:serialServiceUUID characteristicUUID:readCharacteristicUUID peripheral:_activePeripheral];
+}
+
+- (void)readForCharacteristic:(CBUUID *)characteristicUUID service:(CBUUID *)serviceUUID {
+    if (!_activePeripheral) {
+        BLELog(@"Could not read if not active peripheral");
+        return;
+    }
+
+    [self readValue:serviceUUID characteristicUUID:characteristicUUID peripheral:_activePeripheral];
 }
 
 - (void)write:(NSData *)data
@@ -211,20 +221,20 @@ static CBUUID *writeCharacteristicUUID;
 
 - (int)findBLEPeripherals:(NSTimeInterval)timeout
 {
-    if (self.centralManager.state != CBCentralManagerStatePoweredOn)
+    if (_centralManager.state != CBCentralManagerStatePoweredOn)
     {
         BLELog(@"CoreBluetooth not correctly initialized !");
-        BLELog(@"State = %ld (%s)\r\n", (long)self.centralManager.state, [self centralManagerStateToString:self.centralManager.state]);
+        BLELog(@"State = %ld (%s)\r\n", (long)_centralManager.state, [self centralManagerStateToString:_centralManager.state]);
         return -1;
     }
     
     [NSTimer scheduledTimerWithTimeInterval:timeout target:self selector:@selector(scanTimer:) userInfo:nil repeats:NO];
     
     // TODO:
-    testSerivceUUID = [CBUUID UUIDWithString:@TEST_SERVICE_UUID];
+    heartRateSerivceUUID = [CBUUID UUIDWithString:@"180D"];
     
-    NSArray<CBUUID *> *services = @[testSerivceUUID];
-    [self.centralManager scanForPeripheralsWithServices:services options:nil];
+    NSArray<CBUUID *> *services = @[heartRateSerivceUUID];
+    [_centralManager scanForPeripheralsWithServices:services options:nil];
 
     BLELog(@"scanForPeripheralsWithServices");
     
@@ -237,20 +247,19 @@ static CBUUID *writeCharacteristicUUID;
     
     _activePeripheral = peripheral;
     _activePeripheral.delegate = self;
-    [self.centralManager connectPeripheral:self.activePeripheral
-                                   options:@{CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES}];
+    [_centralManager connectPeripheral:self.activePeripheral options:@{CBConnectPeripheralOptionNotifyOnDisconnectionKey: @YES}];
 }
 
 - (void)cancelConnection {
-    if (self.centralManager.isScanning) {
-        [self.centralManager stopScan];
+    if (_centralManager.isScanning) {
+        [_centralManager stopScan];
     }
     
     if (_activePeripheral) {
         if (CBPeripheralStateConnected == _activePeripheral.state) {
-            [self.centralManager cancelPeripheralConnection:_activePeripheral];
+            [_centralManager cancelPeripheralConnection:_activePeripheral];
         }
-        
+    
         [self notification:serialServiceUUID
         characteristicUUID:readCharacteristicUUID
                 peripheral:self.activePeripheral
@@ -260,8 +269,7 @@ static CBUUID *writeCharacteristicUUID;
 
 - (const char *)centralManagerStateToString:(int)state
 {
-    switch(state)
-    {
+    switch(state) {
         case CBCentralManagerStateUnknown:
             return "State unknown (CBCentralManagerStateUnknown)";
         case CBCentralManagerStateResetting:
@@ -283,7 +291,7 @@ static CBUUID *writeCharacteristicUUID;
 
 - (void)scanTimer:(NSTimer *)timer
 {
-    [self.centralManager stopScan];
+    [_centralManager stopScan];
     BLELog(@"Stopped Scanning");
     BLELog(@"Known peripherals : %lu", [self.peripherals count]);
     [self printKnownPeripherals];
@@ -506,10 +514,10 @@ static CBUUID *writeCharacteristicUUID;
     // TODO:
     // Determine if we're connected to Red Bear Labs, Adafruit or Laird hardware
     for (CBService *service in peripheral.services) {
-        if ([service.UUID isEqual:testSerivceUUID]) {
-            BLELog(@"Tester Bluetooth");
-            serialServiceUUID = testSerivceUUID;
-            readCharacteristicUUID = [CBUUID UUIDWithString:@TEST_CHAR_TX_UUID];
+        if ([service.UUID isEqual:heartRateSerivceUUID]) {
+            BLELog(@"Heart Rate Bluetooth");
+            serialServiceUUID = heartRateSerivceUUID;
+            readCharacteristicUUID = [CBUUID UUIDWithString:@HEART_RATE_MEASUREMENT];
             writeCharacteristicUUID = [CBUUID UUIDWithString:@TEST_CHAR_RX_UUID];
             break;
         } else {
@@ -589,7 +597,32 @@ static CBUUID *writeCharacteristicUUID;
         if ([_delegate respondsToSelector:@selector(bleDidReceiveData:length:)]) {
             [_delegate bleDidReceiveData:buf length:data_len];
         }
+        
+        // Get the Heart Rate Monitor BPM
+        [self getHeartBPMData:characteristic error:error];
     }
+}
+
+- (void)getHeartBPMData:(CBCharacteristic *)characteristic error:(NSError *)error {
+    // Get the Heart Rate Monitor BPM
+    NSData *data = [characteristic value];      // 1
+    const uint8_t *reportData = [data bytes];
+    uint16_t bpm = 0;
+    
+    if ((reportData[0] & 0x01) == 0) {          // 2
+        // Retrieve the BPM value for the Heart Rate Monitor
+        bpm = reportData[1];
+    }
+    else {
+        bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));  // 3
+    }
+    // Display the heart rate value to the UI if no error occurred
+    if( (characteristic.value)  || !error ) {   // 4
+        
+        NSString *heartBeatString = [NSString stringWithFormat:@"%i bpm", bpm];
+        BLELog(@"heartBeat: %@", heartBeatString);
+    }
+    return;
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(nonnull CBCharacteristic *)characteristic error:(nullable NSError *)error {
