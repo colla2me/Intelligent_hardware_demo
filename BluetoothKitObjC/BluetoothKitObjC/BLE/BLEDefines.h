@@ -19,16 +19,8 @@
 #ifndef BLEDefines_h
 #define BLEDefines_h
 
-//#define TEST_SERVICE_UUID                       "CDD1"
-//#define TEST_CHAR_TX_UUID                       "CDD2"
-#define TEST_CHAR_RX_UUID                       "CDD2"
-
-#define HEART_RATE_SERVICE_UUID                            "180D"
-#define HEART_RATE_MEASUREMENT                             "2A37"
-//#define POLARH7_HRM_MEASUREMENT_CHARACTERISTIC_UUID        "2A37"
-//#define POLARH7_HRM_BODY_LOCATION_CHARACTERISTIC_UUID      "2A38"
-//#define POLARH7_HRM_MANUFACTURER_NAME_CHARACTERISTIC_UUID  "2A29"
-
-#define BLE_MODULE_VERSION                   "2A26"
+static NSString * const kDEVICE_INFO_SERVICE_UUID     = @"180A";
+static NSString * const kSYSTEM_ID_CHAR_UUID          = @"2A23";
+static NSString * const kBLE_MODULE_VERSION           = @"2A26";
 
 #endif /* BLEDefines_h */

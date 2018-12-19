@@ -66,7 +66,7 @@
 }
 
 - (void)readValueWithBlock:(void(^)(NSString *))block {
-    [_bleShield read];
+//    [_bleShield read];
 }
 
 - (void)writeValue:(NSData *)data {
@@ -99,27 +99,27 @@
 - (void)writeToDevice:(NSData *)data {
     if (!data) return;
     BLELog(@"write data");
-    [_bleShield write:data];
+    [_bleShield write:data forCharacteristic:[CBUUID UUIDWithString:@"180A"] inService:[CBUUID UUIDWithString:@"180A"]];
 }
 
 - (void)writeTextToDevice:(NSString *)text {
     if (!text) return;
     BLELog(@"write text");
     NSData *data = [text dataUsingEncoding:NSUTF8StringEncoding];
-    [_bleShield write:data];
+    [_bleShield write:data forCharacteristic:[CBUUID UUIDWithString:@"180A"] inService:[CBUUID UUIDWithString:@"180A"]];
 }
 
 - (void)writeBase64ToDevice:(NSString *)base64String {
     BLELog(@"write base64 string");
     NSData *data = [[NSData alloc] initWithBase64EncodedString:base64String options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    [_bleShield write:data];
+    [_bleShield write:data forCharacteristic:[CBUUID UUIDWithString:@"180A"] inService:[CBUUID UUIDWithString:@"180A"]];
 }
 
 - (void)writeHexToDevice:(NSString *)hexString {
     if (!hexString) return;
     BLELog(@"write hex string");
     NSData *data = [self hexToBytes:hexString];
-    [_bleShield write:data];
+    [_bleShield write:data forCharacteristic:[CBUUID UUIDWithString:@"180A"] inService:[CBUUID UUIDWithString:@"180A"]];
 }
 
 #pragma mark - timers
@@ -214,7 +214,7 @@
         [_bleShield.peripherals removeAllObjects];
     }
     
-    [_bleShield findBLEPeripherals:timeout];
+    [_bleShield scanBLEPeripherals:timeout];
 }
 
 - (void)connectToFirstDevice {

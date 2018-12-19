@@ -12,17 +12,36 @@
 #import "BLECentralManager.h"
 #import "BLECell.h"
 
+#define DFUTARG_UUID        @"FE59"
 #define SERVICE_UUID        @"180D"
 #define CHARACTERISTIC_UUID @"2A37"
 
+static NSString * const STEP_CHAR_UUID    =  @"FEDE"; //@"FF06";
+static NSString * const BUTERY_CHAR_UUID  =  @"FEDF"; //@"FF0C";
+static NSString * const SHAKE_CHAR_UUID   =  @"FEDD"; //@"2A06";
+static NSString * const DEVICE_CHAR_UUID  =  @"FED2"; //@"FF01";
+
 static NSString * const DEVICE_INFO_SERVICE_UUID  =  @"180A";
-static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
+static NSString * const SYSTEM_ID_CHAR_UUID   =   @"2A23";
+
+//4个字节Bytes 转 int
+unsigned int TCcbytesValueToInt(Byte *bytesValue) {
+    if (!bytesValue) return 0;
+    unsigned int intV;
+    intV = (unsigned int ) ( ((bytesValue[3] & 0xff)<<24)
+                            |((bytesValue[2] & 0xff)<<16)
+                            |((bytesValue[1] & 0xff)<<8)
+                            |(bytesValue[0] & 0xff));
+    return intV;
+}
 
 @interface CentralModeViewController ()<CBCentralManagerDelegate,CBPeripheralDelegate, BLEDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) CBCentralManager *centralManager;
 @property (nonatomic, strong) CBPeripheral *peripheral;
+@property (nonatomic, strong) CBService *service;
 @property (nonatomic, strong) CBCharacteristic *characteristic;
+@property (nonatomic, strong) CBCharacteristic *shakeCC;
 @property (weak, nonatomic) UITextField *textField;
 
 @property (nonatomic, strong) BLECentralManager *centralBLE;
@@ -39,18 +58,27 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
 
 #pragma mark - BLEDelegate
 
-- (void)bleDidDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
-    [self.centralBLE connectPeripheral:peripheral];
-    [self.discoveredPeripherals addObject:peripheral];
-    [self.tableView reloadData];
+- (void)bleDidBeginScan {
+    BLELog(@"bleDidBeginScan");
 }
 
-- (void)bleDidReceiveData:(unsigned char *)data length:(NSUInteger)length {
+- (void)bleDidEndScan {
+    BLELog(@"bleDidEndScan");
+}
+
+- (void)bleDidDiscoverServices:(NSArray<CBService *> *)services {
+    BLELog(@"bleDidDiscoverServices: %lu", (unsigned long)services.count);
+}
+
+- (void)bleDidDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
+    [self reloadDiscoveredPeripherals:peripheral];
+}
+
+- (void)ble:(CBCharacteristic *)characteristic didReceiveBytes:(unsigned char *)bytes length:(NSUInteger)length{
     BLELog(@"bleDidReceiveData");
     
     // Append to the buffer
-    NSData *d = [NSData dataWithBytes:data length:length];
-    NSString *s = [[NSString alloc] initWithData:d encoding:NSUTF8StringEncoding];
+    NSString *s = [[NSString alloc] initWithBytes:bytes length:length encoding:NSUTF8StringEncoding];
     BLELog(@"Received data %@", s);
     self.textField.text = s;
 }
@@ -59,7 +87,7 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
     NSString *state = isEnabled ? @"bluetoothEnabled" : @"bluetoothDisabled";
     BLELog(@"bleDidChangedState: %@", state);
     if (isEnabled) {
-        [self.centralBLE findBLEPeripherals:3.0];
+        [self.centralBLE scanBLEPeripherals:3.0];
     }
 }
 
@@ -84,9 +112,15 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
 - (void)cancelConnection {
     if (self.centralManager) {
         if (self.peripheral) {
-            [self.centralManager cancelPeripheralConnection:self.peripheral];
-            if (self.characteristic) {
-                [self.peripheral setNotifyValue:NO forCharacteristic:self.characteristic];
+            for (CBCharacteristic *characteristic in self.service.characteristics) {
+                if (characteristic.isNotifying) { // 解除订阅
+                    [self.peripheral setNotifyValue:NO forCharacteristic:characteristic];
+                }
+            }
+            
+            if (CBPeripheralStateConnected == self.peripheral.state ||
+                CBPeripheralStateConnecting == self.peripheral.state) {
+                [self.centralManager cancelPeripheralConnection:self.peripheral];
             }
         }
     }
@@ -99,10 +133,15 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
     
     self.title = @"蓝牙中心设备";
     // 创建中心设备管理器，会回调centralManagerDidUpdateState
-    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
+//    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
     
-//    self.centralBLE = [BLECentralManager manager];
-//    self.centralBLE.delegate = self;
+    self.centralBLE = [BLECentralManager manager];
+    self.centralBLE.delegate = self;
+    
+//    self.centralBLE.readValue([CBUUID UUIDWithString:DEVICE_INFO_SERVICE_UUID], [CBUUID UUIDWithString:SYSTEM_ID_CHAR_UUID], ^(NSData *data) {
+//
+//    });
+    
     
     UITextField *textField = [[UITextField alloc] init];
     textField.font = [UIFont systemFontOfSize:15];
@@ -160,6 +199,13 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
         make.right.mas_equalTo(-20);
         make.bottom.mas_equalTo(-120);
     }];
+    
+    UIButton *shakeBtn = [self buttonWithTitle:@"shake band" action:@selector(shakeMiBandAction:)];
+    [self.view addSubview:shakeBtn];
+    [shakeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(tableView.mas_bottom).offset(20);
+        make.right.equalTo(textField.mas_right);
+    }];
 }
 
 - (void)readAction {
@@ -173,9 +219,11 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
 /** 读取数据 */
 - (void)fetchAction {
     if (self.centralBLE) {
-        [self.centralBLE read];
+        [self.centralBLE readForCharacteristic:[CBUUID UUIDWithString:SYSTEM_ID_CHAR_UUID] inService:[CBUUID UUIDWithString:DEVICE_INFO_SERVICE_UUID]];
     } else {
-        [self.peripheral readValueForCharacteristic:self.characteristic];
+        if (self.peripheral && self.characteristic) {
+            [self.peripheral readValueForCharacteristic:self.characteristic];
+        }
     }
 }
 
@@ -186,14 +234,20 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
     // 根据上面的特征self.characteristic来写入数据
     
     if (self.centralBLE) {
-        [self.centralBLE write:data];
+        [self.centralBLE write:data forCharacteristic:[CBUUID UUIDWithString:SHAKE_CHAR_UUID] inService:[CBUUID UUIDWithString:DEVICE_INFO_SERVICE_UUID]];
     } else {
-        [self.peripheral writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
+        if (self.peripheral && self.characteristic) {
+            [self.peripheral writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
+        }
     }
 }
 
 - (void)scanAction {
-    [self.centralBLE findBLEPeripherals:3.0];
+    if (self.centralManager) {
+        [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+    } else {
+        [self.centralBLE scanBLEPeripherals:3.0];
+    }
 }
 
 - (UIButton *)buttonWithTitle:(NSString *)title action:(SEL)action {
@@ -207,39 +261,7 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
     return readBtn;
 }
 
-/** 判断手机蓝牙状态
- CBManagerStateUnknown = 0,  未知
- CBManagerStateResetting,    重置中
- CBManagerStateUnsupported,  不支持
- CBManagerStateUnauthorized, 未验证
- CBManagerStatePoweredOff,   未启动
- CBManagerStatePoweredOn,    可用
- */
-- (void)centralManagerDidUpdateState:(CBCentralManager *)central {
-    // 蓝牙可用，开始扫描外设
-    if (central.state == CBManagerStatePoweredOn) {
-        NSLog(@"蓝牙可用");
-        // @[[CBUUID UUIDWithString:SERVICE_UUID]]
-        // 根据SERVICE_UUID来扫描外设，如果不设置SERVICE_UUID，则扫描所有蓝牙设备
-        [central scanForPeripheralsWithServices:nil options:nil];
-        [NSTimer scheduledTimerWithTimeInterval:20.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
-            [central stopScan];
-        }];
-    }
-    if(central.state == CBManagerStateUnsupported) {
-        NSLog(@"该设备不支持蓝牙");
-    }
-    if (central.state == CBManagerStatePoweredOff) {
-        NSLog(@"蓝牙已关闭");
-    }
-}
-
-/** 发现符合要求的外设，回调 */
-- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI {
-    
-    NSString *peripheralName = peripheral.name ?: advertisementData[CBAdvertisementDataLocalNameKey];
-    NSLog(@"didDiscoverPeripheral: %@ | name: %@", peripheral.identifier, peripheralName);
-    
+- (void)reloadDiscoveredPeripherals:(CBPeripheral *)peripheral {
     if (!_discoveredPeripherals) {
         self.discoveredPeripherals = [NSMutableArray arrayWithObject:peripheral];
     } else {
@@ -261,15 +283,54 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
         [self.discoveredPeripherals addObject:peripheral];
     }
     
-    static NSString * const BAND_PREFIX = @"X10"; // @"DBN_"
+    [self.tableView reloadData];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.discoveredPeripherals.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+}
+
+/** 判断手机蓝牙状态
+ CBManagerStateUnknown = 0,  未知
+ CBManagerStateResetting,    重置中
+ CBManagerStateUnsupported,  不支持
+ CBManagerStateUnauthorized, 未验证
+ CBManagerStatePoweredOff,   未启动
+ CBManagerStatePoweredOn,    可用
+ */
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central {
+    // 蓝牙可用，开始扫描外设
+    if (@available(iOS 10, *)) {
+        if (central.state == CBManagerStatePoweredOn) {
+            NSLog(@"蓝牙可用");
+            // @[[CBUUID UUIDWithString:SERVICE_UUID]]
+            // 根据SERVICE_UUID来扫描外设，如果不设置SERVICE_UUID，则扫描所有蓝牙设备
+            [central scanForPeripheralsWithServices:nil options:nil];
+            [NSTimer scheduledTimerWithTimeInterval:20.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+                [central stopScan];
+            }];
+        }
+        if(central.state == CBManagerStateUnsupported) {
+            NSLog(@"该设备不支持蓝牙");
+        }
+        if (central.state == CBManagerStatePoweredOff) {
+            NSLog(@"蓝牙已关闭");
+        }
+    }
+}
+
+/** 发现符合要求的外设，回调 */
+- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI {
+    
+    NSString *peripheralName = peripheral.name ?: advertisementData[CBAdvertisementDataLocalNameKey];
+    NSLog(@"didDiscoverPeripheral: %@ | name: %@", peripheral.identifier, peripheralName);
+    
+    [self reloadDiscoveredPeripherals:peripheral];
+    
+    static NSString * const BAND_PREFIX = @"FBRone"; // @"DBN_"
     if (peripheral.name && [peripheral.name hasPrefix:BAND_PREFIX]) {
         // 对外设对象进行强引用
         self.peripheral = peripheral;
         // 连接外设
         [central connectPeripheral:peripheral options:@{CBConnectPeripheralOptionNotifyOnConnectionKey: @YES}];
     }
-    [self.tableView reloadData];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.discoveredPeripherals.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
 }
 
 /** 连接成功 */
@@ -323,40 +384,37 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
     // 遍历出所需要的特征
     for (CBCharacteristic *characteristic in service.characteristics) {
         NSLog(@"所有特征：%@", characteristic);
+        
+        // 订阅通知
+        if (characteristic.properties & CBCharacteristicPropertyNotify) {
+            [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+        }
+        
         // 从外设开发人员那里拿到不同特征的UUID，不同特征做不同事情，比如有读取数据的特征，也有写入数据的特征
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SYSTEM_ID_SERVICE_UUID]]) {
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:STEP_CHAR_UUID]]) {
+            [peripheral readValueForCharacteristic:characteristic];
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BUTERY_CHAR_UUID]]) {
+            [peripheral readValueForCharacteristic:characteristic];
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SHAKE_CHAR_UUID]]) {
+            self.shakeCC = characteristic;
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:DEVICE_CHAR_UUID]]) {
             [peripheral readValueForCharacteristic:characteristic];
         }
         
         // 直接读取这个特征数据，会调用didUpdateValueForCharacteristic
-        if (self.characteristic.properties & CBCharacteristicPropertyRead) {
-            [peripheral readValueForCharacteristic:self.characteristic];
+        if (characteristic.properties & CBCharacteristicPropertyRead) {
+            [peripheral readValueForCharacteristic:characteristic];
         }
         
-        // 订阅通知
-        if (self.characteristic.properties & CBCharacteristicPropertyNotify) {
-            [peripheral setNotifyValue:YES forCharacteristic:self.characteristic];
+        if (characteristic.properties & CBCharacteristicPropertyWrite) {
+            self.characteristic = characteristic;
         }
     }
     
+    self.service = service;
+    
     // 这里只获取一个特征，写入数据的时候需要用到这个特征
-    self.characteristic = service.characteristics.lastObject;
-    
-    // 直接读取这个特征数据，会调用didUpdateValueForCharacteristic
-    //    [peripheral readValueForCharacteristic:self.characteristic];
-    
-    // 订阅通知
-    //    [peripheral setNotifyValue:YES forCharacteristic:self.characteristic];
-    
-    // 直接读取这个特征数据，会调用didUpdateValueForCharacteristic
-//    if (self.characteristic.properties & CBCharacteristicPropertyRead) {
-//        [peripheral readValueForCharacteristic:self.characteristic];
-//    }
-    
-    // 订阅通知
-//    if (self.characteristic.properties & CBCharacteristicPropertyNotify) {
-//        [peripheral setNotifyValue:YES forCharacteristic:self.characteristic];
-//    }
+//    self.characteristic = service.characteristics.lastObject;
 }
 
 /** 订阅状态的改变 */
@@ -374,25 +432,36 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
 
 /** 接收到数据回调 */
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    if (error) {
+        return;
+    }
+    
     // 拿到外设发送过来的数据
-    NSData *data = characteristic.value;
-    self.textField.text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//    [self getHeartBPMData:characteristic error:error];
-    NSString *desc = characteristic.value.description;
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SYSTEM_ID_SERVICE_UUID]]) {
-        NSMutableString *macString = [[NSMutableString alloc] init];
-        [macString appendString:[[desc substringWithRange:NSMakeRange(16, 2)] uppercaseString]];
-        [macString appendString:@":"];
-        [macString appendString:[[desc substringWithRange:NSMakeRange(14, 2)] uppercaseString]];
-        [macString appendString:@":"];
-        [macString appendString:[[desc substringWithRange:NSMakeRange(12, 2)] uppercaseString]];
-        [macString appendString:@":"];
-        [macString appendString:[[desc substringWithRange:NSMakeRange(5, 2)] uppercaseString]];
-        [macString appendString:@":"];
-        [macString appendString:[[desc substringWithRange:NSMakeRange(3, 2)] uppercaseString]];
-        [macString appendString:@":"];
-        [macString appendString:[[desc substringWithRange:NSMakeRange(1, 2)] uppercaseString]];
-        NSLog(@"MAC 地址: %@", macString);
+//    NSData *data = characteristic.value;
+    
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]]) {
+        [self getHeartBPMData:characteristic error:error];
+    }
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SYSTEM_ID_CHAR_UUID]]) {
+        NSString *addr = [self getMacAddrForCharacteristic:characteristic];
+        NSLog(@"MAC 地址: %@", addr);
+        self.textField.text = addr;
+        
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:STEP_CHAR_UUID]]) {
+        Byte *steBytes = (Byte *)characteristic.value.bytes;
+        int steps = TCcbytesValueToInt(steBytes);
+        NSLog(@"步数：%d",steps);
+        
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BUTERY_CHAR_UUID]]) {
+        Byte *bufferBytes = (Byte *)characteristic.value.bytes;
+        int buterys = TCcbytesValueToInt(bufferBytes)&0xff;
+        NSLog(@"电池：%d%%",buterys);
+
+    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:DEVICE_CHAR_UUID]]) {
+        Byte *infoByts = (Byte *)characteristic.value.bytes;
+        if (!infoByts) return;
+        NSString *info = [[NSString alloc] initWithBytes:infoByts length:sizeof(infoByts) encoding:NSUTF8StringEncoding];
+        NSLog(@"设备：%@", info);
     }
 }
 
@@ -432,6 +501,22 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
     return;
 }
 
+- (NSString *)getMacAddrForCharacteristic:(CBCharacteristic *)characteristic {
+    NSString *desc = characteristic.value.description;
+    NSMutableString *macAddr = [[NSMutableString alloc] init];
+    [macAddr appendString:[[desc substringWithRange:NSMakeRange(16, 2)] uppercaseString]];
+    [macAddr appendString:@":"];
+    [macAddr appendString:[[desc substringWithRange:NSMakeRange(14, 2)] uppercaseString]];
+    [macAddr appendString:@":"];
+    [macAddr appendString:[[desc substringWithRange:NSMakeRange(12, 2)] uppercaseString]];
+    [macAddr appendString:@":"];
+    [macAddr appendString:[[desc substringWithRange:NSMakeRange(5, 2)] uppercaseString]];
+    [macAddr appendString:@":"];
+    [macAddr appendString:[[desc substringWithRange:NSMakeRange(3, 2)] uppercaseString]];
+    [macAddr appendString:@":"];
+    [macAddr appendString:[[desc substringWithRange:NSMakeRange(1, 2)] uppercaseString]];
+    return macAddr;
+}
 
 #pragma mark - UITableViewDatasource
 
@@ -448,12 +533,43 @@ static NSString * const SYSTEM_ID_SERVICE_UUID   =   @"2A23";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.peripheral) {
-        [self.centralManager cancelPeripheralConnection:self.peripheral];
+        if (self.centralManager) {
+            [self.centralManager cancelPeripheralConnection:self.peripheral];
+        } else {
+            [self.centralBLE cancelConnection];
+        }
     }
     
     CBPeripheral *p = self.discoveredPeripherals[indexPath.row];
-    [self.centralManager connectPeripheral:p options:nil];
+    if (self.centralManager) {
+        [self.centralManager connectPeripheral:p options:nil];
+    } else {
+        [self.centralBLE connectPeripheral:p];
+    }
     self.peripheral = p;
 }
+
+- (void)stopShakeAction:(UIButton *)sender {
+    if (self.peripheral && self.shakeCC) {
+        Byte zd[1] = {0};
+        NSData *theData = [NSData dataWithBytes:zd length:1];
+        [self.peripheral writeValue:theData forCharacteristic:self.shakeCC type:CBCharacteristicWriteWithoutResponse];
+    }
+}
+
+//震动
+- (void)shakeMiBandAction:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    if (!sender.selected) {
+        [self stopShakeAction:sender];
+        return;
+    }
+    if (self.peripheral && self.shakeCC) {
+        Byte zd[1] = {0};
+        NSData *theData = [NSData dataWithBytes:zd length:1];
+        [self.peripheral writeValue:theData forCharacteristic:self.shakeCC type:CBCharacteristicWriteWithoutResponse];
+    }
+}
+
 
 @end

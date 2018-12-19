@@ -12,17 +12,14 @@
 static NSString * const kBLECentralRestoreIdentifier = @"kBLECentralRestoreIdentifier";
 static const int MAX_BUF_LENGTH = 100;
 
-// TODO:
-// should have a configurable list of services
-static CBUUID *heartRateSerivceUUID;
-static CBUUID *serialServiceUUID;
-static CBUUID *readCharacteristicUUID;
-static CBUUID *writeCharacteristicUUID;
-
 @implementation BLECentralManager {
-    CBCentralManager *_centralManager;
-    BOOL _isConnected, _done;
     int _rssi;
+    BOOL _isConnected, _done;
+    CBCentralManager *_centralManager;
+    NSString *_peripheralName;
+    CBUUID *_serialServiceUUID;
+    CBUUID *_readCharacteristicUUID;
+    NSArray<CBUUID *> *_includedServiceUUIDs;
 }
 
 + (instancetype)manager {
@@ -30,10 +27,10 @@ static CBUUID *writeCharacteristicUUID;
 }
 
 - (instancetype)init {
-    return [self initWithOptions:@{CBCentralManagerOptionRestoreIdentifierKey: kBLECentralRestoreIdentifier} queue:nil];
+    return [self initWithServiceUUIDs:nil options:@{CBCentralManagerOptionRestoreIdentifierKey: kBLECentralRestoreIdentifier} queue:nil];
 }
 
-- (instancetype)initWithOptions:(nullable NSDictionary<NSString *, id> *)options queue:(nullable dispatch_queue_t)queue {
+- (instancetype)initWithServiceUUIDs:(nullable NSArray<CBUUID *> *)serviceUUIDs options:(nullable NSDictionary<NSString *, id> *)options queue:(nullable dispatch_queue_t)queue {
     self = [super init];
     if (!self) {
         return nil;
@@ -42,8 +39,13 @@ static CBUUID *writeCharacteristicUUID;
     _rssi = 0;
     _done = NO;
     _isConnected = NO;
+    _includedServiceUUIDs = serviceUUIDs;
     _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:queue options:options];
     return self;
+}
+
+- (CBService *)activeService {
+    return [self findServiceFromUUID:_serialServiceUUID peripheral:_activePeripheral];
 }
 
 - (void)readRSSI {
@@ -55,33 +57,39 @@ static CBUUID *writeCharacteristicUUID;
     return _isConnected;
 }
 
-- (void)read
-{
-    if (!_activePeripheral) {
-        BLELog(@"Could not read if not active peripheral");
-        return;
-    }
-    //    CBUUID *uuid_service = [CBUUID UUIDWithString:@RBL_SERVICE_UUID];
-    //    CBUUID *uuid_char = [CBUUID UUIDWithString:@RBL_CHAR_TX_UUID];
-    //    [self readValue:uuid_service characteristicUUID:uuid_char p:activePeripheral];
-    [self readValue:serialServiceUUID characteristicUUID:readCharacteristicUUID peripheral:_activePeripheral];
-}
-
-- (void)readForCharacteristic:(CBUUID *)characteristicUUID service:(CBUUID *)serviceUUID {
+- (void)readForCharacteristic:(CBUUID *)characteristicUUID inService:(CBUUID *)serviceUUID {
     if (!_activePeripheral) {
         BLELog(@"Could not read if not active peripheral");
         return;
     }
 
+    _readCharacteristicUUID = characteristicUUID;
     [self readValue:serviceUUID characteristicUUID:characteristicUUID peripheral:_activePeripheral];
 }
 
-- (void)write:(NSData *)data
+//- (void(^)(CBUUID *, CBUUID *, void(^)(NSData * _Nullable value)))readValue{
+//    return ^(CBUUID *characteristicUUID, CBUUID *serviceUUID, void(^block)(NSData *value)) {
+//        [self readForCharacteristic:characteristicUUID inService:serviceUUID];
+//    };
+//}
+
+- (void)write:(NSData *)data forCharacteristic:(CBUUID *)characteristicUUID inService:(CBUUID *)serviceUUID
 {
     if (!data || !_activePeripheral) {
         BLELog(@"Could not write if data is null or not active peripheral");
         return;
     }
+    
+    if (!serviceUUID) {
+        BLELog(@"Could not write if no service of peripheral");
+        return;
+    }
+    
+    if (!characteristicUUID) {
+        BLELog(@"Could not write if no characteristicUUID");
+        return;
+    }
+    
     BLELog(@"write data in BLE");
     NSInteger data_len = data.length;
     NSData *buffer;
@@ -92,16 +100,12 @@ static CBUUID *writeCharacteristicUUID;
         
         BLELog(@"Buffer data %ld %i %@", (long)remainLength, i, [[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding]);
         
-        [self writeValue:serialServiceUUID characteristicUUID:writeCharacteristicUUID peripheral:_activePeripheral data:buffer];
+        [self writeValue:serviceUUID characteristicUUID:characteristicUUID peripheral:_activePeripheral data:buffer];
     }
 }
 
-- (void)enableReadNotification:(CBPeripheral *)peripheral
-{
-    //    CBUUID *uuid_service = [CBUUID UUIDWithString:@RBL_SERVICE_UUID];
-    //    CBUUID *uuid_char = [CBUUID UUIDWithString:@RBL_CHAR_TX_UUID];
-    //    [self notification:uuid_service characteristicUUID:uuid_char p:p on:YES];
-    [self notification:serialServiceUUID characteristicUUID:readCharacteristicUUID peripheral:peripheral on:YES];
+- (void)notify:(BOOL)enabled forCharacteristic:(CBUUID *)characteristicUUID inService:(CBUUID *)serviceUUID {
+    [self notification:serviceUUID characteristicUUID:characteristicUUID peripheral:_activePeripheral on:enabled];
 }
 
 - (void)notification:(CBUUID *)serviceUUID characteristicUUID:(CBUUID *)characteristicUUID peripheral:(CBPeripheral *)peripheral on:(BOOL)on
@@ -203,7 +207,7 @@ static CBUUID *writeCharacteristicUUID;
         return;
     }
     
-    BLELog(@"Write Buffer data length %lu", data.length);
+    BLELog(@"Write Buffer data length %lu", (unsigned long)data.length);
     if ((characteristic.properties & CBCharacteristicPropertyWrite) == CBCharacteristicPropertyWrite) {
         [peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
     }
@@ -219,26 +223,29 @@ static CBUUID *writeCharacteristicUUID;
     return temp;
 }
 
-- (int)findBLEPeripherals:(NSTimeInterval)timeout
+- (void)scanBLEPeripherals:(NSTimeInterval)timeout
 {
+    [self scanBLEPeripherals:timeout forPeripheral:nil];
+}
+
+- (void)scanBLEPeripherals:(NSTimeInterval)timeout forPeripheral:(NSString * _Nullable)peripheralName {
+    _peripheralName = peripheralName;
+    
     if (_centralManager.state != CBCentralManagerStatePoweredOn)
     {
         BLELog(@"CoreBluetooth not correctly initialized !");
         BLELog(@"State = %ld (%s)\r\n", (long)_centralManager.state, [self centralManagerStateToString:_centralManager.state]);
-        return -1;
+        return;
     }
     
     [NSTimer scheduledTimerWithTimeInterval:timeout target:self selector:@selector(scanTimer:) userInfo:nil repeats:NO];
     
-    // TODO:
-    heartRateSerivceUUID = [CBUUID UUIDWithString:@"180D"];
+    [_centralManager scanForPeripheralsWithServices:_includedServiceUUIDs options:nil];
     
-    NSArray<CBUUID *> *services = @[heartRateSerivceUUID];
-    [_centralManager scanForPeripheralsWithServices:services options:nil];
-
     BLELog(@"scanForPeripheralsWithServices");
-    
-    return 0; // Started scanning OK !
+    if ([_delegate respondsToSelector:@selector(bleDidBeginScan)]) {
+        [_delegate bleDidBeginScan];
+    }
 }
 
 - (void)connectPeripheral:(CBPeripheral *)peripheral
@@ -256,14 +263,16 @@ static CBUUID *writeCharacteristicUUID;
     }
     
     if (_activePeripheral) {
-        if (CBPeripheralStateConnected == _activePeripheral.state) {
+        if (CBPeripheralStateConnected == _activePeripheral.state ||
+            CBPeripheralStateConnecting == _activePeripheral.state) {
             [_centralManager cancelPeripheralConnection:_activePeripheral];
         }
     
-        [self notification:serialServiceUUID
-        characteristicUUID:readCharacteristicUUID
-                peripheral:self.activePeripheral
-                        on:NO];
+        CBService *s = [self findServiceFromUUID:_serialServiceUUID peripheral:_activePeripheral];
+        for (CBCharacteristic *c in s.characteristics) {
+            if (!c.isNotifying) continue;
+            [_activePeripheral setNotifyValue:NO forCharacteristic:c];
+        }
     }
 }
 
@@ -293,8 +302,11 @@ static CBUUID *writeCharacteristicUUID;
 {
     [_centralManager stopScan];
     BLELog(@"Stopped Scanning");
-    BLELog(@"Known peripherals : %lu", [self.peripherals count]);
+    BLELog(@"Known peripherals : %lu", (unsigned long)[self.peripherals count]);
     [self printKnownPeripherals];
+    if ([_delegate respondsToSelector:@selector(bleDidEndScan)]) {
+        [_delegate bleDidEndScan];
+    }
 }
 
 - (void)printKnownPeripherals
@@ -472,9 +484,16 @@ static CBUUID *writeCharacteristicUUID;
         BLELog(@"New UUID, adding");
     }
     
-    if ([_delegate respondsToSelector:@selector(bleDidDiscoverPeripheral:advertisementData:RSSI:)]) {
-        [_delegate bleDidDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
+    if (_peripheralName && peripheral.name && [peripheral.name hasPrefix:_peripheralName]) {
+        if ([_delegate respondsToSelector:@selector(bleDidDiscoverPeripheral:advertisementData:RSSI:)]) {
+            [_delegate bleDidDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
+        }
+    } else {
+        if ([_delegate respondsToSelector:@selector(bleDidDiscoverPeripheral:advertisementData:RSSI:)]) {
+            [_delegate bleDidDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
+        }
     }
+    
     BLELog(@"didDiscoverPeripheral");
 }
 
@@ -487,7 +506,6 @@ static CBUUID *writeCharacteristicUUID;
     }
 
     _activePeripheral = peripheral;
-//    [self.activePeripheral discoverServices:nil];
     [self getAllServicesFromPeripheral:peripheral];
 }
 
@@ -511,23 +529,24 @@ static CBUUID *writeCharacteristicUUID;
         return;
     }
     
-    // TODO:
-    // Determine if we're connected to Red Bear Labs, Adafruit or Laird hardware
-    for (CBService *service in peripheral.services) {
-        if ([service.UUID isEqual:heartRateSerivceUUID]) {
-            BLELog(@"Heart Rate Bluetooth");
-            serialServiceUUID = heartRateSerivceUUID;
-            readCharacteristicUUID = [CBUUID UUIDWithString:@HEART_RATE_MEASUREMENT];
-            writeCharacteristicUUID = [CBUUID UUIDWithString:@TEST_CHAR_RX_UUID];
-            break;
-        } else {
-            // ignore unknown services
+    if (!_includedServiceUUIDs || 0 == _includedServiceUUIDs.count) {
+        [self getAllCharacteristicsFromPeripheral:peripheral];
+    } else {
+        // we're gonna discovery characteristics we care about
+        for (CBService *service in peripheral.services) {
+            for (CBUUID *serviceUUID in _includedServiceUUIDs) {
+                if ([serviceUUID isEqual:service.UUID]) {
+                    _serialServiceUUID = serviceUUID;
+                    [peripheral discoverCharacteristics:nil forService:service];
+                    break;
+                }
+            }
         }
     }
     
-    // TODO - future versions should just get characteristics we care about
-    // [peripheral discoverCharacteristics:characteristics forService:service];
-    [self getAllCharacteristicsFromPeripheral:peripheral];
+    if ([_delegate respondsToSelector:@selector(bleDidDiscoverServices:)]) {
+        [_delegate bleDidDiscoverServices:peripheral.services];
+    }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
@@ -549,7 +568,7 @@ static CBUUID *writeCharacteristicUUID;
         {
             if (!_done)
             {
-                [self enableReadNotification:_activePeripheral];
+                [self notify:YES forCharacteristic:c.UUID inService:service.UUID];
                 if ([_delegate respondsToSelector:@selector(bleDidConnect)]) {
                     [_delegate bleDidConnect];
                 }
@@ -590,39 +609,14 @@ static CBUUID *writeCharacteristicUUID;
     }
     
     static unsigned char buf[512];
-    if ([characteristic.UUID isEqual:readCharacteristicUUID])
+    if (_readCharacteristicUUID && [_readCharacteristicUUID isEqual:characteristic.UUID])
     {
         NSUInteger data_len = characteristic.value.length;
         [characteristic.value getBytes:buf length:data_len];
-        if ([_delegate respondsToSelector:@selector(bleDidReceiveData:length:)]) {
-            [_delegate bleDidReceiveData:buf length:data_len];
+        if ([_delegate respondsToSelector:@selector(ble:didReceiveBytes:length:)]) {
+            [_delegate ble:characteristic didReceiveBytes:buf length:data_len];
         }
-        
-        // Get the Heart Rate Monitor BPM
-        [self getHeartBPMData:characteristic error:error];
     }
-}
-
-- (void)getHeartBPMData:(CBCharacteristic *)characteristic error:(NSError *)error {
-    // Get the Heart Rate Monitor BPM
-    NSData *data = [characteristic value];      // 1
-    const uint8_t *reportData = [data bytes];
-    uint16_t bpm = 0;
-    
-    if ((reportData[0] & 0x01) == 0) {          // 2
-        // Retrieve the BPM value for the Heart Rate Monitor
-        bpm = reportData[1];
-    }
-    else {
-        bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));  // 3
-    }
-    // Display the heart rate value to the UI if no error occurred
-    if( (characteristic.value)  || !error ) {   // 4
-        
-        NSString *heartBeatString = [NSString stringWithFormat:@"%i bpm", bpm];
-        BLELog(@"heartBeat: %@", heartBeatString);
-    }
-    return;
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(nonnull CBCharacteristic *)characteristic error:(nullable NSError *)error {

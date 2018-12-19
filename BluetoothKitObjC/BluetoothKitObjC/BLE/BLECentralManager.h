@@ -22,7 +22,7 @@
 /*!
  *  @method bleDidDisconnect
  *
- *  @discussion 已断开与蓝牙连接的回调
+ *  @discussion 蓝牙已断开连接的回调
  */
 - (void)bleDidDisconnect;
 
@@ -36,36 +36,58 @@
 /*!
  *  @method bleDidReadRSSI:
  *
- *  @discussion 读取蓝牙RSSI值回调
+ *  @discussion 读取蓝牙RSSI值的回调
  */
 - (void)bleDidReadRSSI:(NSNumber *)rssi;
+
+/*!
+ *  @method bleDidBeginScan
+ *
+ *  @discussion 开始扫描的回调
+ */
+- (void)bleDidBeginScan;
+
+/*!
+ *  @method bleDidEndScan
+ *
+ *  @discussion 已停止扫描的回调
+ */
+- (void)bleDidEndScan;
 
 /*!
  *  @method bleDidReceiveData:length
  *
  *  @discussion 读取蓝牙指定特征值的value的回调
  */
-- (void)bleDidReceiveData:(unsigned char *)data length:(NSUInteger)length;
+- (void)ble:(CBCharacteristic *)characteristic didReceiveBytes:(unsigned char *)bytes length:(NSUInteger)length;
 
 /*!
  *  @method bleDidDiscoverPeripheral:advertisementData:RSSI:
  *
- *  @discussion 发现蓝牙外设，广播数据以及RSSI的回调
+ *  @discussion 发现蓝牙，广播数据以及RSSI的回调
  */
 - (void)bleDidDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI;
+
+/*!
+ *  @method bleDidDiscoverServices:
+ *
+ *  @discussion 发现蓝牙服务列表的回调
+ */
+- (void)bleDidDiscoverServices:(NSArray<CBService *> *)services;
+
 @end
 
 NS_ASSUME_NONNULL_BEGIN
 
+//typedef void(^BLEReceivedDataBlock)(NSData * _Nullable data);
+//
+//typedef void(^BLEReadValueBlock)(CBUUID * characteristicUUID, CBUUID *serviceUUID, void(^)(NSData * _Nullable value));
+
 @interface BLECentralManager : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
 
+
 @property (nonatomic, weak) id<BLEDelegate> delegate;
-/*!
- *  @property peripheralName
- *
- *  @discussion 蓝牙外设 name，可用来发现指定名称的蓝牙
- */
-@property (nonatomic, copy, nullable) NSString *peripheralName;
+
 /*!
  *  @property peripherals
  *
@@ -80,6 +102,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) CBPeripheral *activePeripheral;
 
 /*!
+ *  @property activeService
+ *
+ *  @discussion 当前已连接的蓝牙服务
+ */
+@property (nonatomic, strong, readonly, nullable) CBService *activeService;
+
+/*!
  *  @method manager
  *
  *  @discussion 便利初始化方法
@@ -88,10 +117,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  *  @method initWithOptions:queue:
- *
+ *  @param options 默认为空
+ *  @param queue 默认为空，主线程
  *  @discussion 指定初始化方法
  */
-- (instancetype)initWithOptions:(nullable NSDictionary<NSString *, id> *)options queue:(nullable dispatch_queue_t)queue NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithServiceUUIDs:(nullable NSArray<CBUUID *> *)serviceUUIDs options:(nullable NSDictionary<NSString *, id> *)options queue:(nullable dispatch_queue_t)queue NS_DESIGNATED_INITIALIZER;
 
 /*!
  *  @method isConnected
@@ -101,25 +131,25 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isConnected;
 
 /*!
- *  @method read
+ *  @method readForCharacteristic:
  *
- *  @discussion 从已连接的蓝牙的服务中读取特征值
+ *  @discussion 从已连接的蓝牙的服务中读取特征值，回调见bleDidReceiveData:方法
  */
-- (void)read;
+- (void)readForCharacteristic:(CBUUID *)characteristicUUID inService:(CBUUID *)serviceUUID;
 
 /*!
- *  @method readForCharacteristic:service
- *
- *  @discussion 指定服务和特征，从已连接的蓝牙的服务中读取特征值
- */
-- (void)readForCharacteristic:(CBUUID *)characteristicUUID service:(CBUUID *)serviceUUID;
-
-/*!
- *  @method write:
+ *  @method write:forCharacteristic:
  *
  *  @discussion 写入数据到特征值
  */
-- (void)write:(NSData *)data;
+- (void)write:(NSData *)data forCharacteristic:(CBUUID *)characteristicUUID inService:(CBUUID *)serviceUUID;
+
+/*!
+ *  @method notifyCharacteristic:enabled:
+ *
+ *  @discussion 订阅蓝牙服务特征
+ */
+- (void)notify:(BOOL)enabled forCharacteristic:(CBUUID *)characteristicUUID inService:(CBUUID *)serviceUUID;
 
 /*!
  *  @method readRSSI
@@ -130,24 +160,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  *  @method findBLEPeripherals:
- *  @param timeout 指定超时时间，超时后停止扫描
- *  @discussion 扫描发现外设
+ *  @param timeout 超时时间，超时后停止扫描
+ *  @discussion 扫描周围所有蓝牙
  */
-- (int)findBLEPeripherals:(NSTimeInterval)timeout;
+- (void)scanBLEPeripherals:(NSTimeInterval)timeout;
+
+/*!
+ *  @method findBLEPeripherals:forPeripheral:
+ *  @param timeout 超时时间，超时后停止扫描
+ *  @param peripheralName 外设名，如果不为空，只回调包含该 name 的蓝牙
+ *  @discussion 扫描周围所有蓝牙
+ */
+- (void)scanBLEPeripherals:(NSTimeInterval)timeout forPeripheral:(NSString * _Nullable)peripheralName;
 
 /*!
  *  @method connectPeripheral:
  *
- *  @discussion 连接到指定的蓝牙外设
+ *  @discussion 连接到指定的蓝牙
  */
 - (void)connectPeripheral:(CBPeripheral *)peripheral;
-
-/*!
- *  @method enableReadNotification:
- *
- *  @discussion 订阅蓝牙服务特征
- */
-- (void)enableReadNotification:(CBPeripheral *)peripheral;
 
 /*!
  *  @method cancelConnection

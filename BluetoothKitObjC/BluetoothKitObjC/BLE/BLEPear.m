@@ -8,15 +8,31 @@
 
 #import "BLEPear.h"
 
-@implementation BLEPear
+@implementation BLEPear {
+    CBPeripheral *_peripheral;
+}
 
 - (instancetype)initWithPeripheral:(CBPeripheral *)peripheral {
     self = [super init];
     if (!self) return nil;
-    
-    
-    
+    _peripheral = peripheral;
     return self;
+}
+
+- (NSUUID *)identifier {
+    return _peripheral.identifier;
+}
+
+- (NSString *)name {
+    return _peripheral.name;
+}
+
+- (void)setRSSI:(NSNumber * _Nullable)RSSI {
+    _RSSI = RSSI;
+}
+
+- (CBPeripheralState)state {
+    return _peripheral.state;
 }
 
 @end

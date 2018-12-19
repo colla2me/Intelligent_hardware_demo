@@ -29,6 +29,7 @@
 		7EC0AD842185862B00F145AE /* RadarRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD832185862B00F145AE /* RadarRequest.m */; };
 		7EC0AD8721860E3500F145AE /* Bleu.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0AD8621860E3500F145AE /* Bleu.m */; };
 		8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407237221801CF30039A788 /* AIMultiDelegate.m */; };
+		840724CF21CA403400C9550C /* BLEAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 840724CE21CA403400C9550C /* BLEAttribute.m */; };
 		8424F2D421BA567C006D86B5 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2D321BA567C006D86B5 /* TestViewController.m */; };
 		8424F2DD21BA82BC006D86B5 /* BleCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2DC21BA82BC006D86B5 /* BleCentralManager.m */; };
 		8424F2E021BA82CF006D86B5 /* BleCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2DF21BA82CF006D86B5 /* BleCharacteristic.m */; };
@@ -95,6 +96,8 @@
 		7EC0AD8621860E3500F145AE /* Bleu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Bleu.m; sourceTree = "<group>"; };
 		8407237121801CF30039A788 /* AIMultiDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIMultiDelegate.h; sourceTree = "<group>"; };
 		8407237221801CF30039A788 /* AIMultiDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIMultiDelegate.m; sourceTree = "<group>"; };
+		840724CD21CA403400C9550C /* BLEAttribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLEAttribute.h; sourceTree = "<group>"; };
+		840724CE21CA403400C9550C /* BLEAttribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEAttribute.m; sourceTree = "<group>"; };
 		8424F2D221BA567C006D86B5 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		8424F2D321BA567C006D86B5 /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		8424F2DB21BA82BC006D86B5 /* BleCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleCentralManager.h; sourceTree = "<group>"; };
@@ -287,6 +290,8 @@
 				7E018CDE21C40E4500916333 /* BLEDefines.h */,
 				84A62E8B21C8F3720001FBB7 /* BLEPear.h */,
 				84A62E8C21C8F3720001FBB7 /* BLEPear.m */,
+				840724CD21CA403400C9550C /* BLEAttribute.h */,
+				840724CE21CA403400C9550C /* BLEAttribute.m */,
 			);
 			path = BLE;
 			sourceTree = "<group>";
@@ -470,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E371D712174F43900ECC2C6 /* ViewController.m in Sources */,
+				840724CF21CA403400C9550C /* BLEAttribute.m in Sources */,
 				8424F2E021BA82CF006D86B5 /* BleCharacteristic.m in Sources */,
 				7E7FD22621BCEA6900402B8C /* BKCentralManager.m in Sources */,
 				7EC0AD842185862B00F145AE /* RadarRequest.m in Sources */,
