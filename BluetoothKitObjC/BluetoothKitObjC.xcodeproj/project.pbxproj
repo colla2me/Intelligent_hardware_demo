@@ -31,23 +31,18 @@
 		8407237321801CF40039A788 /* AIMultiDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8407237221801CF30039A788 /* AIMultiDelegate.m */; };
 		840724CF21CA403400C9550C /* BLEAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 840724CE21CA403400C9550C /* BLEAttribute.m */; };
 		8424F2D421BA567C006D86B5 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2D321BA567C006D86B5 /* TestViewController.m */; };
-		8424F2DD21BA82BC006D86B5 /* BleCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2DC21BA82BC006D86B5 /* BleCentralManager.m */; };
-		8424F2E021BA82CF006D86B5 /* BleCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2DF21BA82CF006D86B5 /* BleCharacteristic.m */; };
-		8424F2E321BA82EF006D86B5 /* BlePeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2E221BA82EF006D86B5 /* BlePeripheral.m */; };
-		8424F2E621BA8351006D86B5 /* BleService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2E521BA8351006D86B5 /* BleService.m */; };
-		8424F2E921BA83DF006D86B5 /* BleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2E821BA83DF006D86B5 /* BleUtils.m */; };
 		8424F2F821BA87BD006D86B5 /* LGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2EF21BA87BD006D86B5 /* LGUtils.m */; };
 		8424F2F921BA87BD006D86B5 /* CBUUID+StringExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2F221BA87BD006D86B5 /* CBUUID+StringExtraction.m */; };
 		8424F2FA21BA87BD006D86B5 /* LGService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2F321BA87BD006D86B5 /* LGService.m */; };
 		8424F2FB21BA87BD006D86B5 /* LGCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2F521BA87BD006D86B5 /* LGCharacteristic.m */; };
 		8424F2FC21BA87BD006D86B5 /* LGPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2F621BA87BD006D86B5 /* LGPeripheral.m */; };
 		8424F2FD21BA87BD006D86B5 /* LGCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8424F2F721BA87BD006D86B5 /* LGCentralManager.m */; };
-		84590C1E21BB6599006495F5 /* BleEventBus.m in Sources */ = {isa = PBXBuildFile; fileRef = 84590C1D21BB6599006495F5 /* BleEventBus.m */; };
 		84590C2221BBDE18006495F5 /* CentralModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84590C2121BBDE18006495F5 /* CentralModeViewController.m */; };
 		84590C2521BBDE45006495F5 /* PeripheralModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84590C2421BBDE45006495F5 /* PeripheralModeViewController.m */; };
 		84A62E5121C88FDA0001FBB7 /* BLECell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A62E5021C88FDA0001FBB7 /* BLECell.m */; };
 		84A62E8D21C8F3720001FBB7 /* BLEPear.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A62E8C21C8F3720001FBB7 /* BLEPear.m */; };
 		84C2E3D421B902B300591040 /* Pulsator.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C2E3D321B902B300591040 /* Pulsator.m */; };
+		84EC7F5021ED85C100165E52 /* DeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EC7F4F21ED85C100165E52 /* DeviceViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,16 +95,6 @@
 		840724CE21CA403400C9550C /* BLEAttribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEAttribute.m; sourceTree = "<group>"; };
 		8424F2D221BA567C006D86B5 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		8424F2D321BA567C006D86B5 /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
-		8424F2DB21BA82BC006D86B5 /* BleCentralManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleCentralManager.h; sourceTree = "<group>"; };
-		8424F2DC21BA82BC006D86B5 /* BleCentralManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleCentralManager.m; sourceTree = "<group>"; };
-		8424F2DE21BA82CF006D86B5 /* BleCharacteristic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleCharacteristic.h; sourceTree = "<group>"; };
-		8424F2DF21BA82CF006D86B5 /* BleCharacteristic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleCharacteristic.m; sourceTree = "<group>"; };
-		8424F2E121BA82EF006D86B5 /* BlePeripheral.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlePeripheral.h; sourceTree = "<group>"; };
-		8424F2E221BA82EF006D86B5 /* BlePeripheral.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlePeripheral.m; sourceTree = "<group>"; };
-		8424F2E421BA8351006D86B5 /* BleService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleService.h; sourceTree = "<group>"; };
-		8424F2E521BA8351006D86B5 /* BleService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleService.m; sourceTree = "<group>"; };
-		8424F2E721BA83DF006D86B5 /* BleUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleUtils.h; sourceTree = "<group>"; };
-		8424F2E821BA83DF006D86B5 /* BleUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleUtils.m; sourceTree = "<group>"; };
 		8424F2EB21BA87BD006D86B5 /* CBUUID+StringExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+StringExtraction.h"; sourceTree = "<group>"; };
 		8424F2EC21BA87BD006D86B5 /* LGBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGBluetooth.h; sourceTree = "<group>"; };
 		8424F2ED21BA87BD006D86B5 /* LGCharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGCharacteristic.h; sourceTree = "<group>"; };
@@ -124,8 +109,6 @@
 		8424F2F621BA87BD006D86B5 /* LGPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGPeripheral.m; sourceTree = "<group>"; };
 		8424F2F721BA87BD006D86B5 /* LGCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGCentralManager.m; sourceTree = "<group>"; };
 		8424F2FE21BA884F006D86B5 /* BluetoothKitObjC.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BluetoothKitObjC.pch; sourceTree = "<group>"; };
-		84590C1C21BB6599006495F5 /* BleEventBus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleEventBus.h; sourceTree = "<group>"; };
-		84590C1D21BB6599006495F5 /* BleEventBus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleEventBus.m; sourceTree = "<group>"; };
 		84590C2021BBDE18006495F5 /* CentralModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CentralModeViewController.h; sourceTree = "<group>"; };
 		84590C2121BBDE18006495F5 /* CentralModeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CentralModeViewController.m; sourceTree = "<group>"; };
 		84590C2321BBDE45006495F5 /* PeripheralModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PeripheralModeViewController.h; sourceTree = "<group>"; };
@@ -136,6 +119,8 @@
 		84A62E8C21C8F3720001FBB7 /* BLEPear.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLEPear.m; sourceTree = "<group>"; };
 		84C2E3D221B902B300591040 /* Pulsator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pulsator.h; sourceTree = "<group>"; };
 		84C2E3D321B902B300591040 /* Pulsator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pulsator.m; sourceTree = "<group>"; };
+		84EC7F4E21ED85C100165E52 /* DeviceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceViewController.h; sourceTree = "<group>"; };
+		84EC7F4F21ED85C100165E52 /* DeviceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,7 +176,7 @@
 				7E86196921BEB85F00866DAF /* BLE */,
 				7E7FD21221BCCE9700402B8C /* BluetoothKit */,
 				8424F2EA21BA87BD006D86B5 /* LGBluetooth */,
-				8424F2D121BA26B6006D86B5 /* BleClient */,
+				8424F2D121BA26B6006D86B5 /* BLEKit */,
 				84C2E3D121B9026D00591040 /* Pulsator */,
 				7EC0AD7A21856C4B00F145AE /* Bleu */,
 				8407237021801CF30039A788 /* MultiDelegate */,
@@ -224,7 +209,6 @@
 		7E7FD21221BCCE9700402B8C /* BluetoothKit */ = {
 			isa = PBXGroup;
 			children = (
-				7E7FD21D21BCD17A00402B8C /* Logger */,
 				7E7FD21C21BCD17100402B8C /* Extensions */,
 				7E7FD21B21BCD16300402B8C /* BKTransaction */,
 				7E7FD21A21BCD15700402B8C /* BKManager */,
@@ -273,13 +257,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		7E7FD21D21BCD17A00402B8C /* Logger */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Logger;
-			sourceTree = "<group>";
-		};
 		7E86196921BEB85F00866DAF /* BLE */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,22 +298,13 @@
 			path = MultiDelegate;
 			sourceTree = "<group>";
 		};
-		8424F2D121BA26B6006D86B5 /* BleClient */ = {
+		8424F2D121BA26B6006D86B5 /* BLEKit */ = {
 			isa = PBXGroup;
 			children = (
-				8424F2DB21BA82BC006D86B5 /* BleCentralManager.h */,
-				8424F2DC21BA82BC006D86B5 /* BleCentralManager.m */,
-				8424F2E121BA82EF006D86B5 /* BlePeripheral.h */,
-				8424F2E221BA82EF006D86B5 /* BlePeripheral.m */,
-				8424F2DE21BA82CF006D86B5 /* BleCharacteristic.h */,
-				8424F2DF21BA82CF006D86B5 /* BleCharacteristic.m */,
-				8424F2E421BA8351006D86B5 /* BleService.h */,
-				8424F2E521BA8351006D86B5 /* BleService.m */,
-				8424F2E721BA83DF006D86B5 /* BleUtils.h */,
-				8424F2E821BA83DF006D86B5 /* BleUtils.m */,
-				84590C1F21BB66F8006495F5 /* EventBus */,
+				84EC7F4E21ED85C100165E52 /* DeviceViewController.h */,
+				84EC7F4F21ED85C100165E52 /* DeviceViewController.m */,
 			);
-			path = BleClient;
+			path = BLEKit;
 			sourceTree = "<group>";
 		};
 		8424F2EA21BA87BD006D86B5 /* LGBluetooth */ = {
@@ -357,15 +325,6 @@
 				8424F2EF21BA87BD006D86B5 /* LGUtils.m */,
 			);
 			path = LGBluetooth;
-			sourceTree = "<group>";
-		};
-		84590C1F21BB66F8006495F5 /* EventBus */ = {
-			isa = PBXGroup;
-			children = (
-				84590C1C21BB6599006495F5 /* BleEventBus.h */,
-				84590C1D21BB6599006495F5 /* BleEventBus.m */,
-			);
-			path = EventBus;
 			sourceTree = "<group>";
 		};
 		84C2E3D121B9026D00591040 /* Pulsator */ = {
@@ -474,14 +433,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84EC7F5021ED85C100165E52 /* DeviceViewController.m in Sources */,
 				7E371D712174F43900ECC2C6 /* ViewController.m in Sources */,
 				840724CF21CA403400C9550C /* BLEAttribute.m in Sources */,
-				8424F2E021BA82CF006D86B5 /* BleCharacteristic.m in Sources */,
 				7E7FD22621BCEA6900402B8C /* BKCentralManager.m in Sources */,
 				7EC0AD842185862B00F145AE /* RadarRequest.m in Sources */,
 				7E7FD22321BCD2DA00402B8C /* BKCharacteristicMaker.m in Sources */,
 				7E7FD22921BCECD900402B8C /* BKTransaction.m in Sources */,
-				8424F2E321BA82EF006D86B5 /* BlePeripheral.m in Sources */,
 				84A62E8D21C8F3720001FBB7 /* BLEPear.m in Sources */,
 				8424F2D421BA567C006D86B5 /* TestViewController.m in Sources */,
 				7E018CE121C4E4E400916333 /* BLEClient.m in Sources */,
@@ -501,15 +459,11 @@
 				8424F2F821BA87BD006D86B5 /* LGUtils.m in Sources */,
 				7E018CE421C5FF0C00916333 /* BLEViewController.m in Sources */,
 				7E7FD22C21BCF28700402B8C /* NSData+BLE.m in Sources */,
-				8424F2E921BA83DF006D86B5 /* BleUtils.m in Sources */,
-				84590C1E21BB6599006495F5 /* BleEventBus.m in Sources */,
 				84C2E3D421B902B300591040 /* Pulsator.m in Sources */,
 				7E7FD21821BCD06600402B8C /* BKCentralManagerMaker.m in Sources */,
 				8424F2FB21BA87BD006D86B5 /* LGCharacteristic.m in Sources */,
-				8424F2E621BA8351006D86B5 /* BleService.m in Sources */,
 				7E86196F21BEB8E500866DAF /* CBPeripheral+BLE.m in Sources */,
 				8424F2F921BA87BD006D86B5 /* CBUUID+StringExtraction.m in Sources */,
-				8424F2DD21BA82BC006D86B5 /* BleCentralManager.m in Sources */,
 				7EC0AD8021856E1300F145AE /* RadarOptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

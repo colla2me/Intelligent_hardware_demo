@@ -12,17 +12,22 @@
 #import "BLECentralManager.h"
 #import "BLECell.h"
 
-#define DFUTARG_UUID        @"FE59"
-#define SERVICE_UUID        @"180D"
-#define CHARACTERISTIC_UUID @"2A37"
+//#define DFUTARG_UUID        @"FE59"
+//#define SERVICE_UUID        @"180D"
+//#define CHARACTERISTIC_UUID @"2A37"
 
-static NSString * const STEP_CHAR_UUID    =  @"FEDE"; //@"FF06";
-static NSString * const BUTERY_CHAR_UUID  =  @"FEDF"; //@"FF0C";
-static NSString * const SHAKE_CHAR_UUID   =  @"FEDD"; //@"2A06";
-static NSString * const DEVICE_CHAR_UUID  =  @"FED2"; //@"FF01";
+//static NSString * const STEP_CHAR_UUID    =  @"FEDE"; //@"FF06";
+//static NSString * const BUTERY_CHAR_UUID  =  @"FEDF"; //@"FF0C";
+//static NSString * const SHAKE_CHAR_UUID   =  @"FEDD"; //@"2A06";
+//static NSString * const DEVICE_CHAR_UUID  =  @"FED2"; //@"FF01";
 
-static NSString * const DEVICE_INFO_SERVICE_UUID  =  @"180A";
-static NSString * const SYSTEM_ID_CHAR_UUID   =   @"2A23";
+//static NSString * const DEVICE_INFO_SERVICE_UUID  =  @"180A";
+//static NSString * const SYSTEM_ID_CHAR_UUID   =   @"2A23";
+
+static NSString * const BBL_SERVICE_UUID = @"FFD0";
+static NSString * const BBL_CHAR1_UUID = @"FFD1";
+static NSString * const BBL_CHAR2_UUID = @"FFD2";
+static NSString * const BBL_CHAR3_UUID = @"FFD3";
 
 //4个字节Bytes 转 int
 unsigned int TCcbytesValueToInt(Byte *bytesValue) {
@@ -133,10 +138,10 @@ unsigned int TCcbytesValueToInt(Byte *bytesValue) {
     
     self.title = @"蓝牙中心设备";
     // 创建中心设备管理器，会回调centralManagerDidUpdateState
-//    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
+    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue()];
     
-    self.centralBLE = [BLECentralManager manager];
-    self.centralBLE.delegate = self;
+//    self.centralBLE = [BLECentralManager manager];
+//    self.centralBLE.delegate = self;
     
 //    self.centralBLE.readValue([CBUUID UUIDWithString:DEVICE_INFO_SERVICE_UUID], [CBUUID UUIDWithString:SYSTEM_ID_CHAR_UUID], ^(NSData *data) {
 //
@@ -219,7 +224,8 @@ unsigned int TCcbytesValueToInt(Byte *bytesValue) {
 /** 读取数据 */
 - (void)fetchAction {
     if (self.centralBLE) {
-        [self.centralBLE readForCharacteristic:[CBUUID UUIDWithString:SYSTEM_ID_CHAR_UUID] inService:[CBUUID UUIDWithString:DEVICE_INFO_SERVICE_UUID]];
+//        [self.centralBLE readForCharacteristic:[CBUUID UUIDWithString:SYSTEM_ID_CHAR_UUID] inService:[CBUUID UUIDWithString:DEVICE_INFO_SERVICE_UUID]];
+        [self.centralBLE readForCharacteristic:[CBUUID UUIDWithString:BBL_CHAR1_UUID] inService:[CBUUID UUIDWithString:BBL_SERVICE_UUID]];
     } else {
         if (self.peripheral && self.characteristic) {
             [self.peripheral readValueForCharacteristic:self.characteristic];
@@ -234,7 +240,8 @@ unsigned int TCcbytesValueToInt(Byte *bytesValue) {
     // 根据上面的特征self.characteristic来写入数据
     
     if (self.centralBLE) {
-        [self.centralBLE write:data forCharacteristic:[CBUUID UUIDWithString:SHAKE_CHAR_UUID] inService:[CBUUID UUIDWithString:DEVICE_INFO_SERVICE_UUID]];
+//        [self.centralBLE write:data forCharacteristic:[CBUUID UUIDWithString:SHAKE_CHAR_UUID] inService:[CBUUID UUIDWithString:DEVICE_INFO_SERVICE_UUID]];
+        [self.centralBLE write:data forCharacteristic:[CBUUID UUIDWithString:BBL_CHAR2_UUID] inService:[CBUUID UUIDWithString:BBL_SERVICE_UUID]];
     } else {
         if (self.peripheral && self.characteristic) {
             [self.peripheral writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
@@ -302,7 +309,8 @@ unsigned int TCcbytesValueToInt(Byte *bytesValue) {
             NSLog(@"蓝牙可用");
             // @[[CBUUID UUIDWithString:SERVICE_UUID]]
             // 根据SERVICE_UUID来扫描外设，如果不设置SERVICE_UUID，则扫描所有蓝牙设备
-            [central scanForPeripheralsWithServices:nil options:nil];
+            
+            [central scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:BBL_SERVICE_UUID]] options:nil];
             [NSTimer scheduledTimerWithTimeInterval:20.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
                 [central stopScan];
             }];
@@ -324,7 +332,7 @@ unsigned int TCcbytesValueToInt(Byte *bytesValue) {
     
     [self reloadDiscoveredPeripherals:peripheral];
     
-    static NSString * const BAND_PREFIX = @"FBRone"; // @"DBN_"
+    static NSString * const BAND_PREFIX = @"bebeLog"; // @"DBN_"
     if (peripheral.name && [peripheral.name hasPrefix:BAND_PREFIX]) {
         // 对外设对象进行强引用
         self.peripheral = peripheral;
@@ -365,7 +373,8 @@ unsigned int TCcbytesValueToInt(Byte *bytesValue) {
     // 遍历出外设中所有的服务
     for (CBService *service in peripheral.services) {
         NSLog(@"所有的服务UUID：%@",service.UUID.UUIDString);
-        if ([service.UUID isEqual:[CBUUID UUIDWithString:DEVICE_INFO_SERVICE_UUID]]) {
+        // DEVICE_INFO_SERVICE_UUID
+        if ([service.UUID isEqual:[CBUUID UUIDWithString:BBL_SERVICE_UUID]]) {
             [peripheral discoverCharacteristics:nil forService:service];
         }
     }
@@ -391,15 +400,17 @@ unsigned int TCcbytesValueToInt(Byte *bytesValue) {
         }
         
         // 从外设开发人员那里拿到不同特征的UUID，不同特征做不同事情，比如有读取数据的特征，也有写入数据的特征
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:STEP_CHAR_UUID]]) {
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BBL_CHAR1_UUID]]) {
             [peripheral readValueForCharacteristic:characteristic];
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BUTERY_CHAR_UUID]]) {
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BBL_CHAR2_UUID]]) {
             [peripheral readValueForCharacteristic:characteristic];
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SHAKE_CHAR_UUID]]) {
-            self.shakeCC = characteristic;
-        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:DEVICE_CHAR_UUID]]) {
+        } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BBL_CHAR3_UUID]]) {
             [peripheral readValueForCharacteristic:characteristic];
         }
+        
+//        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BBL_CHAR3_UUID]]) {
+//            self.shakeCC = characteristic;
+//        }
         
         // 直接读取这个特征数据，会调用didUpdateValueForCharacteristic
         if (characteristic.properties & CBCharacteristicPropertyRead) {
@@ -437,32 +448,40 @@ unsigned int TCcbytesValueToInt(Byte *bytesValue) {
     }
     
     // 拿到外设发送过来的数据
-//    NSData *data = characteristic.value;
-    
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]]) {
-        [self getHeartBPMData:characteristic error:error];
-    }
-    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:SYSTEM_ID_CHAR_UUID]]) {
-        NSString *addr = [self getMacAddrForCharacteristic:characteristic];
-        NSLog(@"MAC 地址: %@", addr);
-        self.textField.text = addr;
-        
-    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:STEP_CHAR_UUID]]) {
-        Byte *steBytes = (Byte *)characteristic.value.bytes;
-        int steps = TCcbytesValueToInt(steBytes);
-        NSLog(@"步数：%d",steps);
-        
-    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BUTERY_CHAR_UUID]]) {
-        Byte *bufferBytes = (Byte *)characteristic.value.bytes;
-        int buterys = TCcbytesValueToInt(bufferBytes)&0xff;
-        NSLog(@"电池：%d%%",buterys);
+    NSData *data = characteristic.value;
+    NSLog(@"接收到数据: %@", [self hexStringFromData:data]);
+//    if (data && data.length > 0) {
+//        NSUInteger bytesLength = data.length;
+//        int8_t bytesArray[bytesLength];
+//        [data getBytes:&bytesArray length:bytesLength];
+//
+//        NSLog(@"接收到数据: %s", bytesArray);
+//    }
 
-    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:DEVICE_CHAR_UUID]]) {
-        Byte *infoByts = (Byte *)characteristic.value.bytes;
-        if (!infoByts) return;
-        NSString *info = [[NSString alloc] initWithBytes:infoByts length:sizeof(infoByts) encoding:NSUTF8StringEncoding];
-        NSLog(@"设备：%@", info);
-    }
+//    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]]) {
+//        [self getHeartBPMData:characteristic error:error];
+//    }
+//    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BBL_CHAR1_UUID]]) {
+//        NSString *addr = [self getMacAddrForCharacteristic:characteristic];
+//        NSLog(@"MAC 地址: %@", addr);
+//        self.textField.text = addr;
+//
+//    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BBL_CHAR2_UUID]]) {
+//        Byte *steBytes = (Byte *)characteristic.value.bytes;
+//        int steps = TCcbytesValueToInt(steBytes);
+//        NSLog(@"步数：%d",steps);
+//
+//    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BBL_CHAR3_UUID]]) {
+//        Byte *bufferBytes = (Byte *)characteristic.value.bytes;
+//        int buterys = TCcbytesValueToInt(bufferBytes)&0xff;
+//        NSLog(@"电池：%d%%",buterys);
+//
+//    } else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:BBL_CHAR1_UUID]]) {
+//        Byte *infoByts = (Byte *)characteristic.value.bytes;
+//        if (!infoByts) return;
+//        NSString *info = [[NSString alloc] initWithBytes:infoByts length:sizeof(infoByts) encoding:NSUTF8StringEncoding];
+//        NSLog(@"设备：%@", info);
+//    }
 }
 
 /** 写入数据回调 */
@@ -571,5 +590,51 @@ unsigned int TCcbytesValueToInt(Byte *bytesValue) {
     }
 }
 
+- (NSString *)hexStringFromData:(NSData *)data {
+    /* Returns hexadecimal string of NSData. Empty string if data is empty.   */
+    const unsigned char *dataBuffer = (const unsigned char *)[data bytes];
+    if (!dataBuffer) {
+        return [NSString string];
+    }
+    
+    NSUInteger  dataLength  = [data length];
+    NSMutableString *hexString  = [NSMutableString stringWithCapacity:(dataLength * 2)];
+    for (int i = 0; i < dataLength; ++i) {
+        [hexString appendFormat:@"%02x", (unsigned int)dataBuffer[i]];
+    }
+    
+    return [NSString stringWithString:hexString];
+}
+
+- (NSString *)convertDataToHexStr:(NSData *)data {
+    if (!data || [data length] == 0) {
+        return @"";
+    }
+    
+    NSMutableString *string = [[NSMutableString alloc] initWithCapacity:[data length]];
+    
+    [data enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
+        
+        unsigned char *dataBytes = (unsigned char*)bytes;
+        
+        for (NSInteger i = 0; i < byteRange.length; i++) {
+            
+            NSString *hexStr= [NSString stringWithFormat:@"%x", (dataBytes[i]) & 0xff];
+            
+            if([hexStr length] == 2){
+                [string appendString:hexStr];
+            } else{
+                [string appendFormat:@"0%@", hexStr];
+            }
+        }
+    }];
+    return string;
+}
+
++ (int)ConvertDataToInt:(NSData *)data {
+    int i;
+    [data getBytes:&i length:sizeof(i)];
+    return i;
+}
 
 @end
